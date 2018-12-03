@@ -1,1 +1,1 @@
-web: ./target/release/website
+web: RUST_PORT=$PORT ./target/release/website
