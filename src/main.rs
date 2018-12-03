@@ -4,7 +4,7 @@
 
 #[get("/")]
 fn index() -> &'static str {
-    "Todo implement template rendering!"
+    "Hello from Rocket a Rust web framework."
 }
 
 fn main() {
