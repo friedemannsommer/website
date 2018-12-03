@@ -1,7 +1,19 @@
+sudo: false
 language: rust
 rust:
   - nightly
 cache: cargo
-script:
-  - cargo build --verbose --all
-  - cargo test --verbose --all
+
+jobs:
+  include:
+    - stage: "Test"
+      script: "cargo build --verbose --all && cargo test --verbose --all"
+    - stage: "Deploy to Production"
+      script: skip
+      deploy:
+        provider: heroku
+        app: fs-website
+        api_key: $HEROKU_AUTH_TOKEN
+        on: master
+    - stage: "Test Production deployment"
+      script: "curl https://fs-website.herokuapp.com/"
