@@ -1,1 +1,1 @@
-web: RUST_PORT=$PORT ./target/release/website
+web: ROCKET_PORT=$PORT ./target/release/website
