@@ -21,4 +21,4 @@ jobs:
         api_key: $HEROKU_AUTH_TOKEN
         on: master
     - stage: "Test Production deployment"
-      script: "curl https://fs-website.herokuapp.com/"
+      script: "curl -sSf -o /dev/null https://fs-website.herokuapp.com/"
