@@ -3,5 +3,9 @@ name = "website"
 version = "0.1.0"
 authors = ["Friedemann Sommer <friedemannsommer@yahoo.de>"]
 
+[[bin]]
+name = "website"
+path = "src/main.rs"
+
 [dependencies]
 rocket = "0.4.0-rc.2"
