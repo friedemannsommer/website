@@ -3,7 +3,12 @@ language: rust
 rust:
   - nightly
 cache: cargo
-
+stages:
+  - "Test"
+  - name: "Deploy to Production"
+    if: branch = master
+  - name: "Test Production deployment"
+    if: branch = master
 jobs:
   include:
     - stage: "Test"
