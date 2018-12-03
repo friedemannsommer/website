@@ -1,4 +1,4 @@
-language: ruby
+language: rust
 rust:
   - nightly
 script:
