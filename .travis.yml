@@ -6,9 +6,9 @@ cache: cargo
 stages:
   - "Test"
   - name: "Deploy to Production"
-    if: branch = master
+    if: branch = "master" AND type != "pull_request"
   - name: "Test Production deployment"
-    if: branch = master
+    if: branch = "master" AND type != "pull_request"
 jobs:
   include:
     - stage: "Test"
