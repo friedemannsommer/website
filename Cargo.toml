@@ -4,4 +4,6 @@ version = "0.1.0"
 authors = ["Friedemann Sommer <friedemannsommer@yahoo.de>"]
 
 [dependencies]
-rocket = "0.4.0-rc.2"
+openssl = { version="0.10" }
+actix = "0.7"
+actix-web = { version = "0.7", features=["ssl"] }
