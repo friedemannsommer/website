@@ -1,7 +1,24 @@
+sudo: false
 language: rust
 rust:
   - stable
 cache: cargo
-script:
-  - cargo build --verbose --all
-  - cargo test --verbose --all
+stages:
+  - "Test"
+  - name: "Deploy to Production"
+    if: branch = "master" AND type != "pull_request"
+  - name: "Test Production deployment"
+    if: branch = "master" AND type != "pull_request"
+jobs:
+  include:
+    - stage: "Test"
+      script: "cargo build --verbose --all && cargo test --verbose --all"
+    - stage: "Deploy to Production"
+      script: skip
+      deploy:
+        provider: heroku
+        app: fs-website
+        api_key: $HEROKU_AUTH_TOKEN
+        on: master
+    - stage: "Test Production deployment"
+      script: "curl -sSf -o /dev/null https://fs-website.herokuapp.com/"
