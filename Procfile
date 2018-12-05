@@ -1,1 +1,1 @@
-web: ./target/release/website
+web: HOST=0.0.0.0 ./target/release/website
