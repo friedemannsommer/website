@@ -1,7 +1,7 @@
 sudo: false
 language: rust
 rust:
-  - nightly
+  - stable
 cache: cargo
 stages:
   - "Test"
