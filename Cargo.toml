@@ -9,4 +9,4 @@ path = "src/main.rs"
 
 [dependencies]
 actix = "0.7"
-actix-web = { version = "0.7", features=["ssl"] }
+actix-web = { version = "0.7" }
