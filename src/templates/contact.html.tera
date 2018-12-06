@@ -1,0 +1,13 @@
+{% extends "base" %}
+{% block content %}
+<h1>Contact</h1>
+<div class="contact-list-wrapper">
+    <ul class="contact-list">
+        <li><a href="https://github.com/friedemannsommer">GitHub</a></li>
+        <li><a href="https://gitlab.com/friedemannsommer">GitLab</a></li>
+        <li><a href="https://twitter.com/free_some_mem">Twitter</a></li>
+        <li><a href="https://www.linkedin.com/in/friedemann-sommer-0608b0130">LinkedIn</a></li>
+        <li><code>contact(at)friedemannsommer.com</code></li>
+    </ul>
+</div>
+{% endblock content %}

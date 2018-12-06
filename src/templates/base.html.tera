@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li>
+                <a href="/" title="Home">Home</a>
+            </li>
+            <li>
+                <a href="/contact" title="Contact">Contact</a>
+            </li>
+        </ul>
+    </header>
+    <section>
+        {% block content %}{% endblock content %}
+    </section>
+    <footer>
+        {% block footer %}
+        <a href="https://github.com/friedemannsommer/website">
+            Source code for this site
+        </a>
+        {% endblock footer %}
+    </footer>
+</body>
+
+</html>
