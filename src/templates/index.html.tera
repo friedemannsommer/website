@@ -1,0 +1,5 @@
+{% extends "base" %}
+{% block content %}
+<h1>Friedemann Sommmer</h1>
+<h2>Software Engineer <a href="https://www.advanced-store.com" title="advancedSTORE" target="_blank">@advancedSTORE</a></h2>
+{% endblock content %}
