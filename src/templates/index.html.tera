@@ -1,5 +1,5 @@
 {% extends "base" %}
 {% block content %}
-<h1>I'm Friedemann Sommmer.</h1>
-<h2>I currently work for <a href="https://www.advanced-store.com" title="advancedSTORE">@advancedSTORE</a> as a Software Engineer.</h2>
+<h1>Friedemann Sommmer</h1>
+<h2>Software Engineer <a href="https://www.advanced-store.com" title="advancedSTORE" target="_blank">@advancedSTORE</a></h2>
 {% endblock content %}

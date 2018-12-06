@@ -3,11 +3,12 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/assets/styles.css" />
 </head>
 
 <body>
     <header>
-        <ul>
+        <ul class="flexbox flexbox-horizontal">
             <li>
                 <a href="/" title="Home">Home</a>
             </li>
@@ -17,14 +18,18 @@
         </ul>
     </header>
     <section>
-        {% block content %}{% endblock content %}
+        <div class="content">
+            {% block content %}{% endblock content %}
+        </div>
     </section>
     <footer>
-        {% block footer %}
-        <a href="https://github.com/friedemannsommer/website">
-            Source code for this site
-        </a>
-        {% endblock footer %}
+        <ul class="flexbox flexbox-horizontal">
+            <li>
+                <a href="https://github.com/friedemannsommer/website">
+                    Source code for this site
+                </a>
+            </li>
+        </ul>
     </footer>
 </body>
 
