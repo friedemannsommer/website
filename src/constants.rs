@@ -8,6 +8,7 @@ pub const DEFAULT_HOST: &str = "127.0.0.1";
 // http
 pub const CONTENT_TYPE_TEXT: &str = "text/plain; charset=utf-8";
 pub const CONTENT_TYPE_HTML: &str = "text/html; charset=utf-8";
+pub const CONTENT_TYPE_CSS: &str = "text/css; charset=UTF-8";
 // templates
 pub const TEMPLATE_BASE: &str = "base";
 pub const TEMPLATE_INDEX: &str = "index";

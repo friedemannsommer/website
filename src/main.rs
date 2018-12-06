@@ -4,6 +4,7 @@ extern crate tera;
 #[macro_use]
 extern crate lazy_static;
 
+mod assets;
 mod constants;
 mod render;
 
@@ -27,6 +28,7 @@ fn main() {
         App::new()
             .route("/", http::Method::GET, render::index)
             .route("/contact", http::Method::GET, render::contact)
+            .route("/assets/{name}", http::Method::GET, assets::handle_request)
             .default_resource(|r| r.with(render::not_found))
     }).bind(&address)
     .unwrap()
