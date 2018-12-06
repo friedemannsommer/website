@@ -13,7 +13,8 @@ body {
     padding: 0;
     background-color: #000000;
     color: #bababa;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 18px;
     font-family: "Lucida Console", Monaco, monospace;
 }
 
@@ -39,17 +40,20 @@ section {
 h1,
 h2,
 h3 {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 18px;
     margin: 0 0 7px;
     padding: 0;
 }
 
 h1 {
-    font-size: 18px;
+    font-size: 28px;
+    line-height: 30px;
 }
 
 h2 {
-    font-size: 16px;
+    font-size: 20px;
+    line-height: 22px;
 }
 
 a {
