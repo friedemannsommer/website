@@ -1,10 +1,10 @@
 * {
-    transition: all .25s ease-in-out;
+    transition: all .15s ease-in-out;
     outline: none;
 }
 
 *:focus {
-    outline: dotted #e8341c 1px;
+    outline: dotted #c51162 1px;
 }
 
 html,
@@ -12,7 +12,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #000000;
-    color: #bababa;
+    color: #ffffff;
     font-size: 16px;
     line-height: 18px;
     font-family: "Lucida Console", Monaco, monospace;
@@ -22,8 +22,7 @@ header,
 footer {
     width: 100%;
     height: 5vh;
-    background-color: #333333;
-    color: #ffffff;
+    background-color: #212121;
     min-height: 30px;
 }
 
@@ -57,16 +56,16 @@ h2 {
 }
 
 a {
-    color: #8e69c9;
+    color: #32cb00;
     text-decoration: none;
 }
 
 a:hover {
-    color: #e8341c;
+    color: #c51162;
 }
 
 code {
-    background: #333333;
+    background: #303030;
     color: #ffffff;
     padding: 5px;
     display: inline-block;
