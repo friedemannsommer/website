@@ -1,8 +1,10 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
+    <title>Friedemann Sommer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Friedemann Sommer Software Engineer at advanced STORE">
     <link rel="stylesheet" type="text/css" href="/assets/styles.css" />
 </head>
 
@@ -25,7 +27,7 @@
     <footer>
         <ul class="flexbox flexbox-horizontal">
             <li>
-                <a href="https://github.com/friedemannsommer/website" target="_blank">
+                <a href="https://github.com/friedemannsommer/website" target="_blank" rel="noopener">
                     Source code for this site
                 </a>
             </li>

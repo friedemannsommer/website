@@ -2,10 +2,10 @@
 {% block content %}
 <h1>Contact</h1>
 <ul>
-    <li>GitHub: <a href="https://github.com/friedemannsommer" target="_blank">@friedemannsommer</a></li>
-    <li>GitLab: <a href="https://gitlab.com/friedemannsommer" target="_blank">@friedemannsommer</a></li>
-    <li>Twitter: <a href="https://twitter.com/free_some_mem" target="_blank">@free_some_mem</a></li>
-    <li>LinkedIn: <a href="https://www.linkedin.com/in/friedemann-sommer-0608b0130" target="_blank">Friedemann Sommer</a></li>
-    <li>Mail: <a href="mailto:contact@friedemannsommer.com" target="_blank">contact@friedemannsommer.com</a></li>
+    <li>GitHub: <a href="https://github.com/friedemannsommer" target="_blank" rel="noopener">@friedemannsommer</a></li>
+    <li>GitLab: <a href="https://gitlab.com/friedemannsommer" target="_blank" rel="noopener">@friedemannsommer</a></li>
+    <li>Twitter: <a href="https://twitter.com/free_some_mem" target="_blank" rel="noopener">@free_some_mem</a></li>
+    <li>LinkedIn: <a href="https://www.linkedin.com/in/friedemann-sommer-0608b0130" target="_blank" rel="noopener">Friedemann Sommer</a></li>
+    <li>Mail: <a href="mailto:contact@friedemannsommer.com" target="_blank" rel="noopener">contact@friedemannsommer.com</a></li>
 </ul>
 {% endblock content %}
