@@ -16,7 +16,7 @@ jobs:
   - stage: Test
     script: cargo build --verbose --all && cargo test --verbose --all
   - stage: Deploy to Production
-    script: "./build-release.sh website ${TRAVIS_TAG}-${TRAVIS_OS_NAME}"
+    script: "sudo ./build-release.sh website ${TRAVIS_TAG}-${TRAVIS_OS_NAME}"
     deploy:
       provider: releases
       api_key:
