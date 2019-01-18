@@ -1,24 +1,30 @@
-sudo: false
+sudo: required
 language: rust
 rust:
-  - stable
+- stable
+os:
+- linux
+services:
+- docker
 cache: cargo
 stages:
-  - "Test"
-  - name: "Deploy to Production"
-    if: branch = "master" AND type != "pull_request"
-  - name: "Test Production deployment"
-    if: branch = "master" AND type != "pull_request"
+- Test
+- name: Deploy to Production
+  if: branch = "master" AND type != "pull_request"
 jobs:
   include:
-    - stage: "Test"
-      script: "cargo build --verbose --all && cargo test --verbose --all"
-    - stage: "Deploy to Production"
-      script: skip
-      deploy:
-        provider: heroku
-        app: fs-website
-        api_key: $HEROKU_AUTH_TOKEN
-        on: master
-    - stage: "Test Production deployment"
-      script: "curl -sSf -o /dev/null https://fs-website.herokuapp.com/"
+  - stage: Test
+    script: cargo build --verbose --all && cargo test --verbose --all
+  - stage: Deploy to Production
+    script: "./build-release website ${TRAVIS_TAG}-${TRAVIS_OS_NAME}"
+    deploy:
+      provider: releases
+      api_key:
+        secure: fvR6LWWH6n2K2x1kl8WuEuN9l8tVzxg+QGcRpWimOExvKyR6Y20d4133FF995nA750dCK4vJEtjgQq3gEXZrEeQaGPbImqge1+EbwZLxkJRWq65kWT9W0ehKT5vZm2+QbUdJBsIpk9SPIgshoAcWQBz8s0mTgWm3KUQlvCSHUC5un2IORnmvuzojIxRWS1AUa2MU24FN9ydFDqvx2ucJoBpxND6GiVTrmraeXxCpA65aggRBaV7Ww+byF2r9xMYp9eW9QB1cbG7kDgCoHC5rhlaKCaK+GbWdwWrPx3+ZUTLZs+9ZOQAeAP/S06UTcFIlClVGdcE195SNJ3BEbxUNdM+naK2tCu0MPOEH03QZJAR5vQi9MTgbNuSxRJVCzuTNvWuJr3LQ3ZCRfmbL62kkj5QD8GkJuUCCTlRO5B8RSgWFrG/agG3cu2kd8Auazz6vAD9RxITeFW+eiuetGngUAqd0q1eW6x9QbuV/fZJkjuFL748kkC8xkM5AmgoICwKLnbvHG3zXlXAPsBxO53w2QdiGyn2abJ4M3H3ZmI3LIpsoJj6GWTH8j/tZRr0dmgnpxRgN5imrId1ydsj8dqx5EgN4mTkhfDftD0QUGHtAATjOvnQLDZicZf9S77lNV6yaSD5TGR2KVoGs/HqlLkDSGCQTDup2Lg6Kz9yTS+2TwJ0=
+      file_glob: true
+      file: website-${TRAVIS_TAG}-${TRAVIS_OS_NAME}.*
+      skip_cleanup: true
+      on:
+        repo: friedemannsommer/website
+        rust: stable
+        tags: true
