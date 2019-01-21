@@ -1,5 +1,0 @@
-sign-commit = false
-upload-doc = false
-disable-push = true
-no-dev-version = true
-tag-prefix = "website"
