@@ -1,6 +1,7 @@
 // generic meta
 pub const ENV_HOST: &str = "HOST";
 pub const ENV_PORT: &str = "PORT";
+pub const ENV_PATH: &str = "SOCKET_PATH";
 pub const APP_NAME: &str = "website";
 // defaults
 pub const DEFAULT_PORT: &str = "8080";
