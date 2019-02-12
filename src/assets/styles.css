@@ -1,5 +1,4 @@
 * {
-    transition: all .15s ease-in-out;
     outline: none;
 }
 
@@ -58,6 +57,7 @@ h2 {
 a {
     color: #32cb00;
     text-decoration: none;
+    transition: color .15s ease-in-out;
 }
 
 a:hover {
