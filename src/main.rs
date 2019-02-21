@@ -14,6 +14,17 @@ use std::env;
 
 fn create_app() -> App {
     App::new()
+        .middleware(
+            actix_web::middleware::DefaultHeaders::new()
+                .header("content-security-policy", "block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups")
+                .header("cache-control", "public, must-revalidate, max-age=86400")
+                .header("feature-policy", "autoplay 'none';camera 'none';fullscreen 'none';geolocation 'none';microphone 'none';midi 'none';payment 'none';sync-xhr 'none';usb 'none';vr 'none'")
+                .header("referrer-policy", "strict-origin")
+                .header("strict-transport-security", "max-age=86400; includeSubDomains; preload")
+                .header("x-content-type-options", "nosniff")
+                .header("x-download-options", "noopen")
+                .header("x-xss-protection", "1; mode=block")
+        )
         .route("/", http::Method::GET, render::index)
         .route("/contact", http::Method::GET, render::contact)
         .route("/assets/{name}", http::Method::GET, assets::handle_request)
