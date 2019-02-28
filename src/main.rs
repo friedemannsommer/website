@@ -9,6 +9,7 @@ extern crate serde_json;
 
 mod constants;
 mod routes;
+mod util;
 
 use actix_web::{http, server, App};
 use constants::{APP_NAME, DEFAULT_HOST, DEFAULT_PORT, ENV_HOST, ENV_PATH, ENV_PORT};

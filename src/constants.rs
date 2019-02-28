@@ -1,5 +1,6 @@
 use handlebars::Handlebars;
-use html_minifier::HTMLMinifier;
+
+use util::render_template;
 
 // generic meta
 pub const ENV_HOST: &str = "HOST";
@@ -18,16 +19,28 @@ pub struct TemplateCache {
     pub not_found: Box<String>,
 }
 
-fn minify_html(html: String) -> Result<String, &'static str> {
-    let mut html_minifier = HTMLMinifier::new();
-
-    html_minifier.digest(html)?;
-    Ok(html_minifier.get_html())
-}
-
 lazy_static! {
-    pub static ref TEMPLATE_CACHE: TemplateCache = {
+    pub static ref TEMPLATE_ENGINE: Handlebars = {
         let mut handlebars = Handlebars::new();
+
+        handlebars.set_strict_mode(true);
+
+        handlebars
+            .register_partial("base", include_str!("./templates/base.hbs"))
+            .unwrap();
+        handlebars
+            .register_partial("footer", include_str!("./templates/footer.hbs"))
+            .unwrap();
+        handlebars
+            .register_partial("head", include_str!("./templates/head.hbs"))
+            .unwrap();
+        handlebars
+            .register_partial("menu", include_str!("./templates/menu.hbs"))
+            .unwrap();
+
+        handlebars        
+    };
+    pub static ref TEMPLATE_CACHE: TemplateCache = {
         let json_data: serde_json::Value = json!({
             "title": "Friedemann Sommer",
             "description": "Friedemann Sommer Software Engineer at advanced STORE",
@@ -71,45 +84,15 @@ lazy_static! {
             ]
         });
 
-        handlebars.set_strict_mode(true);
-
-        handlebars
-            .register_partial("base", include_str!("./templates/base.hbs"))
-            .unwrap();
-        handlebars
-            .register_partial("footer", include_str!("./templates/footer.hbs"))
-            .unwrap();
-        handlebars
-            .register_partial("head", include_str!("./templates/head.hbs"))
-            .unwrap();
-        handlebars
-            .register_partial("menu", include_str!("./templates/menu.hbs"))
-            .unwrap();
-
         TemplateCache {
             contact: Box::new(
-                minify_html(
-                    handlebars
-                        .render_template(include_str!("./templates/contact.hbs"), &json_data)
-                        .unwrap(),
-                )
-                .unwrap(),
+                render_template(include_str!("./templates/contact.hbs"), &json_data).unwrap(),
             ),
             index: Box::new(
-                minify_html(
-                    handlebars
-                        .render_template(include_str!("./templates/index.hbs"), &json_data)
-                        .unwrap(),
-                )
-                .unwrap(),
+                render_template(include_str!("./templates/index.hbs"), &json_data).unwrap(),
             ),
             not_found: Box::new(
-                minify_html(
-                    handlebars
-                        .render_template(include_str!("./templates/404.hbs"), &json_data)
-                        .unwrap(),
-                )
-                .unwrap(),
+                render_template(include_str!("./templates/404.hbs"), &json_data).unwrap(),
             ),
         }
     };
