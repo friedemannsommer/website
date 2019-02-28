@@ -1,0 +1,10 @@
+{{#> base }}
+<h1>Contact</h1>
+{{#if links }}
+<ul>
+    {{#each links as |link| ~}}
+    <li>{{ link.alias }} <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.name }}</a></li>
+    {{/each~}}
+</ul>
+{{/if}}
+{{/base}}

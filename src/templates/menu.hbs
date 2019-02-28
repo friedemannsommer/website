@@ -1,0 +1,9 @@
+<header>
+    <ul class="flexbox flexbox-horizontal">
+        {{#each entries as |entry| ~}}
+            <li>
+                <a href="{{ entry.url }}" title="{{ entry.name }}">{{ entry.name }}</a>
+            </li>
+        {{/each~}}
+    </ul>
+</header>
