@@ -14,7 +14,7 @@ pub fn contact(_req: HttpRequest) -> Result<HttpResponse, Error> {
 }
 
 pub fn not_found(_req: HttpRequest) -> Result<HttpResponse, Error> {
-    Ok(HttpResponse::Ok()
+    Ok(HttpResponse::NotFound()
         .content_type(constants::CONTENT_TYPE_HTML)
         .body(&*constants::TEMPLATE_CACHE.not_found))
 }

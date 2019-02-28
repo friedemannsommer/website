@@ -1,6 +1,6 @@
 [package]
 name = "website"
-version = "0.1.11"
+version = "0.1.12"
 authors = ["Friedemann Sommer <contact@friedemannsommer.com>"]
 
 [[bin]]
