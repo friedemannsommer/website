@@ -10,8 +10,6 @@ stages:
   - Test
   - name: GitHub Tag Release
     if: tag IS present
-  - name: Deploy Lambda
-    if: branch = "master" AND type != "pull_request"
 jobs:
   include:
     - stage: Test
@@ -29,11 +27,3 @@ jobs:
           repo: friedemannsommer/website
           rust: stable
           tags: true
-    - stage: Deploy Lambda
-      script: "npm i --silent && ./node_modules/.bin/serverless package"
-      deploy:
-        provider: script
-        script: "./node_modules/.bin/serverless deploy --conceal --stage production"
-        skip_cleanup: true
-        on:
-          branch: master

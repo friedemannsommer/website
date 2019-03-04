@@ -1,0 +1,20 @@
+version: 0.2
+            
+phases:
+  install:
+    commands:
+      - "curl https://sh.rustup.rs -sSf | sh"
+  build:
+    commands:
+      - "cargo check --verbose --all"
+      - "cargo test --verbose --all"
+      - "cargo build --verbose --release"
+artifacts:
+  files:
+    - target/release/website
+  name: website
+  discard-paths: yes
+cache:
+  paths:
+    - node_modules
+    - target
