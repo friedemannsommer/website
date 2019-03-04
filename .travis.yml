@@ -21,7 +21,7 @@ stages:
 jobs:
   include:
     - stage: Test
-      script: "cargo check --verbose && cargo test --verbose --all"
+      script: "cargo check --verbose --all && cargo test --verbose --all"
     - stage: GitHub Tag Release
       script: "npm i --silent && npx serverless package"
       deploy:
