@@ -38,7 +38,7 @@ jobs:
     - stage: Deploy Lambda
       script: "npm i --silent && npx serverless package"
       deploy:
-        - provider: script
+        provider: script
         script: npx serverless deploy --conceal
         skip_cleanup: true
         on:
