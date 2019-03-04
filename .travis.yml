@@ -6,9 +6,6 @@ services:
   - docker
 rust:
   - stable
-cache:
-  - cargo
-  - npm
 stages:
   - Test
   - name: GitHub Tag Release
