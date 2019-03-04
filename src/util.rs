@@ -1,7 +1,6 @@
+use crate::constants;
 use html_minifier::HTMLMinifier;
 use serde_json::Value;
-
-use constants;
 
 pub fn minify_html(html: String) -> Result<String, &'static str> {
     let mut html_minifier = HTMLMinifier::new();

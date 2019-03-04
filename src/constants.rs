@@ -1,17 +1,7 @@
+use crate::util::render_template;
 use handlebars::Handlebars;
+use serde_json::json;
 
-use util::render_template;
-
-// generic meta
-pub const ENV_HOST: &str = "HOST";
-pub const ENV_PORT: &str = "PORT";
-pub const ENV_PATH: &str = "SOCKET_PATH";
-pub const APP_NAME: &str = "website";
-// defaults
-pub const DEFAULT_PORT: &str = "8080";
-pub const DEFAULT_HOST: &str = "127.0.0.1";
-// http
-pub const CONTENT_TYPE_HTML: &str = "text/html; charset=utf-8";
 // template struct
 pub struct TemplateCache {
     pub index: Box<String>,
@@ -38,7 +28,7 @@ lazy_static! {
             .register_partial("menu", include_str!("./templates/menu.hbs"))
             .unwrap();
 
-        handlebars        
+        handlebars
     };
     pub static ref TEMPLATE_CACHE: TemplateCache = {
         let json_data: serde_json::Value = json!({

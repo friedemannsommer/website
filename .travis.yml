@@ -6,7 +6,12 @@ services:
   - docker
 rust:
   - stable
-cache: cargo
+cache:
+  directories:
+    - /home/travis/.cargo
+    - node_modules
+before_cache:
+  - rm -rf /home/travis/.cargo/registry
 stages:
   - Test
   - name: GitHub Tag Release
@@ -16,9 +21,9 @@ stages:
 jobs:
   include:
     - stage: Test
-      script: cargo build --verbose --all && cargo test --verbose --all
+      script: "cargo check --verbose && cargo test --verbose --all"
     - stage: GitHub Tag Release
-      script: "chmod +x ./build-release.sh && ./build-release.sh website ${TRAVIS_TAG}-${TRAVIS_OS_NAME}"
+      script: "npm i --silent && npx serverless package"
       deploy:
         provider: releases
         api_key:
@@ -30,16 +35,11 @@ jobs:
           repo: friedemannsommer/website
           rust: stable
           tags: true
-    - stage: GitHub Master Release
-      script: "chmod +x ./build-release.sh && ./build-release.sh website ${TRAVIS_OS_NAME}"
+    - stage: Deploy Lambda
+      script: "npm i --silent && npx serverless package"
       deploy:
-        provider: releases
-        api_key:
-          secure: pPOX6eU7+f5GIC69v5bQHwVxBEdMd+cFGPtbDcdG969uZFRwab8he0dinys1muJv6M1NXCY8BDG1+AIBGrBafngFITio3OMEjmCrCOTbabObml+BNjIVAUk/I02s/zEEUohzxYV5N4i1PrdY7J4GLReEwFSBfNqDnqHMahQOHC7gioC1SL07xyVj3H0ourr2wCBFmlZg2inhd3GDWXZ+7Nv3DkikfjuvIwB8kFwJ7rn6y0E+F3sgHnf3wU5PzohEop4YsshLHJVMPG13usXNUBlVPRaclMasxPb/n6xsg1NsWH755GVRJwgajiVyrXSEnlyejBchn+ZG90ioh/Uwgomve/DjLaicjP+BWBxNyuCLacEbGH3p7+VHIOQd51tt6GHifZwJw+X8aCBS1xGs06hUqVZwbdJcXira/DSRGGhaMTNIyAPdbdpOy7lvPSXTuLqnQbZg9s5dVX4gJxGLDnoiCIoRU2sGfODU2S7FVkyquTI7D30oEHHCBmr5SJMtj7YnE0HyaMlDCQuWCKThsZeXkQNGlvF+Glw4bSzQ/VFnr4FLJPz1drV9fnDTkvK7H5/HVYvXt277uDlywYnEqIVm1AsbCsvFGMfUlZAM/4MgPForE6o5fAfAuQkUoKlSD+Sy5aDHZUee+T3GJMxED90yKUMr5Ypn4MT4A/H6Au0=
-        file_glob: true
-        file: website-${TRAVIS_OS_NAME}.*
+        - provider: script
+        script: npx serverless deploy --conceal
         skip_cleanup: true
-        draft: true
         on:
-          repo: friedemannsommer/website
-          rust: stable
+          branch: master
