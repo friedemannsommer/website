@@ -16,7 +16,7 @@ stages:
   - Test
   - name: GitHub Tag Release
     if: tag IS present
-  - name: GitHub Master Release
+  - name: Deploy Lambda
     if: branch = "master" AND type != "pull_request"
 jobs:
   include:
