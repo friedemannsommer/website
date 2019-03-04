@@ -11,9 +11,12 @@ plugins:
   - serverless-rust
 
 functions:
-  hello:
+  website:
     handler: website
     events:
+      - http:
+          path: '/'
+          method: GET
       - http:
           path: '/{path+}'
           method: GET

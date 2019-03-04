@@ -36,7 +36,7 @@ jobs:
       script: "npm i --silent && ./node_modules/.bin/serverless package"
       deploy:
         provider: script
-        script: "./node_modules/.bin/serverless deploy --conceal"
+        script: "./node_modules/.bin/serverless deploy --conceal --stage production"
         skip_cleanup: true
         on:
           branch: master
