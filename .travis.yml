@@ -23,7 +23,7 @@ jobs:
     - stage: Test
       script: "cargo check --verbose --all && cargo test --verbose --all"
     - stage: GitHub Tag Release
-      script: "npm i --silent && npx serverless package"
+      script: "chmod +x ./build-release.sh && ./build-release.sh website ${TRAVIS_TAG}-${TRAVIS_OS_NAME}"
       deploy:
         provider: releases
         api_key:
@@ -36,10 +36,10 @@ jobs:
           rust: stable
           tags: true
     - stage: Deploy Lambda
-      script: "npm i --silent && npx serverless package"
+      script: "npm i --silent && ./node_modules/.bin/serverless package"
       deploy:
         provider: script
-        script: npx serverless deploy --conceal
+        script: "./node_modules/.bin/serverless deploy --conceal"
         skip_cleanup: true
         on:
           branch: master
