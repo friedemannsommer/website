@@ -7,11 +7,8 @@ services:
 rust:
   - stable
 cache:
-  directories:
-    - /home/travis/.cargo
-    - node_modules
-before_cache:
-  - rm -rf /home/travis/.cargo/registry
+  - cargo
+  - npm
 stages:
   - Test
   - name: GitHub Tag Release
