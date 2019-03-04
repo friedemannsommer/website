@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - "curl -sSf https://build.travis-ci.com/files/rustup-init.sh | sh -s -- --default-toolchain=stable -y"
-      - "export PATH=${TRAVIS_HOME}/.cargo/bin:$PATH"
+      - "source $HOME/.cargo/env"
   build:
     commands:
       - "cargo check --verbose --all"
