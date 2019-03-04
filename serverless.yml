@@ -15,5 +15,5 @@ functions:
     handler: website
     events:
       - http:
-          path: '/*'
+          path: '/{path+}'
           method: GET
