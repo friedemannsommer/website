@@ -7,6 +7,7 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
     let mut response = Response::new(Body::from(""));
     let headers = response.headers_mut();
 
+    headers.insert("content-type", HeaderValue::from_static("text/plain; charset=utf-8"));
     headers.insert("content-security-policy", HeaderValue::from_static("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups"));
     headers.insert(
         "cache-control",
@@ -35,6 +36,11 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
 
         return Ok(response);
     }
+
+    headers.insert(
+        "content-type",
+        HeaderValue::from_static("text/html; charset=utf-8"),
+    );
 
     *response.status_mut() = StatusCode::OK;
     *response.body_mut() = Body::from(match request.uri().path() {
