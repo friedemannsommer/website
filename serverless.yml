@@ -16,7 +16,7 @@ functions:
     events:
       - http:
           path: '/'
-          method: ANY
+          method: GET
       - http:
           path: '/{path+}'
-          method: ANY
+          method: GET
