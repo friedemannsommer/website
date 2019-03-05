@@ -1,0 +1,22 @@
+service: website
+provider:
+  name: aws
+  runtime: rust
+  memorySize: 128
+  region: eu-central-1
+package:
+  individually: true
+
+plugins:
+  - serverless-rust
+
+functions:
+  website:
+    handler: website
+    events:
+      - http:
+          path: '/'
+          method: ANY
+      - http:
+          path: '/{path+}'
+          method: ANY

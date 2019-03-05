@@ -1,9 +1,0 @@
-version: 0.0
-Resources:
-  - website:
-      Type: AWS::Lambda::Function
-      Properties:
-        Name: "website"
-        Alias: "website"
-        CurrentVersion: "0"
-        TargetVersion: "1"
