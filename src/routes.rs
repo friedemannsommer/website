@@ -8,7 +8,7 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
     let headers = response.headers_mut();
 
     headers.insert("content-type", HeaderValue::from_static("text/plain; charset=utf-8"));
-    headers.insert("content-security-policy", HeaderValue::from_static("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups"));
+    headers.insert("content-security-policy", HeaderValue::from_static("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups; frame-ancestors 'none'; form-action 'none'; default-src https: 'unsafe-inline'; object-src 'none'"));
     headers.insert(
         "cache-control",
         HeaderValue::from_static("public, must-revalidate, max-age=86400"),
