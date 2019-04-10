@@ -69,15 +69,59 @@ mod tests {
     }
 
     #[test]
+    fn index_status() {
+        let request = Request::default();
+        let response = simple_router(request, Context::default()).unwrap();
+
+        assert_eq!(response.status(), 200);
+    }
+
+    #[test]
+    fn index_content_type() {
+        let request = Request::default();
+        let response = simple_router(request, Context::default()).unwrap();
+        let header_map = response.headers();
+
+        assert_eq!(header_map.get("content-type").unwrap(), "text/html; charset=utf-8")
+    }
+
+    #[test]
     fn handles_contact() {
         let mut request = Request::default();
+        let mut request_trailing_slash = Request::default();
         let expected = Body::from(&**constants::TEMPLATE_CACHE.contact);
 
         *request.uri_mut() = lambda_http::http::Uri::from_static("/contact");
+        *request_trailing_slash.uri_mut() = lambda_http::http::Uri::from_static("/contact/");
 
-        let response = simple_router(request, Context::default());
+        let response = simple_router(request, Context::default()).unwrap();
+        let response_trailing_slash = simple_router(request_trailing_slash, Context::default()).unwrap();
 
-        assert_eq!(&*response.unwrap().body(), &expected)
+        assert_eq!(response.body(), &expected);
+        assert_eq!(response_trailing_slash.body(), response.body())
+    }
+
+    #[test]
+    fn contact_status() {
+        let mut request = Request::default();
+
+        *request.uri_mut() = lambda_http::http::Uri::from_static("/contact");
+
+        let response = simple_router(request, Context::default()).unwrap();
+
+        assert_eq!(response.status(), 200);
+    }
+
+    #[test]
+    fn contact_content_type() {
+        let mut request = Request::default();
+
+        *request.uri_mut() = lambda_http::http::Uri::from_static("/contact");
+
+        let response = simple_router(request, Context::default()).unwrap();
+        let header_map = response.headers();
+
+        assert_eq!(header_map.get("content-type").unwrap(), "text/html; charset=utf-8")
     }
 
     #[test]
@@ -87,9 +131,32 @@ mod tests {
 
         *request.uri_mut() = lambda_http::http::Uri::from_static("/this-route-doesnt-exist");
 
-        let response = simple_router(request, Context::default());
+        let response = simple_router(request, Context::default()).unwrap();
 
-        assert_eq!(&*response.unwrap().body(), &expected)
+        assert_eq!(response.body(), &expected)
+    }
+
+    #[test]
+    fn not_found_status() {
+        let mut request = Request::default();
+
+        *request.uri_mut() = lambda_http::http::Uri::from_static("/this-route-doesnt-exist");
+
+        let response = simple_router(request, Context::default()).unwrap();
+
+        assert_eq!(response.status(), 404)
+    }
+
+    #[test]
+    fn not_found_content_type() {
+        let mut request = Request::default();
+
+        *request.uri_mut() = lambda_http::http::Uri::from_static("/this-route-doesnt-exist");
+
+        let response = simple_router(request, Context::default()).unwrap();
+        let header_map = response.headers();
+
+        assert_eq!(header_map.get("content-type").unwrap(), "text/html; charset=utf-8")
     }
 
     #[test]
