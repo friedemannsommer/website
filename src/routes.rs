@@ -7,13 +7,22 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
     let mut response = Response::new(Body::from(""));
     let headers = response.headers_mut();
 
-    headers.insert("content-type", HeaderValue::from_static("text/plain; charset=utf-8"));
-    headers.insert("content-security-policy", HeaderValue::from_static("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups; frame-ancestors 'none'; form-action 'none'; default-src https: 'unsafe-inline'; object-src 'none'"));
+    headers.insert(
+        "content-type",
+        HeaderValue::from_static("text/plain; charset=utf-8"),
+    );
+    headers.insert(
+        "content-security-policy",
+        HeaderValue::from_static("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups; frame-ancestors 'none'; form-action 'none'; default-src https: 'unsafe-inline'; object-src 'none'")
+    );
     headers.insert(
         "cache-control",
         HeaderValue::from_static("public, must-revalidate, max-age=86400"),
     );
-    headers.insert("feature-policy", HeaderValue::from_static("autoplay 'none';camera 'none';fullscreen 'none';geolocation 'none';microphone 'none';midi 'none';payment 'none';sync-xhr 'none';usb 'none';vr 'none'"));
+    headers.insert(
+        "feature-policy",
+        HeaderValue::from_static("autoplay 'none';camera 'none';fullscreen 'none';geolocation 'none';microphone 'none';midi 'none';payment 'none';sync-xhr 'none';usb 'none';vr 'none'")
+    );
     headers.insert("referrer-policy", HeaderValue::from_static("strict-origin"));
     headers.insert(
         "strict-transport-security",
@@ -82,7 +91,10 @@ mod tests {
         let response = simple_router(request, Context::default()).unwrap();
         let header_map = response.headers();
 
-        assert_eq!(header_map.get("content-type").unwrap(), "text/html; charset=utf-8")
+        assert_eq!(
+            header_map.get("content-type").unwrap(),
+            "text/html; charset=utf-8"
+        )
     }
 
     #[test]
@@ -95,7 +107,8 @@ mod tests {
         *request_trailing_slash.uri_mut() = lambda_http::http::Uri::from_static("/contact/");
 
         let response = simple_router(request, Context::default()).unwrap();
-        let response_trailing_slash = simple_router(request_trailing_slash, Context::default()).unwrap();
+        let response_trailing_slash =
+            simple_router(request_trailing_slash, Context::default()).unwrap();
 
         assert_eq!(response.body(), &expected);
         assert_eq!(response_trailing_slash.body(), response.body())
@@ -121,7 +134,10 @@ mod tests {
         let response = simple_router(request, Context::default()).unwrap();
         let header_map = response.headers();
 
-        assert_eq!(header_map.get("content-type").unwrap(), "text/html; charset=utf-8")
+        assert_eq!(
+            header_map.get("content-type").unwrap(),
+            "text/html; charset=utf-8"
+        )
     }
 
     #[test]
@@ -156,7 +172,10 @@ mod tests {
         let response = simple_router(request, Context::default()).unwrap();
         let header_map = response.headers();
 
-        assert_eq!(header_map.get("content-type").unwrap(), "text/html; charset=utf-8")
+        assert_eq!(
+            header_map.get("content-type").unwrap(),
+            "text/html; charset=utf-8"
+        )
     }
 
     #[test]
