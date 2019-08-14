@@ -1,3 +1,5 @@
+org: friedemannsommer
+app: website
 service: website
 provider:
   name: aws
