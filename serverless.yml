@@ -13,7 +13,7 @@ plugins:
   - serverless-rust
 
 functions:
-  website:
+  render:
     handler: website
     events:
       - http:
