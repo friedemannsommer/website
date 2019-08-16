@@ -1,8 +1,8 @@
 use crate::constants;
 use crypto::{digest::Digest, sha2::Sha256};
+use data_encoding::BASE64;
 use html_minifier::HTMLMinifier;
 use serde_json::Value;
-use data_encoding::BASE64;
 
 pub fn minify_html(html: String) -> Result<String, &'static str> {
     let mut html_minifier = HTMLMinifier::new();
@@ -21,8 +21,8 @@ pub fn render_template(template: &str, data: &Value) -> Result<String, &'static 
 
 pub fn get_sha256_hash(value: &str) -> String {
     let mut hasher = Sha256::new();
-    hasher.input_str(value);    
-    let mut output= vec![0; hasher.output_bytes()];
+    hasher.input_str(value);
+    let mut output = vec![0; hasher.output_bytes()];
     hasher.result(&mut output);
     BASE64.encode(&output)
 }

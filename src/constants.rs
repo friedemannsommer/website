@@ -1,6 +1,7 @@
 use crate::util::{render_template,get_sha256_hash};
 use handlebars::Handlebars;
 use serde_json::json;
+use html_minifier::css::minify as css_minify;
 
 // template struct
 pub struct TemplateCache {
@@ -85,7 +86,7 @@ lazy_static! {
             not_found: Box::new(
                 render_template(include_str!("./templates/404.hbs"), &json_data).unwrap(),
             ),
-            style_sha256: get_sha256_hash(&json_data["style"].to_string())
+            style_sha256: get_sha256_hash(&css_minify(&json_data["style"].to_string()).unwrap())
         }
     };
 }
