@@ -13,7 +13,11 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
     );
     headers.insert(
         "content-security-policy",
-        HeaderValue::from_static("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'")
+        HeaderValue::from_str(
+            (
+                format!("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'; style-src 'unsafe-inline' 'self' 'strict-dynamic' 'sha256-{}'", &constants::TEMPLATE_CACHE.style_sha256)
+            ).as_str()
+        ).unwrap()
     );
     headers.insert(
         "cache-control",
@@ -251,5 +255,12 @@ mod tests {
         assert_eq!(csp_value.contains("base-uri 'none'"), true);
         assert_eq!(csp_value.contains("default-src 'none'"), true);
         assert_eq!(csp_value.contains("script-src 'self'"), true);
+        assert_eq!(
+            csp_value.contains("style-src")
+                && csp_value.contains(
+                    (format!("sha256-{}", constants::TEMPLATE_CACHE.style_sha256)).as_str()
+                ),
+            true
+        );
     }
 }

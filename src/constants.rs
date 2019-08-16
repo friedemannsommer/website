@@ -1,4 +1,4 @@
-use crate::util::render_template;
+use crate::util::{render_template,get_sha256_hash};
 use handlebars::Handlebars;
 use serde_json::json;
 
@@ -7,6 +7,7 @@ pub struct TemplateCache {
     pub index: Box<String>,
     pub contact: Box<String>,
     pub not_found: Box<String>,
+    pub style_sha256: String
 }
 
 lazy_static! {
@@ -84,6 +85,7 @@ lazy_static! {
             not_found: Box::new(
                 render_template(include_str!("./templates/404.hbs"), &json_data).unwrap(),
             ),
+            style_sha256: get_sha256_hash(&json_data["style"].to_string())
         }
     };
 }

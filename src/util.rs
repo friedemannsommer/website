@@ -1,4 +1,5 @@
 use crate::constants;
+use crypto::{digest::Digest, sha2::Sha256};
 use html_minifier::HTMLMinifier;
 use serde_json::Value;
 
@@ -15,4 +16,10 @@ pub fn render_template(template: &str, data: &Value) -> Result<String, &'static 
             .render_template(template, data)
             .unwrap(),
     )
+}
+
+pub fn get_sha256_hash(value: &str) -> String {
+    let mut hasher = Sha256::new();
+    hasher.input_str(value);
+    hasher.result_str()
 }
