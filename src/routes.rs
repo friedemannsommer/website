@@ -13,7 +13,7 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
     );
     headers.insert(
         "content-security-policy",
-        HeaderValue::from_static("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups; frame-ancestors 'none'; form-action 'none'; default-src https: 'unsafe-inline'; object-src 'none'")
+        HeaderValue::from_static("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'")
     );
     headers.insert(
         "cache-control",
@@ -24,10 +24,6 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
         HeaderValue::from_static("autoplay 'none';camera 'none';fullscreen 'none';geolocation 'none';microphone 'none';midi 'none';payment 'none';sync-xhr 'none';usb 'none';vr 'none'")
     );
     headers.insert("referrer-policy", HeaderValue::from_static("strict-origin"));
-    headers.insert(
-        "strict-transport-security",
-        HeaderValue::from_static("max-age=86400; includeSubDomains; preload"),
-    );
     headers.insert(
         "x-content-type-options",
         HeaderValue::from_static("nosniff"),
@@ -228,5 +224,32 @@ mod tests {
                 .unwrap(),
             HeaderValue::from_static("nosniff")
         )
+    }
+
+    #[test]
+    fn feature_policy() {
+        let request = Request::default();
+        let response = simple_router(request, Context::default()).unwrap();
+        let fp_header = response.headers().get("feature-policy").unwrap();
+        let fp_value = fp_header.to_str().unwrap();
+        let fp_parts: Vec<&str> = fp_value.split(";").collect();
+
+        for part in fp_parts {
+            assert_eq!(part.contains("'none'"), true);
+        }
+    }
+
+    #[test]
+    fn content_security_policy() {
+        let request = Request::default();
+        let response = simple_router(request, Context::default()).unwrap();
+        let csp_header = response.headers().get("content-security-policy").unwrap();
+        let csp_value = csp_header.to_str().unwrap();
+
+        assert_eq!(csp_value.contains("block-all-mixed-content"), true);
+        assert_eq!(csp_value.contains("upgrade-insecure-requests"), true);
+        assert_eq!(csp_value.contains("base-uri 'none'"), true);
+        assert_eq!(csp_value.contains("default-src 'none'"), true);
+        assert_eq!(csp_value.contains("script-src 'self'"), true);
     }
 }
