@@ -1,14 +1,13 @@
-use crate::util::{render_template,get_sha256_hash};
+use crate::util::{get_sha256_hash, render_template};
 use handlebars::Handlebars;
 use serde_json::json;
-use html_minifier::css::minify as css_minify;
 
 // template struct
 pub struct TemplateCache {
     pub index: Box<String>,
     pub contact: Box<String>,
     pub not_found: Box<String>,
-    pub style_sha256: String
+    pub style_sha256: String,
 }
 
 lazy_static! {
@@ -76,17 +75,28 @@ lazy_static! {
             ]
         });
 
+        // sadly this workaround is required to get the minified css
+        let index_html =
+            render_template(include_str!("./templates/index.hbs"), &json_data).unwrap();
+        let style_start = index_html.find("<style>");
+        let style_end = index_html.find("</style>");
+        let style: &str = if style_start.is_some() && style_end.is_some() {
+            let parts = index_html.split_at(style_start.unwrap() + 7);
+
+            parts.1.split_at(style_end.unwrap() - parts.0.len()).0
+        } else {
+            ""
+        };
+
         TemplateCache {
             contact: Box::new(
                 render_template(include_str!("./templates/contact.hbs"), &json_data).unwrap(),
             ),
-            index: Box::new(
-                render_template(include_str!("./templates/index.hbs"), &json_data).unwrap(),
-            ),
+            index: Box::new(String::clone(&index_html)),
             not_found: Box::new(
                 render_template(include_str!("./templates/404.hbs"), &json_data).unwrap(),
             ),
-            style_sha256: get_sha256_hash(&css_minify(&json_data["style"].to_string()).unwrap())
+            style_sha256: get_sha256_hash(style),
         }
     };
 }
