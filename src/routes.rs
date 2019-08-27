@@ -15,7 +15,7 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
         "content-security-policy",
         HeaderValue::from_str(
             (
-                format!("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'; style-src 'unsafe-inline' 'self' 'sha256-{}'", &constants::TEMPLATE_CACHE.style_sha256)
+                format!("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'; style-src 'unsafe-inline' 'self' 'sha256-{}'", &constants::TEMPLATE_CACHE.style_sha256)
             ).as_str()
         ).unwrap()
     );
@@ -262,5 +262,7 @@ mod tests {
                 ),
             true
         );
+        assert_eq!(csp_value.contains("allow-popups"), true);
+        assert_eq!(csp_value.contains("allow-popups-to-escape-sandbox"), true);
     }
 }
