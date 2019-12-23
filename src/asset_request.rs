@@ -16,7 +16,10 @@ pub fn handle_asset_request(asset: Asset, hostname: &str) -> Result<Response<Bod
             },
         )
         .header("cache-control", "public, must-revalidate, max-age=86400")
-        .header("access-control-allow-origin", hostname)
+        .header(
+            "access-control-allow-origin",
+            format!("https://{}", hostname),
+        )
         .header("x-content-type-options", "nosniff")
         .header("x-download-options", "noopen")
         .status(StatusCode::OK)
