@@ -6,7 +6,7 @@ pub fn handle_site_request(site: Site) -> Result<Response<Body>, HandlerError> {
     Response::builder()
     .header(
         "content-security-policy",
-        format!("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'; style-src 'unsafe-inline' 'self' 'sha256-{}'", &TEMPLATE_CACHE.style_sha256)
+        format!("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'; style-src 'unsafe-inline' 'self' 'sha256-{}'; font-src 'self'", &TEMPLATE_CACHE.style_sha256)
     )
     .header(
         "cache-control",
