@@ -5,6 +5,8 @@ use lambda_http::http::{Method, StatusCode};
 use lambda_http::{Body, Request, Response};
 use lambda_runtime::{error::HandlerError, Context};
 
+const DEFAULT_HOSTNAME: &str = "www.friedemannsommer.com";
+
 pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, HandlerError> {
     if request.method() != Method::GET {
         return Response::builder()
@@ -14,17 +16,27 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
             .map_err(crate::util::map_http_err);
     }
 
+    let mut hostname = DEFAULT_HOSTNAME;
+
+    if let Some(request_hostname) = request.headers().get("host") {
+        hostname = request_hostname.to_str().unwrap_or(DEFAULT_HOSTNAME);
+    }
+
     match request.uri().path() {
         "/" | "" => handle_site_request(constants::Site::Index),
         "/contact" | "/contact/" => handle_site_request(constants::Site::Contact),
         "/source-code-pro-regular.woff2" => {
-            handle_asset_request(constants::Asset::SourceCodeProWoff2)
+            handle_asset_request(constants::Asset::SourceCodeProWoff2, hostname)
         }
         "/source-code-pro-regular.woff" => {
-            handle_asset_request(constants::Asset::SourceCodeProWoff)
+            handle_asset_request(constants::Asset::SourceCodeProWoff, hostname)
         }
-        "/source-code-pro-regular.otf" => handle_asset_request(constants::Asset::SourceCodeProOtf),
-        "/source-code-pro-regular.ttf" => handle_asset_request(constants::Asset::SourceCodeProTtf),
+        "/source-code-pro-regular.otf" => {
+            handle_asset_request(constants::Asset::SourceCodeProOtf, hostname)
+        }
+        "/source-code-pro-regular.ttf" => {
+            handle_asset_request(constants::Asset::SourceCodeProTtf, hostname)
+        }
         _ => handle_site_request(constants::Site::NotFound),
     }
 }
