@@ -4,7 +4,7 @@ use crate::constants::{
 use lambda_http::{http::StatusCode, Body, Response};
 use lambda_runtime::error::HandlerError;
 
-pub fn handle_asset_request(asset: Asset, hostname: &str) -> Result<Response<Body>, HandlerError> {
+pub fn handle_asset_request(asset: Asset) -> Result<Response<Body>, HandlerError> {
     Response::builder()
         .header(
             "content-type",
@@ -16,10 +16,6 @@ pub fn handle_asset_request(asset: Asset, hostname: &str) -> Result<Response<Bod
             },
         )
         .header("cache-control", "public, must-revalidate, max-age=86400")
-        .header(
-            "access-control-allow-origin",
-            format!("https://{}", hostname),
-        )
         .header("x-content-type-options", "nosniff")
         .header("x-download-options", "noopen")
         .status(StatusCode::OK)
