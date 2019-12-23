@@ -2,6 +2,19 @@ use crate::util::{get_sha256_hash, render_template};
 use handlebars::Handlebars;
 use serde_json::json;
 
+pub enum Site {
+    Index,
+    Contact,
+    NotFound,
+}
+
+pub enum Asset {
+    SourceCodeProOtf,
+    SourceCodeProTtf,
+    SourceCodeProWoff,
+    SourceCodeProWoff2,
+}
+
 // template struct
 pub struct TemplateCache {
     pub index: Box<String>,
@@ -9,6 +22,11 @@ pub struct TemplateCache {
     pub not_found: Box<String>,
     pub style_sha256: String,
 }
+
+pub const SOURCE_CODE_PRO_OTF: &[u8] = include_bytes!("./assets/source-code-pro-regular.otf");
+pub const SOURCE_CODE_PRO_TTF: &[u8] = include_bytes!("./assets/source-code-pro-regular.ttf");
+pub const SOURCE_CODE_PRO_WOFF: &[u8] = include_bytes!("./assets/source-code-pro-regular.woff");
+pub const SOURCE_CODE_PRO_WOFF2: &[u8] = include_bytes!("./assets/source-code-pro-regular.woff2");
 
 lazy_static! {
     pub static ref TEMPLATE_ENGINE: Handlebars = {

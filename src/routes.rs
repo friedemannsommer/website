@@ -1,268 +1,323 @@
+use crate::asset_request::handle_asset_request;
 use crate::constants;
-use lambda_http::http::{header::HeaderValue, Method, StatusCode};
+use crate::site_request::handle_site_request;
+use lambda_http::http::{Method, StatusCode};
 use lambda_http::{Body, Request, Response};
 use lambda_runtime::{error::HandlerError, Context};
 
 pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, HandlerError> {
-    let mut response = Response::new(Body::from(""));
-    let headers = response.headers_mut();
-
-    headers.insert(
-        "content-type",
-        HeaderValue::from_static("text/plain; charset=utf-8"),
-    );
-    headers.insert(
-        "content-security-policy",
-        HeaderValue::from_str(
-            (
-                format!("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'; style-src 'unsafe-inline' 'self' 'sha256-{}'", &constants::TEMPLATE_CACHE.style_sha256)
-            ).as_str()
-        ).unwrap()
-    );
-    headers.insert(
-        "cache-control",
-        HeaderValue::from_static("public, must-revalidate, max-age=86400"),
-    );
-    headers.insert(
-        "feature-policy",
-        HeaderValue::from_static("autoplay 'none';camera 'none';fullscreen 'none';geolocation 'none';microphone 'none';midi 'none';payment 'none';sync-xhr 'none';usb 'none';vr 'none'")
-    );
-    headers.insert("referrer-policy", HeaderValue::from_static("strict-origin"));
-    headers.insert(
-        "x-content-type-options",
-        HeaderValue::from_static("nosniff"),
-    );
-    headers.insert("x-download-options", HeaderValue::from_static("noopen"));
-    headers.insert(
-        "x-xss-protection",
-        HeaderValue::from_static("1; mode=block"),
-    );
-    headers.insert("x-frame-options", HeaderValue::from_static("deny"));
-
     if request.method() != Method::GET {
-        *response.status_mut() = StatusCode::METHOD_NOT_ALLOWED;
-        *response.body_mut() = Body::from("ERR_METHOD_NOT_ALLOWED");
-
-        return Ok(response);
+        return Response::builder()
+            .header("content-type", "text/plain; charset=utf-8")
+            .status(StatusCode::METHOD_NOT_ALLOWED)
+            .body(Body::from("ERR_METHOD_NOT_ALLOWED"))
+            .map_err(crate::util::map_http_err);
     }
 
-    headers.insert(
-        "content-type",
-        HeaderValue::from_static("text/html; charset=utf-8"),
-    );
-
-    *response.status_mut() = StatusCode::OK;
-    *response.body_mut() = Body::from(match request.uri().path() {
-        "/" | "" => &**constants::TEMPLATE_CACHE.index,
-        "/contact" | "/contact/" => &**constants::TEMPLATE_CACHE.contact,
-        _ => {
-            *response.status_mut() = StatusCode::NOT_FOUND;
-            &**constants::TEMPLATE_CACHE.not_found
+    match request.uri().path() {
+        "/" | "" => handle_site_request(constants::Site::Index),
+        "/contact" | "/contact/" => handle_site_request(constants::Site::Contact),
+        "/source-code-pro-regular.woff2" => {
+            handle_asset_request(constants::Asset::SourceCodeProWoff2)
         }
-    });
-
-    Ok(response)
+        "/source-code-pro-regular.woff" => {
+            handle_asset_request(constants::Asset::SourceCodeProWoff)
+        }
+        "/source-code-pro-regular.otf" => handle_asset_request(constants::Asset::SourceCodeProOtf),
+        "/source-code-pro-regular.ttf" => handle_asset_request(constants::Asset::SourceCodeProTtf),
+        _ => handle_site_request(constants::Site::NotFound),
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use lambda_http::http::HeaderValue;
+
+    const SITE_URI_LIST: [&str; 3] = ["/", "/contact", "/not-found"];
+    const ASSET_URI_LIST: [&str; 4] = [
+        "/source-code-pro-regular.woff2",
+        "/source-code-pro-regular.woff",
+        "/source-code-pro-regular.otf",
+        "/source-code-pro-regular.ttf",
+    ];
+
+    #[test]
+    fn handle_invalid_request_method() {
+        for method in ["POST", "PATCH", "DELETE", "OPTIONS"].iter() {
+            let response = simple_router(
+                lambda_http::http::Request::builder()
+                    .method(*method)
+                    .uri("/")
+                    .body(Body::Empty)
+                    .unwrap(),
+                Context::default(),
+            )
+            .unwrap();
+
+            assert_eq!(response.status(), StatusCode::METHOD_NOT_ALLOWED);
+            assert_eq!(*response.body(), Body::from("ERR_METHOD_NOT_ALLOWED"));
+        }
+    }
 
     #[test]
     fn handles_index() {
-        let request = Request::default();
-        let expected = Body::from(&**constants::TEMPLATE_CACHE.index);
-        let response = simple_router(request, Context::default());
-
-        assert_eq!(&*response.unwrap().body(), &expected)
-    }
-
-    #[test]
-    fn index_status() {
-        let request = Request::default();
-        let response = simple_router(request, Context::default()).unwrap();
+        let response = fetch_get_response("/");
 
         assert_eq!(response.status(), 200);
-    }
-
-    #[test]
-    fn index_content_type() {
-        let request = Request::default();
-        let response = simple_router(request, Context::default()).unwrap();
-        let header_map = response.headers();
-
         assert_eq!(
-            header_map.get("content-type").unwrap(),
+            response.headers().get("content-type").unwrap(),
             "text/html; charset=utf-8"
-        )
+        );
+        assert_eq!(
+            *response.body(),
+            Body::from(&**constants::TEMPLATE_CACHE.index)
+        );
     }
 
     #[test]
     fn handles_contact() {
-        let mut request = Request::default();
-        let mut request_trailing_slash = Request::default();
-        let expected = Body::from(&**constants::TEMPLATE_CACHE.contact);
+        for path in ["/contact", "/contact/"].iter() {
+            let response = fetch_get_response(*path);
 
-        *request.uri_mut() = lambda_http::http::Uri::from_static("/contact");
-        *request_trailing_slash.uri_mut() = lambda_http::http::Uri::from_static("/contact/");
-
-        let response = simple_router(request, Context::default()).unwrap();
-        let response_trailing_slash =
-            simple_router(request_trailing_slash, Context::default()).unwrap();
-
-        assert_eq!(response.body(), &expected);
-        assert_eq!(response_trailing_slash.body(), response.body())
-    }
-
-    #[test]
-    fn contact_status() {
-        let mut request = Request::default();
-
-        *request.uri_mut() = lambda_http::http::Uri::from_static("/contact");
-
-        let response = simple_router(request, Context::default()).unwrap();
-
-        assert_eq!(response.status(), 200);
-    }
-
-    #[test]
-    fn contact_content_type() {
-        let mut request = Request::default();
-
-        *request.uri_mut() = lambda_http::http::Uri::from_static("/contact");
-
-        let response = simple_router(request, Context::default()).unwrap();
-        let header_map = response.headers();
-
-        assert_eq!(
-            header_map.get("content-type").unwrap(),
-            "text/html; charset=utf-8"
-        )
+            assert_eq!(response.status(), 200);
+            assert_eq!(
+                response.headers().get("content-type").unwrap(),
+                "text/html; charset=utf-8"
+            );
+            assert_eq!(
+                *response.body(),
+                Body::from(&**constants::TEMPLATE_CACHE.contact)
+            );
+        }
     }
 
     #[test]
     fn handles_not_found() {
-        let mut request = Request::default();
-        let expected = Body::from(&**constants::TEMPLATE_CACHE.not_found);
+        let response = fetch_get_response("/404");
 
-        *request.uri_mut() = lambda_http::http::Uri::from_static("/this-route-doesnt-exist");
-
-        let response = simple_router(request, Context::default()).unwrap();
-
-        assert_eq!(response.body(), &expected)
-    }
-
-    #[test]
-    fn not_found_status() {
-        let mut request = Request::default();
-
-        *request.uri_mut() = lambda_http::http::Uri::from_static("/this-route-doesnt-exist");
-
-        let response = simple_router(request, Context::default()).unwrap();
-
-        assert_eq!(response.status(), 404)
-    }
-
-    #[test]
-    fn not_found_content_type() {
-        let mut request = Request::default();
-
-        *request.uri_mut() = lambda_http::http::Uri::from_static("/this-route-doesnt-exist");
-
-        let response = simple_router(request, Context::default()).unwrap();
-        let header_map = response.headers();
-
+        assert_eq!(response.status(), 404);
         assert_eq!(
-            header_map.get("content-type").unwrap(),
+            response.headers().get("content-type").unwrap(),
             "text/html; charset=utf-8"
-        )
+        );
+        assert_eq!(
+            *response.body(),
+            Body::from(&**constants::TEMPLATE_CACHE.not_found)
+        );
     }
 
     #[test]
     fn force_download() {
-        let request = Request::default();
-        let response = simple_router(request, Context::default());
+        for path in ASSET_URI_LIST.iter() {
+            let response = fetch_get_response(*path);
 
-        assert_eq!(
-            response
-                .unwrap()
-                .headers()
-                .get("x-download-options")
-                .unwrap(),
-            HeaderValue::from_static("noopen")
-        )
-    }
-
-    #[test]
-    fn frame_deny() {
-        let request = Request::default();
-        let response = simple_router(request, Context::default());
-
-        assert_eq!(
-            response.unwrap().headers().get("x-frame-options").unwrap(),
-            HeaderValue::from_static("deny")
-        )
-    }
-
-    #[test]
-    fn xss_protection() {
-        let request = Request::default();
-        let response = simple_router(request, Context::default());
-
-        assert_eq!(
-            response.unwrap().headers().get("x-xss-protection").unwrap(),
-            HeaderValue::from_static("1; mode=block")
-        )
+            assert_eq!(
+                response.headers().get("x-download-options").unwrap(),
+                HeaderValue::from_static("noopen")
+            );
+        }
     }
 
     #[test]
     fn content_type_detection() {
-        let request = Request::default();
-        let response = simple_router(request, Context::default());
+        for path in ASSET_URI_LIST.iter() {
+            let response = fetch_get_response(*path);
 
-        assert_eq!(
-            response
-                .unwrap()
-                .headers()
-                .get("x-content-type-options")
-                .unwrap(),
-            HeaderValue::from_static("nosniff")
-        )
+            assert_eq!(
+                response.headers().get("x-content-type-options").unwrap(),
+                HeaderValue::from_static("nosniff")
+            );
+        }
+    }
+
+    #[test]
+    fn frame_deny() {
+        for path in SITE_URI_LIST.iter() {
+            let response = fetch_get_response(*path);
+
+            assert_eq!(
+                response.headers().get("x-frame-options").unwrap(),
+                HeaderValue::from_static("deny")
+            );
+        }
+    }
+
+    #[test]
+    fn xss_protection() {
+        for path in SITE_URI_LIST.iter() {
+            let response = fetch_get_response(*path);
+
+            assert_eq!(
+                response.headers().get("x-xss-protection").unwrap(),
+                HeaderValue::from_static("1; mode=block")
+            );
+        }
     }
 
     #[test]
     fn feature_policy() {
-        let request = Request::default();
-        let response = simple_router(request, Context::default()).unwrap();
-        let fp_header = response.headers().get("feature-policy").unwrap();
-        let fp_value = fp_header.to_str().unwrap();
-        let fp_parts: Vec<&str> = fp_value.split(";").collect();
+        for path in SITE_URI_LIST.iter() {
+            let response = fetch_get_response(*path);
+            let fp_parts: Vec<&str> = response
+                .headers()
+                .get("feature-policy")
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .split(";")
+                .collect();
 
-        for part in fp_parts {
-            assert_eq!(part.contains("'none'"), true);
+            for part in fp_parts {
+                assert_eq!(part.contains("'none'"), true);
+            }
+        }
+    }
+
+    #[test]
+    fn referrer_policy() {
+        for path in SITE_URI_LIST.iter() {
+            let response = fetch_get_response(*path);
+
+            assert_eq!(
+                response.headers().get("referrer-policy").unwrap(),
+                "strict-origin"
+            );
         }
     }
 
     #[test]
     fn content_security_policy() {
-        let request = Request::default();
-        let response = simple_router(request, Context::default()).unwrap();
-        let csp_header = response.headers().get("content-security-policy").unwrap();
-        let csp_value = csp_header.to_str().unwrap();
+        for path in SITE_URI_LIST.iter() {
+            let response = fetch_get_response(*path);
+            let csp_value = response
+                .headers()
+                .get("content-security-policy")
+                .unwrap()
+                .to_str()
+                .unwrap();
 
-        assert_eq!(csp_value.contains("block-all-mixed-content"), true);
-        assert_eq!(csp_value.contains("upgrade-insecure-requests"), true);
-        assert_eq!(csp_value.contains("base-uri 'none'"), true);
-        assert_eq!(csp_value.contains("default-src 'none'"), true);
-        assert_eq!(csp_value.contains("script-src 'self'"), true);
+            assert_eq!(csp_value.contains("block-all-mixed-content"), true);
+            assert_eq!(csp_value.contains("upgrade-insecure-requests"), true);
+            assert_eq!(csp_value.contains("base-uri 'none'"), true);
+            assert_eq!(csp_value.contains("default-src 'none'"), true);
+            assert_eq!(csp_value.contains("script-src 'self'"), true);
+            assert_eq!(
+                csp_value.contains("style-src")
+                    && csp_value.contains(
+                        (format!("sha256-{}", constants::TEMPLATE_CACHE.style_sha256)).as_str()
+                    ),
+                true
+            );
+            assert_eq!(csp_value.contains("allow-popups"), true);
+            assert_eq!(csp_value.contains("allow-popups-to-escape-sandbox"), true);
+        }
+    }
+
+    #[test]
+    fn asset_cache_control() {
+        for path in ASSET_URI_LIST.iter() {
+            let response = fetch_get_response(*path);
+
+            assert_eq!(
+                response.headers().get("cache-control").unwrap(),
+                "public, must-revalidate, max-age=86400"
+            );
+        }
+    }
+
+    #[test]
+    fn asset_font_otf() {
+        let response = simple_router(
+            lambda_http::http::Request::builder()
+                .method("GET")
+                .uri("/source-code-pro-regular.otf")
+                .body(Body::Empty)
+                .unwrap(),
+            Context::default(),
+        )
+        .unwrap();
+
+        assert_eq!(response.status(), 200);
+        assert_eq!(response.headers().get("content-type").unwrap(), "font/otf");
         assert_eq!(
-            csp_value.contains("style-src")
-                && csp_value.contains(
-                    (format!("sha256-{}", constants::TEMPLATE_CACHE.style_sha256)).as_str()
-                ),
-            true
+            *response.body(),
+            Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_OTF))
         );
-        assert_eq!(csp_value.contains("allow-popups"), true);
-        assert_eq!(csp_value.contains("allow-popups-to-escape-sandbox"), true);
+    }
+
+    #[test]
+    fn asset_font_ttf() {
+        let response = simple_router(
+            lambda_http::http::Request::builder()
+                .method("GET")
+                .uri("/source-code-pro-regular.ttf")
+                .body(Body::Empty)
+                .unwrap(),
+            Context::default(),
+        )
+        .unwrap();
+
+        assert_eq!(response.status(), 200);
+        assert_eq!(response.headers().get("content-type").unwrap(), "font/ttf");
+        assert_eq!(
+            *response.body(),
+            Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_TTF))
+        );
+    }
+
+    #[test]
+    fn asset_font_woff() {
+        let response = simple_router(
+            lambda_http::http::Request::builder()
+                .method("GET")
+                .uri("/source-code-pro-regular.woff")
+                .body(Body::Empty)
+                .unwrap(),
+            Context::default(),
+        )
+        .unwrap();
+
+        assert_eq!(response.status(), 200);
+        assert_eq!(response.headers().get("content-type").unwrap(), "font/woff");
+        assert_eq!(
+            *response.body(),
+            Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_WOFF))
+        );
+    }
+
+    #[test]
+    fn asset_font_woff2() {
+        let response = simple_router(
+            lambda_http::http::Request::builder()
+                .method("GET")
+                .uri("/source-code-pro-regular.woff2")
+                .body(Body::Empty)
+                .unwrap(),
+            Context::default(),
+        )
+        .unwrap();
+
+        assert_eq!(response.status(), 200);
+        assert_eq!(
+            response.headers().get("content-type").unwrap(),
+            "font/woff2"
+        );
+        assert_eq!(
+            *response.body(),
+            Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_WOFF2))
+        );
+    }
+
+    fn fetch_get_response(path: &str) -> Response<Body> {
+        simple_router(
+            lambda_http::http::Request::builder()
+                .method("GET")
+                .uri(path)
+                .body(Body::Empty)
+                .unwrap(),
+            Context::default(),
+        )
+        .unwrap()
     }
 }

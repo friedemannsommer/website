@@ -2,6 +2,8 @@ use crate::constants;
 use crypto::{digest::Digest, sha2::Sha256};
 use data_encoding::BASE64;
 use html_minifier::HTMLMinifier;
+use lambda_http::http;
+use lambda_runtime::error::HandlerError;
 use serde_json::Value;
 
 pub fn minify_html(html: String) -> Result<String, &'static str> {
@@ -25,4 +27,8 @@ pub fn get_sha256_hash(value: &str) -> String {
     let mut output = vec![0; hasher.output_bytes()];
     hasher.result(&mut output);
     BASE64.encode(&output)
+}
+
+pub fn map_http_err(err: http::Error) -> HandlerError {
+    HandlerError::from(err.to_string().as_str())
 }
