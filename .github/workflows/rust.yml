@@ -20,8 +20,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12
-    - name: npm install, build, and test
-      run: npx -q serverless deploy --verbose
+    - name: deploy with serverless
+      run: |
+        npm ci
+        npx -q serverless deploy --verbose
       env:
         CI: true
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
