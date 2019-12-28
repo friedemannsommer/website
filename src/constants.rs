@@ -9,17 +9,17 @@ pub enum Site {
 }
 
 pub enum Asset {
-    SourceCodeProOtf,
-    SourceCodeProTtf,
-    SourceCodeProWoff,
-    SourceCodeProWoff2,
+    FontOtf,
+    FontTtf,
+    FontWoff,
+    FontWoff2,
 }
 
 // template struct
 pub struct TemplateCache {
-    pub index: Box<String>,
-    pub contact: Box<String>,
-    pub not_found: Box<String>,
+    pub index: String,
+    pub contact: String,
+    pub not_found: String,
     pub style_sha256: String,
 }
 
@@ -107,13 +107,9 @@ lazy_static! {
         };
 
         TemplateCache {
-            contact: Box::new(
-                render_template(include_str!("./templates/contact.hbs"), &json_data).unwrap(),
-            ),
-            index: Box::new(String::clone(&index_html)),
-            not_found: Box::new(
-                render_template(include_str!("./templates/404.hbs"), &json_data).unwrap(),
-            ),
+            contact: render_template(include_str!("./templates/contact.hbs"), &json_data).unwrap(),
+            index: index_html.clone(),
+            not_found: render_template(include_str!("./templates/404.hbs"), &json_data).unwrap(),
             style_sha256: get_sha256_hash(style),
         }
     };

@@ -17,14 +17,10 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
     match request.uri().path() {
         "/" | "" => handle_site_request(constants::Site::Index),
         "/contact" | "/contact/" => handle_site_request(constants::Site::Contact),
-        "/source-code-pro-regular.woff2" => {
-            handle_asset_request(constants::Asset::SourceCodeProWoff2)
-        }
-        "/source-code-pro-regular.woff" => {
-            handle_asset_request(constants::Asset::SourceCodeProWoff)
-        }
-        "/source-code-pro-regular.otf" => handle_asset_request(constants::Asset::SourceCodeProOtf),
-        "/source-code-pro-regular.ttf" => handle_asset_request(constants::Asset::SourceCodeProTtf),
+        "/source-code-pro-regular.woff2" => handle_asset_request(constants::Asset::FontWoff2),
+        "/source-code-pro-regular.woff" => handle_asset_request(constants::Asset::FontWoff),
+        "/source-code-pro-regular.otf" => handle_asset_request(constants::Asset::FontOtf),
+        "/source-code-pro-regular.ttf" => handle_asset_request(constants::Asset::FontTtf),
         _ => handle_site_request(constants::Site::NotFound),
     }
 }
@@ -71,7 +67,7 @@ mod tests {
         );
         assert_eq!(
             *response.body(),
-            Body::from(&**constants::TEMPLATE_CACHE.index)
+            Body::from(&*constants::TEMPLATE_CACHE.index)
         );
     }
 
@@ -87,7 +83,7 @@ mod tests {
             );
             assert_eq!(
                 *response.body(),
-                Body::from(&**constants::TEMPLATE_CACHE.contact)
+                Body::from(&*constants::TEMPLATE_CACHE.contact)
             );
         }
     }
@@ -103,7 +99,7 @@ mod tests {
         );
         assert_eq!(
             *response.body(),
-            Body::from(&**constants::TEMPLATE_CACHE.not_found)
+            Body::from(&*constants::TEMPLATE_CACHE.not_found)
         );
     }
 
