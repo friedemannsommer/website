@@ -1,4 +1,4 @@
-name: Website CI
+name: Website - CI
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
     - name: serverless deploy
       run: |
         npm ci
-        npx -q serverless deploy --verbose
+        npx -q serverless deploy --stage production --verbose
       env:
         CI: true
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

@@ -1,0 +1,18 @@
+name: Website - Test
+
+on:
+  push:
+    branches-ignore:
+    - master
+
+jobs:
+  test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
