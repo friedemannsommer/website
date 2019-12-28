@@ -23,7 +23,7 @@ jobs:
     - name: serverless deploy
       run: |
         npm ci
-        npx -q serverless deploy --stage production --verbose
+        npx -q serverless deploy --stage production --conceal
       env:
         CI: true
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
