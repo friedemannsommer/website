@@ -7,6 +7,11 @@ use lambda_http::{
 };
 use lambda_runtime::error::HandlerError;
 
+lazy_static! {
+    pub(crate) static ref DEFAULT_ACCESS_CONTROL_ALLOW_ORIGIN: HeaderValue =
+        HeaderValue::from_static("null");
+}
+
 fn build_forbidden_response() -> Result<Response<Body>, HandlerError> {
     Response::builder()
         .header("content-type", "text/plain; charset=utf-8")
@@ -23,6 +28,8 @@ pub fn handle_asset_request(
         return build_forbidden_response();
     }
 
+    let origin = req_headers.get("origin");
+
     Response::builder()
         .header(
             "content-type",
@@ -31,6 +38,14 @@ pub fn handle_asset_request(
                 Asset::FontTtf => "font/ttf",
                 Asset::FontWoff => "font/woff",
                 Asset::FontWoff2 => "font/woff2",
+            },
+        )
+        .header(
+            "access-control-allow-origin",
+            if origin.is_some() {
+                origin.unwrap()
+            } else {
+                &DEFAULT_ACCESS_CONTROL_ALLOW_ORIGIN
             },
         )
         .header("cache-control", "public, must-revalidate, max-age=86400")
