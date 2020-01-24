@@ -34,10 +34,10 @@ pub fn handle_asset_request(
         .header(
             "content-type",
             match asset {
-                Asset::FontOtf => "font/otf",
-                Asset::FontTtf => "font/ttf",
-                Asset::FontWoff => "font/woff",
-                Asset::FontWoff2 => "font/woff2",
+                Asset::FontOtf => "application/x-font-opentype",
+                Asset::FontTtf => "application/x-font-ttf",
+                Asset::FontWoff => "application/font-woff",
+                Asset::FontWoff2 => "application/font-woff2",
             },
         )
         .header(
