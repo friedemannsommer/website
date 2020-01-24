@@ -29,7 +29,7 @@ pub const SOURCE_CODE_PRO_WOFF: &[u8] = include_bytes!("./assets/source-code-pro
 pub const SOURCE_CODE_PRO_WOFF2: &[u8] = include_bytes!("./assets/source-code-pro-regular.woff2");
 
 lazy_static! {
-    pub static ref TEMPLATE_ENGINE: Handlebars = {
+    pub static ref TEMPLATE_ENGINE: Handlebars<'static> = {
         let mut handlebars = Handlebars::new();
 
         handlebars.set_strict_mode(true);
