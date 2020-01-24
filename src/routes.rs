@@ -233,7 +233,10 @@ mod tests {
         let response = fetch_get_response_with_cors("/source-code-pro-regular.otf");
 
         assert_eq!(response.status(), 200);
-        assert_eq!(response.headers().get("content-type").unwrap(), "font/otf");
+        assert_eq!(
+            response.headers().get("content-type").unwrap(),
+            "application/x-font-opentype"
+        );
         assert_eq!(
             *response.body(),
             Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_OTF))
@@ -245,7 +248,10 @@ mod tests {
         let response = fetch_get_response_with_cors("/source-code-pro-regular.ttf");
 
         assert_eq!(response.status(), 200);
-        assert_eq!(response.headers().get("content-type").unwrap(), "font/ttf");
+        assert_eq!(
+            response.headers().get("content-type").unwrap(),
+            "application/x-font-ttf"
+        );
         assert_eq!(
             *response.body(),
             Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_TTF))
@@ -257,7 +263,10 @@ mod tests {
         let response = fetch_get_response_with_cors("/source-code-pro-regular.woff");
 
         assert_eq!(response.status(), 200);
-        assert_eq!(response.headers().get("content-type").unwrap(), "font/woff");
+        assert_eq!(
+            response.headers().get("content-type").unwrap(),
+            "application/font-woff"
+        );
         assert_eq!(
             *response.body(),
             Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_WOFF))
@@ -271,7 +280,7 @@ mod tests {
         assert_eq!(response.status(), 200);
         assert_eq!(
             response.headers().get("content-type").unwrap(),
-            "font/woff2"
+            "application/font-woff2"
         );
         assert_eq!(
             *response.body(),
