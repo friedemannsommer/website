@@ -1,7 +1,6 @@
 #[macro_use]
 extern crate lazy_static;
 
-mod asset_request;
 mod constants;
 mod routes;
 mod site_request;

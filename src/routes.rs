@@ -1,4 +1,3 @@
-use crate::asset_request::handle_asset_request;
 use crate::constants;
 use crate::site_request::handle_site_request;
 use lambda_http::http::{Method, StatusCode};
@@ -14,19 +13,9 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
             .map_err(crate::util::map_http_err);
     }
 
-    let headers = request.headers();
-
     match request.uri().path() {
         "/" | "" => handle_site_request(constants::Site::Index),
         "/contact" | "/contact/" => handle_site_request(constants::Site::Contact),
-        "/source-code-pro-regular.woff2" => {
-            handle_asset_request(headers, constants::Asset::FontWoff2)
-        }
-        "/source-code-pro-regular.woff" => {
-            handle_asset_request(headers, constants::Asset::FontWoff)
-        }
-        "/source-code-pro-regular.otf" => handle_asset_request(headers, constants::Asset::FontOtf),
-        "/source-code-pro-regular.ttf" => handle_asset_request(headers, constants::Asset::FontTtf),
         _ => handle_site_request(constants::Site::NotFound),
     }
 }
@@ -37,12 +26,6 @@ mod tests {
     use lambda_http::http::HeaderValue;
 
     const SITE_URI_LIST: [&str; 3] = ["/", "/contact", "/not-found"];
-    const ASSET_URI_LIST: [&str; 4] = [
-        "/source-code-pro-regular.woff2",
-        "/source-code-pro-regular.woff",
-        "/source-code-pro-regular.otf",
-        "/source-code-pro-regular.ttf",
-    ];
 
     #[test]
     fn handle_invalid_request_method() {
@@ -107,30 +90,6 @@ mod tests {
             *response.body(),
             Body::from(&*constants::TEMPLATE_CACHE.not_found)
         );
-    }
-
-    #[test]
-    fn force_download() {
-        for path in ASSET_URI_LIST.iter() {
-            let response = fetch_get_response_with_cors(*path);
-
-            assert_eq!(
-                response.headers().get("x-download-options").unwrap(),
-                HeaderValue::from_static("noopen")
-            );
-        }
-    }
-
-    #[test]
-    fn content_type_detection() {
-        for path in ASSET_URI_LIST.iter() {
-            let response = fetch_get_response_with_cors(*path);
-
-            assert_eq!(
-                response.headers().get("x-content-type-options").unwrap(),
-                HeaderValue::from_static("nosniff")
-            );
-        }
     }
 
     #[test]
@@ -216,145 +175,10 @@ mod tests {
         }
     }
 
-    #[test]
-    fn asset_cache_control() {
-        for path in ASSET_URI_LIST.iter() {
-            let response = fetch_get_response_with_cors(*path);
-
-            assert_eq!(
-                response.headers().get("cache-control").unwrap(),
-                "public, must-revalidate, max-age=86400"
-            );
-        }
-    }
-
-    #[test]
-    fn asset_font_otf() {
-        let response = fetch_get_response_with_cors("/source-code-pro-regular.otf");
-
-        assert_eq!(response.status(), 200);
-        assert_eq!(
-            response.headers().get("content-type").unwrap(),
-            "application/x-font-opentype"
-        );
-        assert_eq!(
-            *response.body(),
-            Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_OTF))
-        );
-    }
-
-    #[test]
-    fn asset_font_ttf() {
-        let response = fetch_get_response_with_cors("/source-code-pro-regular.ttf");
-
-        assert_eq!(response.status(), 200);
-        assert_eq!(
-            response.headers().get("content-type").unwrap(),
-            "application/x-font-ttf"
-        );
-        assert_eq!(
-            *response.body(),
-            Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_TTF))
-        );
-    }
-
-    #[test]
-    fn asset_font_woff() {
-        let response = fetch_get_response_with_cors("/source-code-pro-regular.woff");
-
-        assert_eq!(response.status(), 200);
-        assert_eq!(
-            response.headers().get("content-type").unwrap(),
-            "application/font-woff"
-        );
-        assert_eq!(
-            *response.body(),
-            Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_WOFF))
-        );
-    }
-
-    #[test]
-    fn asset_font_woff2() {
-        let response = fetch_get_response_with_cors("/source-code-pro-regular.woff2");
-
-        assert_eq!(response.status(), 200);
-        assert_eq!(
-            response.headers().get("content-type").unwrap(),
-            "application/font-woff2"
-        );
-        assert_eq!(
-            *response.body(),
-            Body::Binary(Vec::from(constants::SOURCE_CODE_PRO_WOFF2))
-        );
-    }
-
-    #[test]
-    fn asset_font_otf_direct_access() {
-        let response = fetch_get_response("/source-code-pro-regular.otf");
-
-        assert_eq!(response.status(), 403);
-        assert_eq!(
-            response.headers().get("content-type").unwrap(),
-            "text/plain; charset=utf-8"
-        );
-        assert_eq!(*response.body(), Body::from("ERR_DIRECT_ACCESS"));
-    }
-
-    #[test]
-    fn asset_font_ttf_direct_access() {
-        let response = fetch_get_response("/source-code-pro-regular.ttf");
-
-        assert_eq!(response.status(), 403);
-        assert_eq!(
-            response.headers().get("content-type").unwrap(),
-            "text/plain; charset=utf-8"
-        );
-        assert_eq!(*response.body(), Body::from("ERR_DIRECT_ACCESS"));
-    }
-
-    #[test]
-    fn asset_font_woff_direct_access() {
-        let response = fetch_get_response("/source-code-pro-regular.woff");
-
-        assert_eq!(response.status(), 403);
-        assert_eq!(
-            response.headers().get("content-type").unwrap(),
-            "text/plain; charset=utf-8"
-        );
-        assert_eq!(*response.body(), Body::from("ERR_DIRECT_ACCESS"));
-    }
-
-    #[test]
-    fn asset_font_woff2_direct_access() {
-        let response = fetch_get_response("/source-code-pro-regular.woff2");
-
-        assert_eq!(response.status(), 403);
-        assert_eq!(
-            response.headers().get("content-type").unwrap(),
-            "text/plain; charset=utf-8"
-        );
-        assert_eq!(*response.body(), Body::from("ERR_DIRECT_ACCESS"));
-    }
-
     fn fetch_get_response(path: &str) -> Response<Body> {
         simple_router(
             lambda_http::http::Request::builder()
                 .method("GET")
-                .uri(path)
-                .body(Body::Empty)
-                .unwrap(),
-            Context::default(),
-        )
-        .unwrap()
-    }
-
-    fn fetch_get_response_with_cors(path: &str) -> Response<Body> {
-        simple_router(
-            lambda_http::http::Request::builder()
-                .method("GET")
-                .header("host", "www.example.com")
-                .header("origin", "https://www.example.com")
-                .header("referer", "https://www.example.com/")
                 .uri(path)
                 .body(Body::Empty)
                 .unwrap(),
