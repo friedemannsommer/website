@@ -1,25 +1,7 @@
-use crate::constants;
 use crypto::{digest::Digest, sha2::Sha256};
 use data_encoding::BASE64;
-use html_minifier::HTMLMinifier;
 use lambda_http::http;
 use lambda_runtime::error::HandlerError;
-use serde_json::Value;
-
-pub fn minify_html(html: String) -> Result<String, &'static str> {
-    let mut html_minifier = HTMLMinifier::new();
-
-    html_minifier.digest(html)?;
-    Ok(html_minifier.get_html())
-}
-
-pub fn render_template(template: &str, data: &Value) -> Result<String, &'static str> {
-    minify_html(
-        constants::TEMPLATE_ENGINE
-            .render_template(template, data)
-            .unwrap(),
-    )
-}
 
 pub fn get_sha256_hash(value: &str) -> String {
     let mut hasher = Sha256::new();

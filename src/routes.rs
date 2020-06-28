@@ -1,5 +1,4 @@
-use crate::constants;
-use crate::site_request::handle_site_request;
+use crate::{constants, site_request::handle_site_request};
 use lambda_http::http::{Method, StatusCode};
 use lambda_http::{Body, Request, Response};
 use lambda_runtime::{error::HandlerError, Context};
@@ -23,6 +22,7 @@ pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, Han
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::templates::render_site;
     use lambda_http::http::HeaderValue;
 
     const SITE_URI_LIST: [&str; 3] = ["/", "/contact", "/not-found"];
@@ -56,7 +56,7 @@ mod tests {
         );
         assert_eq!(
             *response.body(),
-            Body::from(&*constants::TEMPLATE_CACHE.index)
+            Body::from(render_site(&constants::Site::Index).unwrap())
         );
     }
 
@@ -72,7 +72,7 @@ mod tests {
             );
             assert_eq!(
                 *response.body(),
-                Body::from(&*constants::TEMPLATE_CACHE.contact)
+                Body::from(render_site(&constants::Site::Contact).unwrap())
             );
         }
     }
@@ -88,7 +88,7 @@ mod tests {
         );
         assert_eq!(
             *response.body(),
-            Body::from(&*constants::TEMPLATE_CACHE.not_found)
+            Body::from(render_site(&constants::Site::NotFound).unwrap())
         );
     }
 
@@ -126,7 +126,7 @@ mod tests {
                 .unwrap()
                 .to_str()
                 .unwrap()
-                .split(";")
+                .split(';')
                 .collect();
 
             for part in fp_parts {
@@ -165,9 +165,8 @@ mod tests {
             assert_eq!(csp_value.contains("script-src 'self'"), true);
             assert_eq!(
                 csp_value.contains("style-src")
-                    && csp_value.contains(
-                        (format!("sha256-{}", constants::TEMPLATE_CACHE.style_sha256)).as_str()
-                    ),
+                    && csp_value
+                        .contains((format!("sha256-{}", *constants::STYLESHEET_HASH)).as_str()),
                 true
             );
             assert_eq!(csp_value.contains("allow-popups"), true);
