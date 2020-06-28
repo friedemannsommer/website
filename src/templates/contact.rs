@@ -8,7 +8,7 @@ pub fn render_contact(tplbuf: &mut TemplateBuffer<'_>) {
             ul {
                 @ for link in LINK_ENTRIES.iter() {
                     li {
-                        : &link.name;
+                        : format!("{}: ", &link.name);
                         a(
                             href=&link.url,
                             target="_blank",
