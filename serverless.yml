@@ -7,6 +7,7 @@ provider:
   logRetentionInDays: 7
   deploymentBucket:
     maxPreviousDeploymentArtifacts: 1
+    blockPublicAccess: true
   endpointType: regional
   apiGateway:
     minimumCompressionSize: 1024
