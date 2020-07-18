@@ -11,6 +11,7 @@ on:
       - 'Cargo.lock'
       - 'package.json'
       - 'serverless.yml'
+      - '.github/workflows/*.yml'
 
 jobs:
   check:
