@@ -3,7 +3,14 @@
 # - https://github.com/softprops/serverless-aws-rust/blob/a41001d0c4be8a992d984f4a6e38ea7cba26eb18/.github/workflows/main.yml
 name: website - CI
 
-on: push
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'package.json'
+      - 'serverless.yml'
 
 jobs:
   check:
