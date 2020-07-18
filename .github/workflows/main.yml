@@ -21,7 +21,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.cargo/registry
-          key: '${{ runner.os }}-cargo-registry-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
       - uses: actions/cache@v2
         with:
           path: target
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.cargo/registry
-          key: '${{ runner.os }}-cargo-registry-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
       - uses: actions/cache@v2
         with:
           path: target
@@ -73,7 +73,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.cargo/registry
-          key: '${{ runner.os }}-cargo-registry-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
       - uses: actions/cache@v2
         with:
           path: target
@@ -99,17 +99,11 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: ~/.cargo/registry
-        key: '${{ runner.os }}-cargo-registry-${{ hashFiles(''**/Cargo.lock'') }}'
+        key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
     - uses: actions/cache@v2
       with:
         path: target
         key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-    - name: 'install toolchain'
-      uses: actions-rs/toolchain@v1
-      with:
-        profile: minimal
-        toolchain: stable
-        override: true
     - name: Use Node.js 12
       uses: actions/setup-node@v2.1.0
       with:
