@@ -45,6 +45,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "base64"
+version = "0.12.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3441f0f7b02788e948e47f457ca01f1d7e6d92c693bc132c22b087d3141c03ff"
+
+[[package]]
 name = "bitflags"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -140,12 +146,6 @@ dependencies = [
  "cfg-if",
  "lazy_static",
 ]
-
-[[package]]
-name = "data-encoding"
-version = "2.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72aa14c04dfae8dd7d8a2b1cb7ca2152618cd01336dbfe704b8dcbf8d41dbd69"
 
 [[package]]
 name = "dtoa"
@@ -380,7 +380,7 @@ version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a935998dc010d1d7e8d466d3e3dddae9bd51dc111da487634efd3265fe20d6ac"
 dependencies = [
- "base64",
+ "base64 0.10.1",
  "failure",
  "failure_derive",
  "http",
@@ -1176,7 +1176,7 @@ dependencies = [
 name = "website"
 version = "1.0.16"
 dependencies = [
- "data-encoding",
+ "base64 0.12.3",
  "horrorshow",
  "lambda_http",
  "lambda_runtime",
