@@ -11,7 +11,7 @@ provider:
   apiGateway:
     minimumCompressionSize: 1024
     metrics: false
-  timeout: 5
+  timeout: 15
   tracing:
     apiGateway: false
     lambda: false
@@ -32,7 +32,7 @@ functions:
   render:
     handler: website
     memorySize: 128
-    timeout: 4
+    timeout: 15
     logRetentionInDays: 7
     events:
       - http:
