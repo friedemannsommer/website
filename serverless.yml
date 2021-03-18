@@ -22,11 +22,16 @@ provider:
       fullExecutionData: false
     httpApi:
       format: false
+
 package:
   individually: true
 
 plugins:
   - serverless-rust
+
+custom:
+  rust:
+    dockerless: true
 
 functions:
   render:

@@ -104,6 +104,13 @@ jobs:
       with:
         path: target
         key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+    - name: 'install toolchain'
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        target: x86_64-unknown-linux-musl
+        override: true
     - name: Use Node.js 12
       uses: actions/setup-node@v2.1.5
       with:
