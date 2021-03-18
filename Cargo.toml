@@ -10,7 +10,7 @@ path = "src/main.rs"
 
 [dependencies]
 lambda_runtime = "0.2.1"
-lambda_http = "0.1.1"
+lambda_http = "0.3.0"
 lazy_static = "1.4.0"
 rust-crypto = "0.2.36"
 base64 = "0.13.0"
