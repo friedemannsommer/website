@@ -1,9 +1,11 @@
 use crate::{constants, site_request::handle_site_request};
-use lambda_http::http::{Method, StatusCode};
-use lambda_http::{Body, Request, Response};
-use lambda_runtime::{error::HandlerError, Context};
+use lambda_http::{
+    http::{Method, StatusCode},
+    lambda_runtime::Error,
+    Body, Request, Response,
+};
 
-pub fn simple_router(request: Request, _: Context) -> Result<Response<Body>, HandlerError> {
+pub fn simple_router(request: Request) -> Result<Response<Body>, Error> {
     if request.method() != Method::GET {
         return Response::builder()
             .header("content-type", "text/plain; charset=utf-8")
@@ -36,7 +38,6 @@ mod tests {
                     .uri("/")
                     .body(Body::Empty)
                     .unwrap(),
-                Context::default(),
             )
             .unwrap();
 
@@ -181,7 +182,6 @@ mod tests {
                 .uri(path)
                 .body(Body::Empty)
                 .unwrap(),
-            Context::default(),
         )
         .unwrap()
     }

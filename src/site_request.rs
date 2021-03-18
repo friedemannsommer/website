@@ -2,13 +2,11 @@ use crate::{
     constants::{Site, STYLESHEET_HASH},
     templates::render_site,
 };
-use lambda_http::{http::StatusCode, Body, Response};
-use lambda_runtime::error::HandlerError;
+use lambda_http::{http::StatusCode, lambda_runtime::Error, Body, Response};
 
-pub fn handle_site_request(site: Site) -> Result<Response<Body>, HandlerError> {
-    let mut response = Response::builder();
-
-    response.header(
+pub fn handle_site_request(site: Site) -> Result<Response<Body>, Error> {
+    let response = Response::builder()
+    .header(
         "content-security-policy",
         format!("block-all-mixed-content; upgrade-insecure-requests; sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; default-src 'none'; script-src 'self'; style-src 'unsafe-inline' 'self' 'sha256-{}'; font-src 'self'", *STYLESHEET_HASH)
     )
@@ -35,7 +33,7 @@ pub fn handle_site_request(site: Site) -> Result<Response<Body>, HandlerError> {
                 Site::NotFound => StatusCode::NOT_FOUND,
                 _ => StatusCode::OK,
             })
-            .body(Body::from(html)),
+            .body(Body::Text(html)),
         Err(err) => {
             eprintln!("{:?}", err);
             response

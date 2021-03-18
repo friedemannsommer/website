@@ -11,8 +11,10 @@ mod templates;
 mod util;
 
 use crate::routes::simple_router;
-use lambda_http::lambda;
+use lambda_http::{handler, lambda_runtime};
 
-fn main() {
-    lambda!(simple_router)
+#[tokio::main]
+async fn main() -> Result<(), lambda_runtime::Error> {
+    lambda_runtime::run(handler(|req, _| async { simple_router(req) })).await?;
+    Ok(())
 }
