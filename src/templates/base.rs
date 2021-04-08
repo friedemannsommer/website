@@ -1,6 +1,7 @@
 use crate::constants::{Site, MENU_ENTRIES, SITE_DESCRIPTION, SITE_TITLE, STYLESHEET};
 use horrorshow::{helper::doctype, Raw, Render};
 
+#[allow(clippy::needless_lifetimes)]
 pub fn render_base<'a>(site: &'a Site) -> impl Render + 'a {
     owned_html! {
         : doctype::HTML;
@@ -11,7 +12,7 @@ pub fn render_base<'a>(site: &'a Site) -> impl Render + 'a {
                 meta(name="viewport", content="width=device-width, initial-scale=1");
                 style: Raw(STYLESHEET);
             }
-            body {
+            body(class="flexbox flexbox-horizontal") {
                 |tplbuf| tplbuf << render_menu();
                 section {
                     div(class="content") {

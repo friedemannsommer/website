@@ -12,47 +12,35 @@ body {
   padding: 0;
   background-color: #000000;
   color: #ffffff;
-  font-size: 16px;
-  line-height: 18px;
+  font-size: 1em;
+  line-height: 1.5em;
   font-weight: normal;
   font-family: "Lucida Console", Monaco, monospace;
+  height: 100%;
+  width: 100%;
 }
 
 header,
 footer {
   width: 100%;
-  height: 5vh;
   background-color: #212121;
-  min-height: 30px;
-}
-
-header > *,
-footer > * {
-  height: 100%;
-}
-
-section {
-  width: 100%;
-  height: 90vh;
 }
 
 h1,
 h2,
 h3 {
-  font-size: 16px;
-  line-height: 18px;
+  font-size: 1em;
+  line-height: 1.25em;
   margin: 0 0 7px;
   padding: 0;
 }
 
 h1 {
-  font-size: 28px;
-  line-height: 30px;
+  font-size: 2em;
 }
 
 h2 {
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 1.5em;
 }
 
 a {
@@ -79,20 +67,22 @@ code {
 .flexbox {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: baseline;
-  align-content: space-around;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 .flexbox-horizontal {
   flex-direction: row;
+  align-content: space-between;
 }
 
 .flexbox-vertical {
   flex-direction: column;
+  align-content: space-around;
 }
 
 .flexbox > * {
+  flex: 0 1 auto;
   margin: auto;
 }
 
