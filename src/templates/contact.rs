@@ -9,11 +9,15 @@ pub fn render_contact(tplbuf: &mut TemplateBuffer<'_>) {
                 @ for link in LINK_ENTRIES.iter() {
                     li {
                         : format!("{}: ", &link.name);
-                        a(
-                            href=&link.url,
-                            target="_blank",
-                            rel="noopener"
-                        ): &link.label;
+                        @ if let Some(url) = &link.url {
+                            a(
+                                href=url,
+                                target="_blank",
+                                rel="noopener"
+                            ): &link.label;
+                        } else {
+                            : &link.label
+                        }
                     }
                 }
             }

@@ -8,7 +8,7 @@ pub enum Site {
 
 pub struct LinkEntry {
     pub name: String,
-    pub url: String,
+    pub url: Option<String>,
     pub label: String,
 }
 
@@ -38,28 +38,30 @@ lazy_static! {
         vec![
             LinkEntry {
                 name: String::from("GitHub"),
-                url: String::from("https://github.com/friedemannsommer"),
+                url: Some(String::from("https://github.com/friedemannsommer")),
                 label: String::from("@friedemannsommer"),
             },
             LinkEntry {
                 name: String::from("GitLab"),
-                url: String::from("https://gitlab.com/friedemannsommer"),
+                url: Some(String::from("https://gitlab.com/friedemannsommer")),
                 label: String::from("@friedemannsommer"),
             },
             LinkEntry {
                 name: String::from("Twitter"),
-                url: String::from("https://twitter.com/free_some_mem"),
+                url: Some(String::from("https://twitter.com/free_some_mem")),
                 label: String::from("@free_some_mem"),
             },
             LinkEntry {
                 name: String::from("LinkedIn"),
-                url: String::from("https://www.linkedin.com/in/friedemann-sommer-0608b0130"),
+                url: Some(String::from(
+                    "https://www.linkedin.com/in/friedemann-sommer-0608b0130",
+                )),
                 label: String::from("Friedemann Sommer"),
             },
             LinkEntry {
                 name: String::from("Mail"),
-                url: String::from("mailto:contact@friedemannsommer.com"),
-                label: String::from("contact@friedemannsommer.com"),
+                url: None,
+                label: String::from("contact[at]friedemannsommer[dot]com"),
             },
         ]
     };
