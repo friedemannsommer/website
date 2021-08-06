@@ -250,9 +250,9 @@ checksum = "dc6f3ad7b9d11a0c00842ff8de1b60ee58661048eb8049ed33c73594f359d7e6"
 
 [[package]]
 name = "lambda_http"
-version = "0.3.0"
+version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "53d2f5bbdf23c5b73faa7fccf8014642f9817a674a09e714511930bd868cbc19"
+checksum = "35168cbac4427cc4f70b10100aa79d0488446943d51dbf55b2241ebb23416c15"
 dependencies = [
  "base64",
  "http",
