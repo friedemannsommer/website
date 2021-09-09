@@ -250,9 +250,9 @@ checksum = "dc6f3ad7b9d11a0c00842ff8de1b60ee58661048eb8049ed33c73594f359d7e6"
 
 [[package]]
 name = "lambda_http"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b38af2eeca21a34121eb9bc714d05483b6b869533beb3ae4d82d7ca29c41fd54"
+checksum = "f10599c844cf7584c0dfbf6030df7c174cd5c91f2515412f8875de2a0f2b3fc5"
 dependencies = [
  "base64",
  "http",
@@ -264,9 +264,9 @@ dependencies = [
 
 [[package]]
 name = "lambda_runtime"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db78b8997843bbb30fdf81ebb9fed56ded699d6226781ec8e2ddd980d3bd3591"
+checksum = "17ed88d8421123f9546cbd0c4235386803859c4a20b80a6eb613a652b486df8e"
 dependencies = [
  "async-stream",
  "bytes",
