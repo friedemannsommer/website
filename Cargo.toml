@@ -30,7 +30,7 @@ path = "src/main.rs"
 
 [dependencies]
 base64 = "0.13.0"
-horrorshow = "0.8.3"
+horrorshow = "0.8.4"
 lambda_http = "0.4.1"
 lazy_static = "1.4.0"
 rust-crypto = "0.2.36"
