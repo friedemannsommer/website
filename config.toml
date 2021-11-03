@@ -29,6 +29,7 @@ smart_punctuation = false
 skip_prefixes = [
     "https://advanced-store.com/",
     "https://github.com/",
+    "https://www.linkedin.com/"
 ]
 
 [slugify]
