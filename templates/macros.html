@@ -1,0 +1,43 @@
+{% macro meta(page, muted=true) %}
+<div class="{% if muted %}muted {% endif %}flexbox flexbox-horizontal">
+    {% if page.date %}
+    <p>Published: {{ self::display_date(val=page.date) }}</p>
+    <span>&nbsp;|&nbsp;</span>
+    {% endif %}
+    {% if page.updated %}
+    <p>Updated: {{ self::display_date(val=page.updated) }}</p>
+    <span>&nbsp;|&nbsp;</span>
+    {% endif %}
+    <p>{{ page.reading_time }} minute read</p>
+</div>
+{% endmacro meta %}
+
+{% macro page_in_list(page) %}
+<article itemscope itemtype="https://schema.org/CreativeWork">
+    <header>
+        <h2 itemprop="name">
+            <a href="{{ page.permalink }}">{{ page.title }}</a>
+        </h2>
+    </header>
+    {% if page.date %}
+    {{ self::display_date(val=page.date) }}
+    {% endif %}
+    {% if page.summary or page.description %}
+    <div itemprop="summary">
+        {% if page.summary %}
+        {{ page.summary | safe }}
+        {% elif page.description %}
+        {{ page.description | safe }}
+        {% endif %}
+    </div>
+    {% endif %}
+</article>
+{% endmacro page_in_list %}
+
+{% macro page_description(description) %}
+<meta name="description" content="{{ description | safe | default(value='') | truncate(length=150) }}">
+{% endmacro page_description %}
+
+{% macro display_date(val) %}
+<time>{{ val | date(format="%Y-%m-%d", timezone="Etc/UTC") }}</time>
+{% endmacro display_date %}

@@ -1,0 +1,52 @@
+{% import "macros.html" as macros %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <meta name="google" content="nositelinkssearchbox" />
+    <meta name="google" content="notranslate" />
+
+    <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+
+    {% block page_meta %}
+    {{ macros::page_description(description=config.description) }}
+    {% endblock page_meta %}
+
+    {% if config.generate_feed %}
+    <link rel="alternate" type="application/atom+xml" title="RSS" href="{{ get_url(path=config.feed_filename) }}" />
+    {% endif %}
+
+    <link rel="sitemap" type="text/xml" title="Sitemap" href="{{ get_url(path='sitemap.xml') }}" />
+
+    {% block css %}
+    <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) }}" />
+    {% endblock css %}
+</head>
+
+<body>
+{% block header %}
+{% if config.extra.main_menu %}
+<header>
+    <nav itemscope itemtype="https://schema.org/SiteNavigationElement" class="flexbox flexbox-horizontal">
+        {% for item in config.extra.main_menu %}
+        <a itemprop="url"
+           {% if current_path and item.url | trim | replace(from='$BASE_URL', to='') == current_path %} class="active" {% endif %}
+            href="{{ item.url | trim | replace(from='$BASE_URL', to=config.base_url) | safe }}">
+        <span itemprop="name">{{ item.name }}</span>
+        </a>
+        {% endfor %}
+    </nav>
+</header>
+{% endif %}
+{% endblock header %}
+<div class="container">
+{% block content %}
+{% endblock content %}
+</div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}
+{{ page.title }} - {{ config.title }}
+{% endblock title %}
+
+{% block page_meta %}
+{{ macros::page_description(description=page.description | default(value='')) }}
+{% endblock page_meta %}
+
+{% block content %}
+<article itemscope itemtype="https://schema.org/BlogPosting" class="flexbox flexbox-vertical">
+    <header>
+        <h1 itemprop="headline">{{ page.title }}</h1>
+        {% if page.extra.show_meta %}
+        {{ macros::meta(page=page) }}
+        {% endif %}
+    </header>
+    <hr>
+    <div itemprop="articleBody">
+        {{ page.content | safe }}
+    </div>
+    {% block page_footer %}
+    {% if page.taxonomies.tags and page.taxonomies.tags | length > 0 %}
+    <hr>
+    <footer>
+        <ul class="tags">
+            {% if page.taxonomies.tags and page.taxonomies.tags | length > 0 %}
+            {% for tag in page.taxonomies.tags %}
+            <li><a href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a></li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </footer>
+    {% endif %}
+    {% endblock page_footer %}
+</article>
+{% endblock content %}

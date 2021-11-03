@@ -1,0 +1,29 @@
+name: public - CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'content/**'
+      - 'sass/**'
+      - 'static/**'
+      - 'templates/**'
+      - 'config.yml'
+      - '.github/workflows/*.yml'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - name: 'fetch zola'
+        run: 'curl -s -L https://github.com/getzola/zola/releases/download/v0.14.1/zola-v0.14.1-x86_64-unknown-linux-gnu.tar.gz | sudo tar xvzf - -C /usr/local/bin'
+      - name: 'build site'
+        run: 'zola build -o public'
+      - name: 'deploy to GH pages'
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: public
+          clean: true
