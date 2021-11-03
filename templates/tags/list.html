@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ taxonomy.name }} - {{ config.title }}
+{% endblock title %}
+
+{% block page_meta %}
+{{ macros::page_description(description='') }}
+{% endblock page_meta %}
+
+{% block content %}
+<main class="flexbox flexbox-vertical">
+    <h1>{{ taxonomy.name }}</h1>
+    {% if terms %}
+    <ul>
+        {% for term in terms %}
+        <li><a href="{{ term.permalink }}">{{ term.name }}</a> ({{ term.pages | length }})</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</main>
+{% endblock content %}
