@@ -46,5 +46,5 @@ include_content = true
 [extra]
 main_menu = [
     { url = "$BASE_URL/", name = "Home" },
-    { url = "$BASE_URL/about/", name = "About" },
+    { url = "$BASE_URL/contact/", name = "Contact" },
 ]
