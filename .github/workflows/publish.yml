@@ -9,7 +9,7 @@ on:
       - 'sass/**'
       - 'static/**'
       - 'templates/**'
-      - 'config.yml'
+      - 'config.toml'
       - '.github/workflows/*.yml'
 
 jobs:
