@@ -8,17 +8,17 @@
 	<updated>2021-11-03T00:00:00+00:00</updated>
 	<id>https://www.friedemannsommer.com/atom.xml</id>
 	<entry xml:lang="en">
-		<title>About</title>
+		<title>Contact</title>
 		<published>2021-11-03T00:00:00+00:00</published>
 		<updated>2021-11-03T00:00:00+00:00</updated>
-		<link href="https://www.friedemannsommer.com/about/" type="text/html"/>
-		<id>https://www.friedemannsommer.com/about/</id>
+		<link href="https://www.friedemannsommer.com/contact/" type="text/html"/>
+		<id>https://www.friedemannsommer.com/contact/</id>
 		<content type="html">&lt;ul&gt;
 &lt;li&gt;GitHub: &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;friedemannsommer&quot;&gt;@friedemannsommer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;li&gt;GitLab: &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;gitlab.com&#x2F;friedemannsommer&quot;&gt;@friedemannsommer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;li&gt;Twitter: &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;free_some_mem&quot;&gt;@free_some_mem&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;li&gt;LinkedIn: &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;friedemann-sommer-0608b0130&quot;&gt;Friedemann Sommer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;E-Mail: contact@TLD&lt;&#x2F;li&gt;
+&lt;li&gt;E-Mail: contact@(&amp;quot;top domain under registry suffix&amp;quot;)&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 </content>
 	</entry>
