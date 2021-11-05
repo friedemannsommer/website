@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% import "macros.html" as macros %}
 
-{% block title %}
-{{ page.title }} - {{ config.title }}
-{% endblock title %}
+{% block title %}{{ page.title }} - {{ config.title }}{% endblock title %}
 
 {% block page_meta %}
 {{ macros::page_description(description=page.description | default(value='')) }}
