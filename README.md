@@ -1,4 +1,4 @@
-> Static website generated with [Zola](https://www.getzola.org/)
+> Static website generated with [Zola](https://www.getzola.org/) ([getzola/zola](https://github.com/getzola/zola/))
 
 ## Theme
 
