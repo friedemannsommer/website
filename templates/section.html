@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}{{ section.title }} - {{ config.title }}{% endblock title %}
+
+{% block page_meta %}
+{{ macros::page_description(description=section.description | default(value='')) }}
+{% endblock page_meta %}
+
+{% block content %}
+<main class="flexbox flexbox-vertical">
+    <header>
+        <h1>{{ section.title }}</h1>
+    </header>
+    <hr>
+    {% if section.content | length > 0 %}
+    <section class="content">
+        {{ section.content | safe }}
+    </section>
+    {% if paginator %}
+    <hr>
+    {% endif %}
+    {% endif %}
+    {% if paginator %}
+    <section class="pages flexbox flexbox-horizontal">
+        {% for page in paginator.pages %}
+        {{ macros::page_in_list(page=page) }}
+        {% endfor %}
+    </section>
+    <hr>
+    <nav>
+        <p>
+            {% if paginator.previous %}
+            <a href="{{ paginator.previous }}">&laquo; Previous</a> |
+            {% endif %}
+            <span>{{ paginator.current_index }} / {{ paginator.number_pagers }}</span>
+            {% if paginator.next %}
+            | <a href="{{ paginator.next }}">Next &raquo;</a>
+            {% endif %}
+        </p>
+    </nav>
+    {% endif %}
+</main>
+{% endblock content %}

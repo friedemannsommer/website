@@ -39,11 +39,13 @@ body {
     -ms-flex-align: center;
     align-items: center;
     min-height: calc(100% - 2em);
+    padding: 0 1em;
   }
 
   & > header {
     width: 100%;
     background-color: $bga-color;
+    margin: 0 0 1em 0;
 
     nav {
       line-height: 2em;
@@ -85,6 +87,14 @@ a.active,
 a:hover {
   color: $text-color;
   background-color: $secondary-color;
+}
+
+pre {
+  margin: 0 0 1rem;
+  padding: 1rem;
+  text-align: justify;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .muted {
@@ -154,10 +164,10 @@ a:hover {
 }
 
 .pages {
-  max-width: 50vw;
+  max-width: 75vw;
 
   article {
-    padding: 4px;
+    padding: 0.5em;
   }
 }
 
@@ -178,6 +188,41 @@ ul {
         background-color: $secondary-color;
         color: $text-color;
       }
+    }
+  }
+}
+
+blockquote {
+  border-left: 4px solid $text-color;
+  padding-left: 1em;
+}
+
+article {
+  header > section.meta {
+    p {
+      padding: 0 0.5em 0 0;
+
+      &:last-child {
+        padding: 0;
+      }
+    }
+  }
+
+  & > section {
+    max-width: calc(85 * 1em);
+
+    p {
+      margin: 0 0 1em 0;
+    }
+  }
+
+  nav.toc {
+    ul {
+      list-style-type: disc;
+    }
+
+    & > ul ul {
+      padding: 0 0 0 1em;
     }
   }
 }

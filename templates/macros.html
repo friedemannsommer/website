@@ -1,27 +1,25 @@
 {% macro meta(page, muted=true) %}
-<div class="{% if muted %}muted {% endif %}flexbox flexbox-horizontal">
+<section class="meta {% if muted %}muted {% endif %}flexbox flexbox-horizontal">
     {% if page.date %}
-    <p>Published: {{ self::display_date(val=page.date) }}</p>
-    <span>&nbsp;|&nbsp;</span>
+    <p><data value="published">Published: {{ self::display_date(val=page.date) }}</data></p>
     {% endif %}
     {% if page.updated %}
-    <p>Updated: {{ self::display_date(val=page.updated) }}</p>
-    <span>&nbsp;|&nbsp;</span>
+    <p><data value="updated">Updated: {{ self::display_date(val=page.updated) }}</data></p>
     {% endif %}
     <p>{{ page.reading_time }} minute read</p>
-</div>
+</section>
 {% endmacro meta %}
 
 {% macro page_in_list(page) %}
 <article itemscope itemtype="https://schema.org/CreativeWork">
-    <header>
+    <header class="flexbox flexbox-vertical">
         <h2 itemprop="name">
             <a href="{{ page.permalink }}">{{ page.title }}</a>
         </h2>
+        {% if page.date %}
+        {{ self::display_date(val=page.date) }}
+        {% endif %}
     </header>
-    {% if page.date %}
-    {{ self::display_date(val=page.date) }}
-    {% endif %}
     {% if page.summary or page.description %}
     <div itemprop="summary">
         {% if page.summary %}
@@ -41,3 +39,30 @@
 {% macro display_date(val) %}
 <time>{{ val | date(format="%Y-%m-%d", timezone="Etc/UTC") }}</time>
 {% endmacro display_date %}
+
+{% macro display_number(val) %}
+<span itemprop="number">{{ val | num_format }}</span>
+{% endmacro display_number %}
+
+{% macro table_of_contents(entries) %}
+<nav class="toc">
+    <p>Table of contents</p>
+    {{ self::table_of_contents_list(entries=entries) }}
+</nav>
+{% endmacro table_of_contents %}
+
+{% macro table_of_contents_list(entries) %}
+{% set first_entry = entries | first %}
+<ul class="level-{{ first_entry.level }}">
+    {% for entry in entries %}
+    <li>
+        <a itemprop="url" href="{{ entry.permalink | trim | safe }}">
+            <span itemprop="name">{{ entry.title }}</span>
+        </a>
+        {% if entry.children | length > 0 %}
+        {{ self::table_of_contents_list(entries=entry.children) }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endmacro table_of_contents_list %}

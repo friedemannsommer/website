@@ -15,10 +15,14 @@
         {{ macros::meta(page=page) }}
         {% endif %}
     </header>
+    {% if page.extra.show_toc and page.toc | length > 0 %}
     <hr>
-    <div itemprop="articleBody">
+    {{ macros::table_of_contents(entries=page.toc) }}
+    {% endif %}
+    <hr>
+    <section itemprop="articleBody">
         {{ page.content | safe }}
-    </div>
+    </section>
     {% block page_footer %}
     {% if page.taxonomies.tags and page.taxonomies.tags | length > 0 %}
     <hr>
