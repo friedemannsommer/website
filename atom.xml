@@ -5,8 +5,91 @@
 	<link href="https://www.friedemannsommer.com/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://www.friedemannsommer.com"/>
 	<generator uri="https://www.getzola.org/">Zola</generator>
-	<updated>2021-11-03T00:00:00+00:00</updated>
+	<updated>2022-03-08T00:00:00+00:00</updated>
 	<id>https://www.friedemannsommer.com/atom.xml</id>
+	<entry xml:lang="en">
+		<title>JavaScript cooperative async processing</title>
+		<published>2022-03-08T00:00:00+00:00</published>
+		<updated>2022-03-08T00:00:00+00:00</updated>
+		<link href="https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/" type="text/html"/>
+		<id>https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/</id>
+		<content type="html">&lt;p&gt;As someone who is &lt;em&gt;somewhat&lt;&#x2F;em&gt; familiar with JavaScript I will try to explain how it&#x27;s possible to execute &lt;em&gt;expensive&lt;&#x2F;em&gt;
+tasks on a &amp;quot;single-threaded&amp;quot; runtime. As you might have already guessed this has pros and cons, and it&#x27;s
+&lt;strong&gt;no silver bullet&lt;&#x2F;strong&gt;. I refer to it as &amp;quot;cooperative processing&amp;quot;, but it&#x27;s also known as
+&amp;quot;&lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Cooperative multitasking - Wikipedia&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cooperative_multitasking&quot;&gt;cooperative multitasking&lt;&#x2F;a&gt;&amp;quot;. (This term is probably something most have heard from in context
+of operating systems.)&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I acknowledge that it&#x27;s possible to implement this via &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Async Generator - MDN&quot; href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;JavaScript&#x2F;Reference&#x2F;Global_Objects&#x2F;Symbol&#x2F;asyncIterator&quot;&gt;async* Generators&lt;&#x2F;a&gt;, but we won&#x27;t be
+using them since they require &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Promise - MDN&quot; href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;JavaScript&#x2F;Reference&#x2F;Global_Objects&#x2F;Promise&quot;&gt;Promise&lt;&#x2F;a&gt; instances which &lt;strong&gt;can&lt;&#x2F;strong&gt; be relatively expensive.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;The following examples are designed to be used within browsers, but can also be used with &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;nodejs.org&#x2F;en&#x2F;&quot;&gt;Node.js&lt;&#x2F;a&gt;,
+&lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;deno.land&#x2F;&quot;&gt;Deno&lt;&#x2F;a&gt; or any other &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;ECMAScript 5.1&quot; href=&quot;https:&#x2F;&#x2F;262.ecma-international.org&#x2F;5.1&#x2F;&quot;&gt;ES5&lt;&#x2F;a&gt; compatible runtime with &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;HTML Timers&quot; href=&quot;https:&#x2F;&#x2F;html.spec.whatwg.org&#x2F;multipage&#x2F;timers-and-user-prompts.html#dom-settimeout-dev&quot;&gt;Timers&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Given an example task to iterate through a large list of entries and apply some processing to them,
+some might implement this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;typescript&quot; style=&quot;background-color:#212121;color:#eeffff;&quot; class=&quot;language-typescript &quot;&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entries &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;Array&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;10e8&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;result &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;0
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;of &lt;&#x2F;span&gt;&lt;span&gt;entries) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    result &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span&gt;entry
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Don&#x27;t get me wrong, there is nothing wrong with this, if it&#x27;s not blocking some other &lt;em&gt;higher&lt;&#x2F;em&gt; priority task.
+Which is nearly always the case if this or something similar is being run on the (browser) main thread. To work
+around this, I would prefer the following implementation:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;typescript&quot; style=&quot;background-color:#212121;color:#eeffff;&quot; class=&quot;language-typescript &quot;&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entries &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;Array&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;10e8&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;processEntries&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;(
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;entries&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;number&lt;&#x2F;span&gt;&lt;span&gt;[]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;onComplete&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;: (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;sum&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;number&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;void
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;): &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;length &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span&gt;entries&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;length
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;offset &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;0
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;result &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;0
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;_process&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;(): &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; process up to fifty entries at once
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;limit &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;Math&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;min&lt;&#x2F;span&gt;&lt;span&gt;(offset &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;50&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span&gt;length)
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;index &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span&gt;offset&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;index &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;&amp;lt; &lt;&#x2F;span&gt;&lt;span&gt;limit&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;index&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;++&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;            result &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span&gt;entries[index]
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(limit &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;=== &lt;&#x2F;span&gt;&lt;span&gt;length)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; we&amp;#39;ve reached the end
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;onComplete&lt;&#x2F;span&gt;&lt;span&gt;(result)
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; advance offset by batch size
+&lt;&#x2F;span&gt;&lt;span&gt;            offset &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;50
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; 24ms since we&amp;#39;re targeting 60 FPS
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; 16ms * 1.5 = 24ms
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;setTimeout&lt;&#x2F;span&gt;&lt;span&gt;(_process&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;24&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;_process&lt;&#x2F;span&gt;&lt;span&gt;()
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The second example will be slower overall, but since execution is &amp;quot;paused&amp;quot; after fifty entries the main thread
+can process user input or execute other tasks. Some might be thinking:
+&amp;quot;Why would I write more code and have it execute slower?&amp;quot; That&#x27;s a good question!&lt;&#x2F;p&gt;
+&lt;p&gt;Let me &lt;em&gt;try&lt;&#x2F;em&gt; to explain it by using a relatively modest monitoring dashboard as an example. Given that example
+let&#x27;s say there are fourteen different widgets that need to be updated every five seconds with data from the
+last thirty minutes. A given data point represents one second, which means there are
+&lt;code&gt;14 widgets * (30 minutes * 60 seconds)&lt;&#x2F;code&gt; entries which need to be processed. This will yield up to &lt;code&gt;25200&lt;&#x2F;code&gt; entries,
+which is a relatively modest number for a modern PC, but updating all fourteen widgets in one task will lead to
+unresponsiveness for a small amount of time which isn&#x27;t a great user experience.&lt;&#x2F;p&gt;
+&lt;p&gt;A possible solution would be, to process the data per widget per time budget (which was &lt;code&gt;24ms&lt;&#x2F;code&gt; in the previous
+example). You are correct in thinking that this might lead to visual differences, but these should only be minor
+and be resolved within the next one to three seconds (depending on the users PC). Overall this &lt;em&gt;should&lt;&#x2F;em&gt; be a more
+responsive user experience than updating them all at once. &lt;strong&gt;But&lt;&#x2F;strong&gt; since every application is at least slightly
+different and might have different goals this isn&#x27;t necessary.&lt;&#x2F;p&gt;
+&lt;p&gt;The given example does not reflect most &lt;em&gt;real&lt;&#x2F;em&gt; tasks, but I hope that it was understandable. In most &lt;em&gt;real&lt;&#x2F;em&gt;
+applications these processing times simply add up by abstraction or other tasks running &amp;quot;simultaneously&amp;quot;.
+Some applications can use &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Web Workers - MDN&quot; href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Web_Workers_API&#x2F;Using_web_workers&quot;&gt;Web Workers&lt;&#x2F;a&gt; or &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;WebAssembly - MDN&quot; href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;WebAssembly&quot;&gt;WebAssembly&lt;&#x2F;a&gt; to process tasks outside the main thread,
+but this creates other hurdles which may not be worth for some.&lt;&#x2F;p&gt;
+&lt;p&gt;All right, that&#x27;s all. If I made a mistake or something isn&#x27;t clear, try contacting me &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;free_some_mem on Twitter&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;free_some_mem&quot;&gt;@free_some_mem&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+	</entry>
 	<entry xml:lang="en">
 		<title>Contact</title>
 		<published>2021-11-03T00:00:00+00:00</published>

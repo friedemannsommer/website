@@ -4,6 +4,19 @@
         <loc>https://www.friedemannsommer.com/</loc>
     </url>
     <url>
+        <loc>https://www.friedemannsommer.com/blog/</loc>
+    </url>
+    <url>
+        <loc>https://www.friedemannsommer.com/blog/2022/</loc>
+    </url>
+    <url>
+        <loc>https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/</loc>
+        <lastmod>2022-03-08</lastmod>
+    </url>
+    <url>
+        <loc>https://www.friedemannsommer.com/blog/page/1/</loc>
+    </url>
+    <url>
         <loc>https://www.friedemannsommer.com/contact/</loc>
         <lastmod>2021-11-03</lastmod>
     </url>
