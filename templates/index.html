@@ -14,31 +14,9 @@
     </header>
     <hr>
     {% if section.content | length > 0 %}
-    <div class="content">
+    <section class="content">
         {{ section.content | safe }}
-    </div>
-    {% if section.extra.list_pages %}
-    <hr>
-    {% endif %}
-    {% endif %}
-    {% if section.extra.list_pages %}
-    <div class="pages flexbox flexbox-horizontal">
-        {% for page in paginator.pages %}
-        {{ macros::page_in_list(page=page) }}
-        {% endfor %}
-    </div>
-    <hr>
-    <nav>
-        <p>
-            {% if paginator.previous %}
-            <a href="{{ paginator.previous }}">&laquo; Previous</a> |
-            {% endif %}
-            <span>Page {{ paginator.current_index }} of {{ paginator.number_pagers }}</span>
-            {% if paginator.next %}
-            | <a href="{{ paginator.next }}">Next &raquo;</a>
-            {% endif %}
-        </p>
-    </nav>
+    </section>
     {% endif %}
 </main>
 {% endblock content %}
