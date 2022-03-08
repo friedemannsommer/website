@@ -90,8 +90,11 @@ a:hover {
 }
 
 pre {
-  padding: 1rem;
   margin: 0 0 1rem;
+  padding: 1rem;
+  text-align: justify;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .muted {
