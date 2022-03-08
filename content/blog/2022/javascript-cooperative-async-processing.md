@@ -1,5 +1,6 @@
 +++
 title = "JavaScript cooperative async processing"
+description = "Cooperative multitasking in JavaScript"
 date = 2022-03-08
 
 [extra]
