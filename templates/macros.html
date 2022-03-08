@@ -20,13 +20,9 @@
         {{ self::display_date(val=page.date) }}
         {% endif %}
     </header>
-    {% if page.summary or page.description %}
+    {% if page.summary %}
     <div itemprop="summary">
-        {% if page.summary %}
         {{ page.summary | safe }}
-        {% elif page.description %}
-        {{ page.description | safe }}
-        {% endif %}
     </div>
     {% endif %}
 </article>
