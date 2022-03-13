@@ -5,12 +5,12 @@
 	<link href="https://www.friedemannsommer.com/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://www.friedemannsommer.com"/>
 	<generator uri="https://www.getzola.org/">Zola</generator>
-	<updated>2022-03-08T00:00:00+00:00</updated>
+	<updated>2022-03-13T00:00:00+00:00</updated>
 	<id>https://www.friedemannsommer.com/atom.xml</id>
 	<entry xml:lang="en">
 		<title>JavaScript cooperative async processing</title>
 		<published>2022-03-08T00:00:00+00:00</published>
-		<updated>2022-03-08T00:00:00+00:00</updated>
+		<updated>2022-03-13T00:00:00+00:00</updated>
 		<link href="https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/" type="text/html"/>
 		<id>https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/</id>
 		<content type="html">&lt;p&gt;As someone who is &lt;em&gt;somewhat&lt;&#x2F;em&gt; familiar with JavaScript I will try to explain how it&#x27;s possible to execute &lt;em&gt;expensive&lt;&#x2F;em&gt;
@@ -26,48 +26,48 @@ using them since they require &lt;a rel=&quot;noopener nofollow noreferrer&quot;
 &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;deno.land&#x2F;&quot;&gt;Deno&lt;&#x2F;a&gt; or any other &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;ECMAScript 5.1&quot; href=&quot;https:&#x2F;&#x2F;262.ecma-international.org&#x2F;5.1&#x2F;&quot;&gt;ES5&lt;&#x2F;a&gt; compatible runtime with &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;HTML Timers&quot; href=&quot;https:&#x2F;&#x2F;html.spec.whatwg.org&#x2F;multipage&#x2F;timers-and-user-prompts.html#dom-settimeout-dev&quot;&gt;Timers&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;Given an example task to iterate through a large list of entries and apply some processing to them,
 some might implement this:&lt;&#x2F;p&gt;
-&lt;pre data-lang=&quot;typescript&quot; style=&quot;background-color:#212121;color:#eeffff;&quot; class=&quot;language-typescript &quot;&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entries &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;Array&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;10e8&lt;&#x2F;span&gt;&lt;span&gt;)
-&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;result &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;0
+&lt;pre data-lang=&quot;typescript&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-typescript &quot;&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entries = Array(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;10e8&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;result = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;0
 &lt;&#x2F;span&gt;&lt;span&gt;
-&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;of &lt;&#x2F;span&gt;&lt;span&gt;entries) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
-&lt;&#x2F;span&gt;&lt;span&gt;    result &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span&gt;entry
-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entry &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;of &lt;&#x2F;span&gt;&lt;span&gt;entries) {
+&lt;&#x2F;span&gt;&lt;span&gt;    result += entry
+&lt;&#x2F;span&gt;&lt;span&gt;}
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;Don&#x27;t get me wrong, there is nothing wrong with this, if it&#x27;s not blocking some other &lt;em&gt;higher&lt;&#x2F;em&gt; priority task.
 Which is nearly always the case if this or something similar is being run on the (browser) main thread. To work
 around this, I would prefer the following implementation:&lt;&#x2F;p&gt;
-&lt;pre data-lang=&quot;typescript&quot; style=&quot;background-color:#212121;color:#eeffff;&quot; class=&quot;language-typescript &quot;&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entries &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;Array&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;10e8&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;pre data-lang=&quot;typescript&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-typescript &quot;&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;entries = Array(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;10e8&lt;&#x2F;span&gt;&lt;span&gt;)
 &lt;&#x2F;span&gt;&lt;span&gt;
-&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;processEntries&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;(
-&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;entries&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;number&lt;&#x2F;span&gt;&lt;span&gt;[]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;,
-&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;onComplete&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;: (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;sum&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;number&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;void
-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;): &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
-&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;length &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span&gt;entries&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;length
-&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;offset &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;0
-&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;result &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;0
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span&gt;processEntries(
+&lt;&#x2F;span&gt;&lt;span&gt;    entries&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;number[],
+&lt;&#x2F;span&gt;&lt;span&gt;    onComplete&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;(sum&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;number) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;void
+&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;void {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;length = entries.length
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;offset = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;0
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;result = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;0
 &lt;&#x2F;span&gt;&lt;span&gt;
-&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;_process&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;(): &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffcb6b;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; process up to fifty entries at once
-&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;limit &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;Math&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;min&lt;&#x2F;span&gt;&lt;span&gt;(offset &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;50&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span&gt;length)
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;function &lt;&#x2F;span&gt;&lt;span&gt;_process()&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;: &lt;&#x2F;span&gt;&lt;span&gt;void {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; process up to fifty entries at once
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span&gt;limit = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;Math&lt;&#x2F;span&gt;&lt;span&gt;.min(offset + &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;50&lt;&#x2F;span&gt;&lt;span&gt;, length)
 &lt;&#x2F;span&gt;&lt;span&gt;
-&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;index &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span&gt;offset&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;index &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;&amp;lt; &lt;&#x2F;span&gt;&lt;span&gt;limit&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span&gt;index&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;++&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
-&lt;&#x2F;span&gt;&lt;span&gt;            result &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span&gt;entries[index]
-&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;index = offset; index &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;&amp;lt; &lt;&#x2F;span&gt;&lt;span&gt;limit; index&lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;++&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;            result += entries[index]
+&lt;&#x2F;span&gt;&lt;span&gt;        }
 &lt;&#x2F;span&gt;&lt;span&gt;
-&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(limit &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;=== &lt;&#x2F;span&gt;&lt;span&gt;length)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; we&amp;#39;ve reached the end
-&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;onComplete&lt;&#x2F;span&gt;&lt;span&gt;(result)
-&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#c792ea;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;{
-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; advance offset by batch size
-&lt;&#x2F;span&gt;&lt;span&gt;            offset &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;50
-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; 24ms since we&amp;#39;re targeting 60 FPS
-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#4a4a4a;&quot;&gt;&#x2F;&#x2F; 16ms * 1.5 = 24ms
-&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;setTimeout&lt;&#x2F;span&gt;&lt;span&gt;(_process&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f78c6c;&quot;&gt;24&lt;&#x2F;span&gt;&lt;span&gt;)
-&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
-&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(limit === length) {
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; we&amp;#39;ve reached the end
+&lt;&#x2F;span&gt;&lt;span&gt;            onComplete(result)
+&lt;&#x2F;span&gt;&lt;span&gt;        } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; advance offset by batch size
+&lt;&#x2F;span&gt;&lt;span&gt;            offset += &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;50
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; 24ms since we&amp;#39;re targeting 60 FPS
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#608b4e;&quot;&gt;&#x2F;&#x2F; 16ms * 1.5 (scripting multiplier) = 24ms
+&lt;&#x2F;span&gt;&lt;span&gt;            setTimeout(_process, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b5cea8;&quot;&gt;24&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    }
 &lt;&#x2F;span&gt;&lt;span&gt;
-&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#82aaff;&quot;&gt;_process&lt;&#x2F;span&gt;&lt;span&gt;()
-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#89ddff;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;    _process()
+&lt;&#x2F;span&gt;&lt;span&gt;}
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;The second example will be slower overall, but since execution is &amp;quot;paused&amp;quot; after fifty entries the main thread
 can process user input or execute other tasks. Some might be thinking:
