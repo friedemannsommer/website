@@ -2,6 +2,7 @@
 title = "JavaScript cooperative async processing"
 description = "Cooperative multitasking in JavaScript"
 date = 2022-03-08
+updated = 2022-03-13
 
 [extra]
 show_meta = true
@@ -54,14 +55,14 @@ function processEntries(
             result += entries[index]
         }
 
-        if (limit === length){
+        if (limit === length) {
             // we've reached the end
             onComplete(result)
         } else {
             // advance offset by batch size
             offset += 50
             // 24ms since we're targeting 60 FPS
-            // 16ms * 1.5 = 24ms
+            // 16ms * 1.5 (scripting multiplier) = 24ms
             setTimeout(_process, 24)
         }
     }
