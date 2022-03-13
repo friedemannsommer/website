@@ -6,9 +6,9 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-
-    <meta name="google" content="nositelinkssearchbox" />
-    <meta name="google" content="notranslate" />
+    <meta content="#121212" name="theme-color">
+    <meta content="nositelinkssearchbox" name="google" />
+    <meta content="notranslate" name="googlebot" />
 
     <title>{% block title %}{{ config.title }}{% endblock title %}</title>
 
@@ -23,7 +23,11 @@
     <link rel="sitemap" type="text/xml" title="Sitemap" href="{{ get_url(path='sitemap.xml') }}" />
 
     {% block css %}
+    {% if config.base_url is starting_with("http://") %}
     <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) }}" />
+    {% else %}
+    <style>{{ load_data(path="public/site.css") | trim | safe }}</style>
+    {% endif %}
     {% endblock css %}
 </head>
 
@@ -34,8 +38,8 @@
     <nav itemscope itemtype="https://schema.org/SiteNavigationElement" class="flexbox flexbox-horizontal">
         {% for item in config.extra.main_menu %}
         <a itemprop="url"
-           {% if current_path and item.url | trim | replace(from='$BASE_URL', to='') == current_path %} class="active" {% endif %}
-            href="{{ item.url | trim | replace(from='$BASE_URL', to=config.base_url) | safe }}">
+           {% if current_path and current_path == item.url | trim %} class="active" {% endif %}
+            href="{{ config.base_url ~ item.url | trim | safe }}">
         <span itemprop="name">{{ item.name }}</span>
         </a>
         {% endfor %}
