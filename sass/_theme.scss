@@ -1,7 +1,8 @@
+@import "fonts";
 @import "variables";
 
 *:focus {
-  outline: dotted $secondary-color 2px;
+  outline: dashed $secondary-color 0.2rem;
 }
 
 html,
@@ -10,10 +11,9 @@ body {
   padding: 0;
   background-color: $bg-color;
   color: $text-color;
-  font-size: 1em;
   line-height: 1.5em;
   font-weight: normal;
-  font-family: "Lucida Console", Monaco, monospace;
+  font-family: "tiresias_infofont_regular", sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -56,19 +56,19 @@ body {
 h1,
 h2,
 h3 {
-  font-size: 1em;
-  line-height: 1.25em;
+  font-size: $size-default;
+  line-height: 1.5em;
   margin: 0;
   padding: 0;
   text-align: center;
 }
 
 h1 {
-  font-size: 2em;
+  font-size: $size-oversize;
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: $size-large;
 }
 
 hr {
@@ -80,7 +80,7 @@ a {
   color: $primary-color;
   text-decoration: none;
   display: inline-block;
-  padding: 0 4px;
+  padding: 0 0.25rem;
 }
 
 a.active,
@@ -95,10 +95,12 @@ pre {
   text-align: justify;
   white-space: pre-wrap;
   word-wrap: break-word;
+  font-family: monospace;
 }
 
-.muted {
-  opacity: 0.6;
+blockquote {
+  border-left: 0.25rem solid $text-color;
+  padding-left: 1rem;
 }
 
 .flexbox {
@@ -190,11 +192,6 @@ ul {
       }
     }
   }
-}
-
-blockquote {
-  border-left: 4px solid $text-color;
-  padding-left: 1em;
 }
 
 article {

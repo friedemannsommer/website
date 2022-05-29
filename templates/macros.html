@@ -1,5 +1,5 @@
-{% macro meta(page, muted=true) %}
-<section class="meta {% if muted %}muted {% endif %}flexbox flexbox-horizontal">
+{% macro meta(page) %}
+<section class="meta flexbox flexbox-horizontal">
     {% if page.date %}
     <p><data value="published">Published: {{ self::display_date(val=page.date) }}</data></p>
     {% endif %}

@@ -22,9 +22,13 @@
 
     <link rel="sitemap" type="text/xml" title="Sitemap" href="{{ get_url(path='sitemap.xml') }}" />
 
+    {% block preload %}
+    <link rel="preload" href="{{ get_url(path='Tiresias-Infofont/webfont.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous" />
+    {% endblock preload %}
+
     {% block css %}
     {% if config.base_url is starting_with("http://") %}
-    <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) }}" />
+    <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) }}" type="text/css" />
     {% else %}
     <style>{{ load_data(path="public/site.css") | trim | safe }}</style>
     {% endif %}
