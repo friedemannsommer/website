@@ -26,6 +26,20 @@
     <link rel="preload" href="{{ get_url(path='Tiresias-Infofont/webfont.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous" />
     {% endblock preload %}
 
+    {% block font %}
+    <style>
+        @font-face {
+            font-family: 'tiresias_infofont_regular';
+            src: url({{ get_url(path='Tiresias-Infofont/webfont.woff2') }}) format('woff2'),
+            url({{ get_url(path='Tiresias-Infofont/webfont.woff') }}) format('woff'),
+            url({{ get_url(path='Tiresias-Infofont/webfont.ttf') }}) format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    {% endblock font %}
+
     {% block css %}
     {% if config.base_url is starting_with("http://") %}
     <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) }}" type="text/css" />
