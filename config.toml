@@ -43,6 +43,7 @@ include_path = false
 include_content = true
 
 [extra]
+title_separator = "-"
 main_menu = [
     { url = "/", name = "Home" },
     { url = "/blog/", name = "Blog" },

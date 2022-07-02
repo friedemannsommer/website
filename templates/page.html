@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "macros.html" as macros %}
 
-{% block title %}{{ page.title }} - {{ config.title }}{% endblock title %}
+{% block title %}{{ page.title }} {{ config.extra.title_separator }} {{ config.title }}{% endblock title %}
 
 {% block page_meta %}
 {{ macros::page_description(description=page.description | default(value='')) }}
@@ -30,7 +30,9 @@
         <ul class="tags">
             {% if page.taxonomies.tags and page.taxonomies.tags | length > 0 %}
             {% for tag in page.taxonomies.tags %}
-            <li><a href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a></li>
+            <li itemscope itemtype="https://schema.org/DefinedTerm">
+                <a itemprop="url" href="{{ get_taxonomy_url(kind='tags', name=tag) }}"><span>{{ tag }}</span></a>
+            </li>
             {% endfor %}
             {% endif %}
         </ul>

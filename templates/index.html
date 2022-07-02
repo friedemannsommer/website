@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% import "macros.html" as macros %}
 
-{% block title %}{{ section.title }} - {{ config.title }}{% endblock title %}
+{% block title %}{{ section.title }} {{ config.extra.title_separator }} {{ config.title }}{% endblock title %}
 
 {% block page_meta %}
 {{ macros::page_description(description=section.description | default(value='')) }}
 {% endblock page_meta %}
 
 {% block content %}
-<main class="flexbox flexbox-vertical">
+<main itemscope itemtype="https://schema.org/WebPage" class="flexbox flexbox-vertical">
     <header>
-        <h1>{{ section.title }}</h1>
+        <h1 itemprop="name">{{ section.title }}</h1>
     </header>
     <hr>
     {% if section.content | length > 0 %}

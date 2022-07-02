@@ -2,7 +2,7 @@
 {% import "macros.html" as macros %}
 
 {% block title %}
-{{ term.name }} - {{ config.title }}
+{{ term.name }} {{ config.extra.title_separator }} {{ config.title }}
 {% endblock title %}
 
 {% block page_meta %}

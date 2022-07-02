@@ -1,27 +1,39 @@
 {% macro meta(page) %}
 <section class="meta flexbox flexbox-horizontal">
     {% if page.date %}
-    <p><data value="published">Published: {{ self::display_date(val=page.date) }}</data></p>
+    <p>
+        <data value="published">Published: {{ self::display_date(val=page.date, schema_type="datePublished") }}</data>
+    </p>
     {% endif %}
     {% if page.updated %}
-    <p><data value="updated">Updated: {{ self::display_date(val=page.updated) }}</data></p>
+    <p>
+        <data value="updated">Updated: {{ self::display_date(val=page.updated, schema_type="dateModified") }}</data>
+    </p>
     {% endif %}
-    <p>{{ page.reading_time }} minute read</p>
+    <p>
+        <data value="reading_time">{{ page.reading_time }}</data>
+        minute read
+        <span class="hidden" itemprop="timeRequired">PT{{ page.reading_time }}M</span>
+    </p>
+    <p>
+        <data value="word_count" itemprop="wordCount">{{ page.word_count }}</data>
+        words
+    </p>
 </section>
 {% endmacro meta %}
 
 {% macro page_in_list(page) %}
-<article itemscope itemtype="https://schema.org/CreativeWork">
+<article itemscope itemtype="https://schema.org/Article">
     <header class="flexbox flexbox-vertical">
         <h2 itemprop="name">
             <a href="{{ page.permalink }}">{{ page.title }}</a>
         </h2>
         {% if page.date %}
-        {{ self::display_date(val=page.date) }}
+        {{ self::display_date(val=page.date, schema_type="datePublished") }}
         {% endif %}
     </header>
     {% if page.summary %}
-    <div itemprop="summary">
+    <div itemprop="abstract">
         {{ page.summary | safe }}
     </div>
     {% endif %}
@@ -32,12 +44,14 @@
 <meta name="description" content="{{ description | safe | default(value='') | truncate(length=150) }}">
 {% endmacro page_description %}
 
-{% macro display_date(val) %}
-<time>{{ val | date(format="%Y-%m-%d", timezone="Etc/UTC") }}</time>
+{% macro display_date(val, schema_type="") %}
+<time {% if schema_type %}itemprop="{{schema_type}}" {% endif %}>
+    {{ val | date(format="%Y-%m-%d", timezone="Etc/UTC") }}
+</time>
 {% endmacro display_date %}
 
 {% macro display_number(val) %}
-<span itemprop="number">{{ val | num_format }}</span>
+<span>{{ val | num_format }}</span>
 {% endmacro display_number %}
 
 {% macro table_of_contents(entries) %}
@@ -51,7 +65,7 @@
 {% set first_entry = entries | first %}
 <ul class="level-{{ first_entry.level }}">
     {% for entry in entries %}
-    <li>
+    <li itemscope itemtype="https://schema.org/SiteNavigationElement">
         <a itemprop="url" href="{{ entry.permalink | trim | safe }}">
             <span itemprop="name">{{ entry.title }}</span>
         </a>
@@ -62,3 +76,18 @@
     {% endfor %}
 </ul>
 {% endmacro table_of_contents_list %}
+
+{% macro nav_item(item) %}
+{% set item_url = item.url | trim %}
+<span itemscope itemtype="https://schema.org/SiteNavigationElement">
+    <a itemprop="url"
+       {% if current_path %}
+       {% if current_path== item_url or item_url !="/" and current_path is starting_with(item_url) %}
+       class="active"
+       {% endif %}
+       {% endif %}
+       href="{{ config.base_url ~ item_url | safe }}">
+        <span itemprop="name">{{ item.name }}</span>
+    </a>
+</span>
+{% endmacro nav_item %}
