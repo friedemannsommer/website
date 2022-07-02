@@ -79,7 +79,7 @@
 
 {% macro nav_item(item) %}
 {% set item_url = item.url | trim %}
-<span itemscope itemtype="https://schema.org/SiteNavigationElement">
+<p itemscope itemtype="https://schema.org/SiteNavigationElement">
     <a itemprop="url"
        {% if current_path %}
        {% if current_path== item_url or item_url !="/" and current_path is starting_with(item_url) %}
@@ -89,5 +89,5 @@
        href="{{ config.base_url ~ item_url | safe }}">
         <span itemprop="name">{{ item.name }}</span>
     </a>
-</span>
+</p>
 {% endmacro nav_item %}
