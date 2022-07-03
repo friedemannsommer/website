@@ -5,8 +5,58 @@
 	<link href="https://www.friedemannsommer.com/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://www.friedemannsommer.com"/>
 	<generator uri="https://www.getzola.org/">Zola</generator>
-	<updated>2022-03-13T00:00:00+00:00</updated>
+	<updated>2022-07-03T00:00:00+00:00</updated>
 	<id>https://www.friedemannsommer.com/atom.xml</id>
+	<entry xml:lang="en">
+		<title>lib_tcstring</title>
+		<published>2022-07-03T00:00:00+00:00</published>
+		<updated>2022-07-03T00:00:00+00:00</updated>
+		<link href="https://www.friedemannsommer.com/projects/lib-tcstring/" type="text/html"/>
+		<id>https://www.friedemannsommer.com/projects/lib-tcstring/</id>
+		<content type="html">&lt;p&gt;A library written in and for &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.rust-lang.org&#x2F;&quot;&gt;Rust&lt;&#x2F;a&gt;, which decodes IAB TCF v2 strings.&lt;&#x2F;p&gt;
+&lt;p&gt;The documentation for this crate is available at &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;lib_tcstring&quot;&gt;docs.rs&#x2F;lib_tcstring&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This crate&#x27;s source code is available on GitHub
+at &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;advancedSTORE&#x2F;lib_tcstring&quot;&gt;advancedSTORE&#x2F;lib_tcstring&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>SearProxy</title>
+		<published>2022-07-03T00:00:00+00:00</published>
+		<updated>2022-07-03T00:00:00+00:00</updated>
+		<link href="https://www.friedemannsommer.com/projects/searproxy/" type="text/html"/>
+		<id>https://www.friedemannsommer.com/projects/searproxy/</id>
+		<content type="html">&lt;p&gt;A &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searx&#x2F;searx&quot;&gt;SearX&lt;&#x2F;a&gt; &#x2F; &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearXNG - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searxng&#x2F;searxng&quot;&gt;SearXNG&lt;&#x2F;a&gt; compatible web content sanitizer proxy, which is heavily inspired by
+&lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Morty - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;asciimoo&#x2F;morty&quot;&gt;Morty&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve created this project since I wanted a stricter sanitation proxy which still allows some modern features such
+as: &lt;code&gt;&amp;lt;video&amp;gt;&lt;&#x2F;code&gt;, &lt;code&gt;&amp;lt;audio&amp;gt;&lt;&#x2F;code&gt;, &lt;code&gt;&amp;lt;picture&amp;gt;&lt;&#x2F;code&gt;, and &lt;code&gt;&amp;lt;source&amp;gt;&lt;&#x2F;code&gt;. To prevent leakage through unknown or unexpected resource links,
+this project also uses a &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Content Security Policy - MDN&quot; href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;HTTP&#x2F;CSP&quot;&gt;Content Security Policy&lt;&#x2F;a&gt; which allows
+only itself. Like &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Morty - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;asciimoo&#x2F;morty&quot;&gt;Morty&lt;&#x2F;a&gt; it also supports an HTTP or SOCKS5 proxy to tunnel the outgoing traffic. But
+unlike &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Morty - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;asciimoo&#x2F;morty&quot;&gt;Morty&lt;&#x2F;a&gt; it requires a HMAC secret to validate the given URL against and does not allow direct URL opening.&lt;&#x2F;p&gt;
+&lt;p&gt;This project currently has the following features:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;HTML sanitization (&lt;code&gt;&amp;lt;applet&amp;gt;&lt;&#x2F;code&gt;, &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;&#x2F;code&gt;, &lt;code&gt;&amp;lt;embed&amp;gt;&lt;&#x2F;code&gt;) &lt;&#x2F;li&gt;
+&lt;li&gt;Resource reference rewrite&lt;&#x2F;li&gt;
+&lt;li&gt;JavaScript blocking (&lt;code&gt;&amp;lt;script&amp;gt;&lt;&#x2F;code&gt;, &lt;code&gt;on*=&amp;quot;code&amp;quot;&lt;&#x2F;code&gt;)&lt;&#x2F;li&gt;
+&lt;li&gt;No cookies, caching, or referrers&lt;&#x2F;li&gt;
+&lt;li&gt;HTML &lt;code&gt;&amp;lt;form&amp;gt;&lt;&#x2F;code&gt; with &lt;code&gt;GET&lt;&#x2F;code&gt; or &lt;code&gt;POST&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;HTML &lt;code&gt;&amp;lt;img&amp;gt;&lt;&#x2F;code&gt; async decoding and optionally &amp;quot;lazy&amp;quot; loading&lt;&#x2F;li&gt;
+&lt;li&gt;HTML &lt;code&gt;&amp;lt;iframe&amp;gt;&lt;&#x2F;code&gt;, &lt;code&gt;&amp;lt;video&amp;gt;&lt;&#x2F;code&gt;, &lt;code&gt;&amp;lt;audio&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;To use it for &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searx&#x2F;searx&quot;&gt;SearX&lt;&#x2F;a&gt; or &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearXNG - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searxng&#x2F;searxng&quot;&gt;SearXNG&lt;&#x2F;a&gt; define a &lt;code&gt;result_proxy&lt;&#x2F;code&gt; section within the &lt;code&gt;settings.yml&lt;&#x2F;code&gt;. Inside
+this section define a &lt;code&gt;url&lt;&#x2F;code&gt; with the public base URL to this service and a &lt;code&gt;key&lt;&#x2F;code&gt; which is the &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;HMAC - Wikiless&quot; href=&quot;https:&#x2F;&#x2F;wikiless.org&#x2F;wiki&#x2F;HMAC&quot;&gt;HMAC&lt;&#x2F;a&gt; secret that&#x27;s
+used to validate the given URL. This project can also be used as image proxy if &lt;code&gt;server.image_proxy&lt;&#x2F;code&gt; is set to &lt;code&gt;false&lt;&#x2F;code&gt;.
+(See &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX settings.yml documentation&quot; href=&quot;https:&#x2F;&#x2F;searx.github.io&#x2F;searx&#x2F;admin&#x2F;settings.html#server&quot;&gt;SearX settings.yml&lt;&#x2F;a&gt;, &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearXNG settings.yml documentation&quot; href=&quot;https:&#x2F;&#x2F;docs.searxng.org&#x2F;admin&#x2F;engines&#x2F;settings.html#server&quot;&gt;SearXNG settings.yml&lt;&#x2F;a&gt;)&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;yaml&quot; style=&quot;background-color:#1e1e1e;color:#dcdcdc;&quot; class=&quot;language-yaml &quot;&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;result_proxy&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;url&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#d69d85;&quot;&gt;https:&#x2F;&#x2F;proxy.example.com&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;key&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;!!binary &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d69d85;&quot;&gt;&amp;quot;hmac_secret&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;server&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image_proxy&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;false
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Alternatively, see the documentation for the &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX result proxy documentation&quot; href=&quot;https:&#x2F;&#x2F;searx.github.io&#x2F;searx&#x2F;admin&#x2F;morty.html&quot;&gt;SearX result proxy&lt;&#x2F;a&gt; or &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearXNG result proxy documentation&quot; href=&quot;https:&#x2F;&#x2F;docs.searxng.org&#x2F;admin&#x2F;morty.html&quot;&gt;SearXNG result proxy&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The source code for this project can be found on GitHub at &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearProxy - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;friedemannsommer&#x2F;searproxy&quot;&gt;friedemannsommer&#x2F;searproxy&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+	</entry>
 	<entry xml:lang="en">
 		<title>JavaScript cooperative async processing</title>
 		<published>2022-03-08T00:00:00+00:00</published>
@@ -88,21 +138,6 @@ applications these processing times simply add up by abstraction or other tasks 
 Some applications can use &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Web Workers - MDN&quot; href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Web_Workers_API&#x2F;Using_web_workers&quot;&gt;Web Workers&lt;&#x2F;a&gt; or &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;WebAssembly - MDN&quot; href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;WebAssembly&quot;&gt;WebAssembly&lt;&#x2F;a&gt; to process tasks outside the main thread,
 but this creates other hurdles which may not be worth for some.&lt;&#x2F;p&gt;
 &lt;p&gt;All right, that&#x27;s all. If I made a mistake or something isn&#x27;t clear, try contacting me &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;free_some_mem on Twitter&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;free_some_mem&quot;&gt;@free_some_mem&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
-</content>
-	</entry>
-	<entry xml:lang="en">
-		<title>Contact</title>
-		<published>2021-11-03T00:00:00+00:00</published>
-		<updated>2021-11-03T00:00:00+00:00</updated>
-		<link href="https://www.friedemannsommer.com/contact/" type="text/html"/>
-		<id>https://www.friedemannsommer.com/contact/</id>
-		<content type="html">&lt;ul&gt;
-&lt;li&gt;GitHub: &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;friedemannsommer&quot;&gt;@friedemannsommer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;GitLab: &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;gitlab.com&#x2F;friedemannsommer&quot;&gt;@friedemannsommer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;Twitter: &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;free_some_mem&quot;&gt;@free_some_mem&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;LinkedIn: &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;friedemann-sommer-0608b0130&quot;&gt;Friedemann Sommer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;E-Mail: contact@(&amp;quot;top domain under registry suffix&amp;quot;)&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
 </content>
 	</entry>
 </feed>
