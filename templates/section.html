@@ -8,13 +8,13 @@
 {% endblock page_meta %}
 
 {% block content %}
-<main itemscope itemtype="https://schema.org/Article" class="flexbox flexbox-vertical">
+<main itemscope itemtype="https://schema.org/WebPage" class="flexbox flexbox-vertical">
     <header>
         <h1 itemprop="name">{{ section.title }}</h1>
     </header>
     <hr>
     {% if section.content | length > 0 %}
-    <section class="content" itemprop="articleBody">
+    <section class="content" itemprop="text">
         {{ section.content | safe }}
     </section>
     {% if paginator %}
@@ -33,7 +33,7 @@
             {% if paginator.previous %}
             <a href="{{ paginator.previous }}">&laquo; Previous</a> |
             {% endif %}
-            <span itemprop="pagination">{{ paginator.current_index }} / {{ paginator.number_pagers }}</span>
+            <span>{{ paginator.current_index }} / {{ paginator.number_pagers }}</span>
             {% if paginator.next %}
             | <a href="{{ paginator.next }}">Next &raquo;</a>
             {% endif %}

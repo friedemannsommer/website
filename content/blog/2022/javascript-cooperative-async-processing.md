@@ -5,6 +5,7 @@ date = 2022-03-08
 updated = 2022-03-13
 
 [extra]
+is_post = true
 show_meta = true
 +++
 

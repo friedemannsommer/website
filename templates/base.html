@@ -54,10 +54,12 @@
 {% block header %}
 {% if config.extra.main_menu %}
 <header>
-    <nav class="flexbox flexbox-horizontal">
-        {% for item in config.extra.main_menu %}
-        {{ macros::nav_item(item=item) }}
-        {% endfor %}
+    <nav role="navigation" aria-label="Main">
+        <ul class="flexbox flexbox-horizontal">
+            {% for item in config.extra.main_menu %}
+            {{ macros::nav_item(item=item) }}
+            {% endfor %}
+        </ul>
     </nav>
 </header>
 {% endif %}

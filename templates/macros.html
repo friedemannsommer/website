@@ -23,7 +23,7 @@
 {% endmacro meta %}
 
 {% macro page_in_list(page) %}
-<article itemscope itemtype="https://schema.org/Article">
+<article itemscope itemtype="https://schema.org/WebPage">
     <header class="flexbox flexbox-vertical">
         <h2 itemprop="name">
             <a href="{{ page.permalink }}">{{ page.title }}</a>
@@ -40,8 +40,10 @@
 </article>
 {% endmacro page_in_list %}
 
-{% macro page_description(description) %}
-<meta name="description" content="{{ description | safe | default(value='') | truncate(length=150) }}">
+{% macro page_description(description="") %}
+{% if description %}
+<meta name="description" content="{{ description | safe | truncate(length=150) }}">
+{% endif %}
 {% endmacro page_description %}
 
 {% macro display_date(val, schema_type="") %}
@@ -55,7 +57,7 @@
 {% endmacro display_number %}
 
 {% macro table_of_contents(entries) %}
-<nav class="toc">
+<nav class="toc" role="navigation" aria-label="Table of contents">
     <p>Table of contents</p>
     {{ self::table_of_contents_list(entries=entries) }}
 </nav>
@@ -79,7 +81,7 @@
 
 {% macro nav_item(item) %}
 {% set item_url = item.url | trim %}
-<p itemscope itemtype="https://schema.org/SiteNavigationElement">
+<li itemscope itemtype="https://schema.org/SiteNavigationElement">
     <a itemprop="url"
        {% if current_path %}
        {% if current_path== item_url or item_url !="/" and current_path is starting_with(item_url) %}
@@ -89,5 +91,5 @@
        href="{{ config.base_url ~ item_url | safe }}">
         <span itemprop="name">{{ item.name }}</span>
     </a>
-</p>
+</li>
 {% endmacro nav_item %}

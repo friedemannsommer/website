@@ -5,10 +5,6 @@
 {{ term.name }} {{ config.extra.title_separator }} {{ config.title }}
 {% endblock title %}
 
-{% block page_meta %}
-{{ macros::page_description(description='') }}
-{% endblock page_meta %}
-
 {% block content %}
 <main class="flexbox flexbox-vertical">
     <h1>{{ term.name }}</h1>

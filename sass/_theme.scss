@@ -211,7 +211,7 @@ article {
   & > section {
     max-width: calc(85 * 1em);
 
-    p {
+    p, ul {
       margin: 0 0 1em 0;
     }
   }
