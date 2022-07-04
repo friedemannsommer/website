@@ -1,4 +1,4 @@
-Allow: /
-Host: {{ get_url(path="/", trailing_slash=false) }}
-Sitemap: {{ get_url(path="sitemap.xml") }}
-User-agent: *
+user-agent: *
+allow: /
+crawl-delay: 1
+sitemap: {{ get_url(path="sitemap.xml") }}
