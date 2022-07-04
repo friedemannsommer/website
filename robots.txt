@@ -1,4 +1,4 @@
-Allow: /
-Host: https://www.friedemannsommer.com
-Sitemap: https://www.friedemannsommer.com/sitemap.xml
-User-agent: *
+user-agent: *
+allow: /
+crawl-delay: 1
+sitemap: https://www.friedemannsommer.com/sitemap.xml
