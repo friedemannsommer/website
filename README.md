@@ -7,7 +7,7 @@
 * default [variables](https://www.getzola.org/documentation/templates/pages-sections/#page-variables)
 * custom variables (aka. "extra")
     * config
-        * `title_separator` - separator between page title and `config.title`
+        * `title_separator` - separator between `page` / `section` title and `config.title`
         * `main_menu` list of URLs for the "main" menu
     * page
         * `show_meta` - show info such as published, updated, and reading time
