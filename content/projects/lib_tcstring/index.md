@@ -1,7 +1,7 @@
 +++
 title = "lib_tcstring"
 description = "IAB TCF v2 string decoding in Rust"
-date = 2022-07-03
+date = 2020-07-09
 +++
 
 A library written in and for [Rust](https://www.rust-lang.org/), which decodes IAB TCF v2 strings.

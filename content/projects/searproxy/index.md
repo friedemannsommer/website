@@ -1,7 +1,7 @@
 +++
 title = "SearProxy"
 description = "A SearX / SearXNG compatible web content sanitizer proxy"
-date = 2022-07-03
+date = 2022-02-12
 +++
 
 A [SearX][searx] / [SearXNG][searxng] compatible web content sanitizer proxy, which is heavily inspired by
@@ -11,7 +11,7 @@ I've created this project since I wanted a stricter sanitation proxy which still
 as: `<video>`, `<audio>`, `<picture>`, and `<source>`. To prevent leakage through unknown or unexpected resource links,
 this project also uses a [Content Security Policy][csp] which allows
 only itself. Like [Morty][morty] it also supports an HTTP or SOCKS5 proxy to tunnel the outgoing traffic. But
-unlike [Morty][morty] it requires a HMAC secret to validate the given URL against and does not allow direct URL opening.
+unlike [Morty][morty] it requires a HMAC secret to validate the given URL and does not allow direct URL opening.
 
 This project currently has the following features:
 

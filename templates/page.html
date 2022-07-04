@@ -9,9 +9,11 @@
 
 {% block content %}
 {% set is_post = page.extra.is_post | default(value=false) %}
-<article {% if is_post %} itemscope itemtype="https://schema.org/BlogPosting" {% endif %} class="flexbox flexbox-vertical">
+<article class="flexbox flexbox-vertical" itemscope
+         itemtype="{% if is_post %}https://schema.org/BlogPosting{% else %}https://schema.org/WebPage{% endif %}"
+>
     <header>
-        <h1 {% if is_post %} itemprop="headline" {% endif %}>{{ page.title }}</h1>
+        <h1 itemprop="{% if is_post %}headline{% else %}name{% endif %}">{{ page.title }}</h1>
         {% if page.extra.show_meta %}
         {{ macros::meta(page=page) }}
         {% endif %}
@@ -21,7 +23,7 @@
     {{ macros::table_of_contents(entries=page.toc) }}
     {% endif %}
     <hr>
-    <section {% if is_post %} itemprop="articleBody" {% endif %}>
+    <section itemprop="{% if is_post %}articleBody{% else %}text{% endif %}">
         {{ page.content | safe }}
     </section>
     {% block page_footer %}

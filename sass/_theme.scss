@@ -197,6 +197,14 @@ ul {
   }
 }
 
+code[data-lang] {
+  background-color: unset !important;
+
+  & > * {
+    background-color: unset !important;
+  }
+}
+
 article {
   header > section.meta {
     p {
