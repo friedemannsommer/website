@@ -15,7 +15,7 @@ unlike [Morty][morty] it requires a HMAC secret to validate the given URL and do
 
 This project currently has the following features:
 
-* HTML sanitization (`<applet>`, `<canvas>`, `<embed>`) 
+* HTML sanitization (`<applet>`, `<canvas>`, `<embed>`)
 * Resource reference rewrite
 * JavaScript blocking (`<script>`, `on*="code"`)
 * No cookies, caching, or referrers
@@ -25,7 +25,7 @@ This project currently has the following features:
 
 To use it for [SearX][searx] or [SearXNG][searxng] define a `result_proxy` section within the `settings.yml`. Inside
 this section define a `url` with the public base URL to this service and a `key` which is the [HMAC][hmac] secret that's
-used to validate the given URL. This project can also be used as image proxy if `server.image_proxy` is set to `false`.
+used to validate the given URL. This project can also be used as image proxy if `server.image_proxy` is set to `true`.
 (See [SearX settings.yml][searx_image_proxy], [SearXNG settings.yml][searxng_image_proxy])
 
 ```yaml
@@ -34,7 +34,7 @@ result_proxy:
   key: !!binary "hmac_secret"
 
 server:
-  image_proxy: false
+  image_proxy: true
 ```
 
 Alternatively, see the documentation for the [SearX result proxy][searx_morty] or [SearXNG result proxy][searxng_morty].
