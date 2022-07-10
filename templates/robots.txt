@@ -1,4 +1,4 @@
 user-agent: *
-disallow: /
+disallow:
 crawl-delay: 1
 sitemap: {{ get_url(path="sitemap.xml") }}
