@@ -1,4 +1,4 @@
 user-agent: *
-disallow: /
+disallow:
 crawl-delay: 1
 sitemap: https://www.friedemannsommer.com/sitemap.xml
