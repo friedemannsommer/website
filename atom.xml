@@ -11,7 +11,7 @@
 		<title>JavaScript cooperative async processing</title>
 		<published>2022-03-08T00:00:00+00:00</published>
 		<updated>2022-03-13T00:00:00+00:00</updated>
-		<link href="https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/" type="text/html"/>
+		<link rel="alternate" href="https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/" type="text/html"/>
 		<id>https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/</id>
 		<content type="html">&lt;p&gt;As someone who is &lt;em&gt;somewhat&lt;&#x2F;em&gt; familiar with JavaScript I will try to explain how it&#x27;s possible to execute &lt;em&gt;expensive&lt;&#x2F;em&gt;
 tasks on a &amp;quot;single-threaded&amp;quot; runtime. As you might have already guessed this has pros and cons, and it&#x27;s
@@ -94,7 +94,7 @@ but this creates other hurdles which may not be worth for some.&lt;&#x2F;p&gt;
 		<title>SearProxy</title>
 		<published>2022-02-12T00:00:00+00:00</published>
 		<updated>2022-02-12T00:00:00+00:00</updated>
-		<link href="https://www.friedemannsommer.com/projects/searproxy/" type="text/html"/>
+		<link rel="alternate" href="https://www.friedemannsommer.com/projects/searproxy/" type="text/html"/>
 		<id>https://www.friedemannsommer.com/projects/searproxy/</id>
 		<content type="html">&lt;p&gt;A &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searx&#x2F;searx&quot;&gt;SearX&lt;&#x2F;a&gt; &#x2F; &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearXNG - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searxng&#x2F;searxng&quot;&gt;SearXNG&lt;&#x2F;a&gt; compatible web content sanitizer proxy, which is heavily inspired by
 &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Morty - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;asciimoo&#x2F;morty&quot;&gt;Morty&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
@@ -132,7 +132,7 @@ used to validate the given URL. This project can also be used as image proxy if 
 		<title>lib_tcstring</title>
 		<published>2020-07-09T00:00:00+00:00</published>
 		<updated>2020-07-09T00:00:00+00:00</updated>
-		<link href="https://www.friedemannsommer.com/projects/lib-tcstring/" type="text/html"/>
+		<link rel="alternate" href="https://www.friedemannsommer.com/projects/lib-tcstring/" type="text/html"/>
 		<id>https://www.friedemannsommer.com/projects/lib-tcstring/</id>
 		<content type="html">&lt;p&gt;A library written in and for &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.rust-lang.org&#x2F;&quot;&gt;Rust&lt;&#x2F;a&gt;, which decodes IAB TCF v2 strings.&lt;&#x2F;p&gt;
 &lt;p&gt;The documentation for this crate is available at &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;lib_tcstring&quot;&gt;docs.rs&#x2F;lib_tcstring&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
