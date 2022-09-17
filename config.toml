@@ -12,7 +12,7 @@ generate_feed = true
 hard_link_static = false
 
 taxonomies = [
-    { name = "tags", feed = true },
+    { name = "tags", feed = false },
 ]
 
 [markdown]
