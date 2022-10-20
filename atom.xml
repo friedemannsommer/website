@@ -5,7 +5,7 @@
 	<link href="https://www.friedemannsommer.com/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://www.friedemannsommer.com"/>
 	<generator uri="https://www.getzola.org/">Zola</generator>
-	<updated>2022-03-13T00:00:00+00:00</updated>
+	<updated>2022-10-20T00:00:00+00:00</updated>
 	<id>https://www.friedemannsommer.com/atom.xml</id>
 	<entry xml:lang="en">
 		<title>JavaScript cooperative async processing</title>
@@ -93,7 +93,7 @@ but this creates other hurdles which may not be worth for some.&lt;&#x2F;p&gt;
 	<entry xml:lang="en">
 		<title>SearProxy</title>
 		<published>2022-02-12T00:00:00+00:00</published>
-		<updated>2022-02-12T00:00:00+00:00</updated>
+		<updated>2022-10-20T00:00:00+00:00</updated>
 		<link rel="alternate" href="https://www.friedemannsommer.com/projects/searproxy/" type="text/html"/>
 		<id>https://www.friedemannsommer.com/projects/searproxy/</id>
 		<content type="html">&lt;p&gt;A &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searx&#x2F;searx&quot;&gt;SearX&lt;&#x2F;a&gt; &#x2F; &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearXNG - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searxng&#x2F;searxng&quot;&gt;SearXNG&lt;&#x2F;a&gt; compatible web content sanitizer proxy, which is heavily inspired by
@@ -124,7 +124,8 @@ used to validate the given URL. This project can also be used as image proxy if 
 &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;server&lt;&#x2F;span&gt;&lt;span&gt;:
 &lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;background-color:#282828;color:#569cd6;&quot;&gt;image_proxy&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#569cd6;&quot;&gt;true
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;Alternatively, see the documentation for the &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX result proxy documentation&quot; href=&quot;https:&#x2F;&#x2F;searx.github.io&#x2F;searx&#x2F;admin&#x2F;morty.html&quot;&gt;SearX result proxy&lt;&#x2F;a&gt; or &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearXNG result proxy documentation&quot; href=&quot;https:&#x2F;&#x2F;docs.searxng.org&#x2F;admin&#x2F;morty.html&quot;&gt;SearXNG result proxy&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Alternatively, see the documentation for the &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX result proxy documentation&quot; href=&quot;https:&#x2F;&#x2F;searx.github.io&#x2F;searx&#x2F;admin&#x2F;morty.html&quot;&gt;SearX result proxy&lt;&#x2F;a&gt;. (SearXNG has removed their documentation
+for result proxies, but still support them just like SearX.)&lt;&#x2F;p&gt;
 &lt;p&gt;The source code for this project can be found on GitHub at &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearProxy - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;friedemannsommer&#x2F;searproxy&quot;&gt;friedemannsommer&#x2F;searproxy&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 </content>
 	</entry>
