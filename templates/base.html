@@ -22,20 +22,17 @@
 
     <link rel="sitemap" type="text/xml" title="Sitemap" href="{{ get_url(path='sitemap.xml') }}" />
 
-    {% block preload %}
-    <link rel="preload" href="{{ get_url(path='Tiresias-Infofont/webfont.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous" />
-    {% endblock preload %}
-
     {% block font %}
     <style>
         @font-face {
-            font-family: 'tiresias_infofont_regular';
-            src: url({{ get_url(path='Tiresias-Infofont/webfont.woff2') }}) format('woff2'),
-            url({{ get_url(path='Tiresias-Infofont/webfont.woff') }}) format('woff'),
-            url({{ get_url(path='Tiresias-Infofont/webfont.ttf') }}) format('truetype');
-            font-weight: normal;
-            font-style: normal;
+            font-family: 'Open Sans';
             font-display: swap;
+            font-style: normal;
+            font-weight: 700;
+            src: local('Open Sans'), local('OpenSans'),
+            url({{ get_url(path='open-sans/v34-latin-700.woff2') }}) format('woff2'),
+            url({{ get_url(path='open-sans/v34-latin-700.woff') }}) format('woff'),
+            url({{ get_url(path='open-sans/v34-latin-700.ttf') }}) format('truetype');
         }
     </style>
     {% endblock font %}
@@ -46,6 +43,7 @@
     {% else %}
     <style>{{ load_data(path="public/site.css") | trim | safe }}</style>
     {% endif %}
+    <link rel="stylesheet" href="{{ get_url(path='print.css', cachebust=true) }}" type="text/css" media="print" />
     {% endblock css %}
 </head>
 

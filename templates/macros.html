@@ -84,7 +84,10 @@
 <li itemscope itemtype="https://schema.org/SiteNavigationElement">
     <a itemprop="url"
        {% if current_path %}
-       {% if current_path== item_url or item_url !="/" and current_path is starting_with(item_url) %}
+       {% if current_path == item_url %}
+       aria-current="page"
+       {% endif %}
+       {% if current_path == item_url or item_url !="/" and current_path is starting_with(item_url) %}
        class="active"
        {% endif %}
        {% endif %}

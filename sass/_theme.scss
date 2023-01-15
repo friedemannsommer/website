@@ -10,9 +10,9 @@ body {
   padding: 0;
   background-color: $bg-color;
   color: $text-color;
-  line-height: 1.5em;
-  font-weight: normal;
-  font-family: "tiresias_infofont_regular", sans-serif;
+  line-height: $size-large;
+  font-weight: 700;
+  font-family: "Open Sans", "Droid Sans", sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -57,7 +57,7 @@ h1,
 h2,
 h3 {
   font-size: $size-default;
-  line-height: 1.5em;
+  line-height: $size-large;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -71,6 +71,10 @@ h2 {
   font-size: $size-large;
 }
 
+em {
+  font-style: normal;
+}
+
 hr {
   width: 100%;
   border: 1px solid $bga-color;
@@ -79,14 +83,17 @@ hr {
 a {
   color: $primary-color;
   text-decoration: none;
+}
+
+header a {
   display: inline-block;
   padding: 0 0.25rem;
 }
 
 a.active,
 a:hover {
-  color: $text-color;
   background-color: $secondary-color;
+  color: $text-color;
 }
 
 pre {
