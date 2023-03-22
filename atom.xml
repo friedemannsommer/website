@@ -16,6 +16,7 @@
         </author>
         <link rel="alternate" href="https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/" type="text/html"/>
         <id>https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/</id>
+        
         <content type="html">&lt;p&gt;As someone who is &lt;em&gt;somewhat&lt;&#x2F;em&gt; familiar with JavaScript I will try to explain how it&#x27;s possible to execute &lt;em&gt;expensive&lt;&#x2F;em&gt;
 tasks on a &amp;quot;single-threaded&amp;quot; runtime. As you might have already guessed this has pros and cons, and it&#x27;s
 &lt;strong&gt;no silver bullet&lt;&#x2F;strong&gt;. I refer to it as &amp;quot;cooperative processing&amp;quot;, but it&#x27;s also known as
@@ -92,6 +93,7 @@ Some applications can use &lt;a rel=&quot;noopener nofollow noreferrer&quot; tar
 but this creates other hurdles which may not be worth for some.&lt;&#x2F;p&gt;
 &lt;p&gt;All right, that&#x27;s all. If I made a mistake or something isn&#x27;t clear, try contacting me &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;free_some_mem on Twitter&quot; href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;free_some_mem&quot;&gt;@free_some_mem&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 </content>
+        
     </entry>
     <entry xml:lang="en">
         <title>SearProxy</title>
@@ -102,6 +104,7 @@ but this creates other hurdles which may not be worth for some.&lt;&#x2F;p&gt;
         </author>
         <link rel="alternate" href="https://www.friedemannsommer.com/projects/searproxy/" type="text/html"/>
         <id>https://www.friedemannsommer.com/projects/searproxy/</id>
+        
         <content type="html">&lt;p&gt;A &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearX - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searx&#x2F;searx&quot;&gt;SearX&lt;&#x2F;a&gt; &#x2F; &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearXNG - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;searxng&#x2F;searxng&quot;&gt;SearXNG&lt;&#x2F;a&gt; compatible web content sanitizer proxy, which is heavily inspired by
 &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Morty - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;asciimoo&#x2F;morty&quot;&gt;Morty&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;I&#x27;ve created this project since I wanted a stricter sanitation proxy which still allows some modern features such
@@ -134,6 +137,7 @@ used to validate the given URL. This project can also be used as image proxy if 
 for result proxies, but still support them just like SearX.)&lt;&#x2F;p&gt;
 &lt;p&gt;The source code for this project can be found on GitHub at &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;SearProxy - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;friedemannsommer&#x2F;searproxy&quot;&gt;friedemannsommer&#x2F;searproxy&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 </content>
+        
     </entry>
     <entry xml:lang="en">
         <title>lib_tcstring</title>
@@ -144,10 +148,12 @@ for result proxies, but still support them just like SearX.)&lt;&#x2F;p&gt;
         </author>
         <link rel="alternate" href="https://www.friedemannsommer.com/projects/lib-tcstring/" type="text/html"/>
         <id>https://www.friedemannsommer.com/projects/lib-tcstring/</id>
+        
         <content type="html">&lt;p&gt;A library written in and for &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.rust-lang.org&#x2F;&quot;&gt;Rust&lt;&#x2F;a&gt;, which decodes IAB TCF v2 strings.&lt;&#x2F;p&gt;
 &lt;p&gt;The documentation for this crate is available at &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;lib_tcstring&quot;&gt;docs.rs&#x2F;lib_tcstring&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;This crate&#x27;s source code is available on GitHub
 at &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;advancedSTORE&#x2F;lib_tcstring&quot;&gt;advancedSTORE&#x2F;lib_tcstring&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 </content>
+        
     </entry>
 </feed>
