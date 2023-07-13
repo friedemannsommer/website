@@ -44,11 +44,11 @@ for result proxies, but still support them just like SearX.)
 The source code for this project can be found on GitHub at [friedemannsommer/searproxy][searproxy].
 
 [csp]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP "Content Security Policy - MDN"
-[hmac]: https://wikiless.org/wiki/HMAC "HMAC - Wikiless"
+[hmac]: https://en.wikipedia.org/wiki/HMAC "HMAC - Wikipedia"
 [morty]: https://github.com/asciimoo/morty "Morty - GitHub"
 [searproxy]: https://github.com/friedemannsommer/searproxy "SearProxy - GitHub"
 [searx]: https://github.com/searx/searx "SearX - GitHub"
 [searx_morty]: https://searx.github.io/searx/admin/morty.html "SearX result proxy documentation"
 [searx_image_proxy]: https://searx.github.io/searx/admin/settings.html#server "SearX settings.yml documentation"
 [searxng]: https://github.com/searxng/searxng "SearXNG - GitHub"
-[searxng_image_proxy]: https://docs.searxng.org/admin/engines/settings.html#server "SearXNG settings.yml documentation"
+[searxng_image_proxy]: https://docs.searxng.org/admin/settings/settings_server.html "SearXNG settings.yml documentation"
