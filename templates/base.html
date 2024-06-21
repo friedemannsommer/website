@@ -16,8 +16,9 @@
     {{ macros::page_description(description=config.description) }}
     {% endblock page_meta %}
 
-    {% if config.generate_feed %}
-    <link rel="alternate" type="application/atom+xml" title="RSS" href="{{ get_url(path=config.feed_filename) }}" />
+    {% if config.generate_feeds %}
+    <link rel="alternate" type="application/atom+xml" title="Atom feed" href='{{ get_url(path="atom.xml", trailing_slash=false) }}' />
+    <link rel="alternate" type="application/rss+xml" title="RSS feed" href='{{ get_url(path="rss.xml", trailing_slash=false) }}'>
     {% endif %}
 
     <link rel="sitemap" type="text/xml" title="Sitemap" href="{{ get_url(path='sitemap.xml') }}" />
