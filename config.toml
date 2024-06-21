@@ -3,12 +3,16 @@ description = "A Software Engineer at advanced STORE"
 base_url = "https://www.friedemannsommer.com"
 
 default_language = "en"
-feed_filename = "atom.xml"
+
+generate_feeds = true
+feed_filenames = [
+    "atom.xml",
+    "rss.xml",
+]
 
 compile_sass = true
 build_search_index = false
 minify_html = true
-generate_feed = true
 hard_link_static = false
 
 taxonomies = [
