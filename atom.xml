@@ -5,12 +5,12 @@
     <link rel="self" type="application/atom+xml" href="https://www.friedemannsommer.com/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://www.friedemannsommer.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2023-07-13T00:00:00+00:00</updated>
+    <updated>2024-06-21T00:00:00+00:00</updated>
     <id>https://www.friedemannsommer.com/atom.xml</id>
     <entry xml:lang="en">
         <title>JavaScript cooperative async processing</title>
         <published>2022-03-08T00:00:00+00:00</published>
-        <updated>2023-07-13T00:00:00+00:00</updated>
+        <updated>2024-06-21T00:00:00+00:00</updated>
         
         <author>
           <name>
@@ -25,7 +25,7 @@
         
         <content type="html" xml:base="https://www.friedemannsommer.com/blog/2022/javascript-cooperative-async-processing/">&lt;p&gt;As someone who is &lt;em&gt;somewhat&lt;&#x2F;em&gt; familiar with JavaScript, I will try to explain how it&#x27;s possible to execute &lt;em&gt;expensive&lt;&#x2F;em&gt;
 tasks on a &quot;single-threaded&quot; runtime. As you might have already guessed this has pros and cons, and it&#x27;s
-&lt;strong&gt;no silver bullet&lt;&#x2F;strong&gt;. I refer to it as &quot;cooperative processing&quot;, but it&#x27;s also known as
+&lt;strong&gt;no universal solution&lt;&#x2F;strong&gt;. I refer to it as &quot;cooperative processing&quot;, but it&#x27;s also known as
 &quot;&lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; title=&quot;Cooperative multitasking - Wikipedia&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cooperative_multitasking&quot;&gt;cooperative multitasking&lt;&#x2F;a&gt;&quot;. (This term is probably something most have heard from in context
 of operating systems.)&lt;&#x2F;p&gt;
 &lt;blockquote&gt;
