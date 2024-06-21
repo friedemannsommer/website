@@ -1,7 +1,5 @@
 +++
 title = "Contact"
-date = 2021-11-03
-updated = 2023-07-13
 +++
 
 * Codeberg: [@friedemannsommer](https://codeberg.org/friedemannsommer)
