@@ -2,7 +2,7 @@
 title = "JavaScript cooperative async processing"
 description = "Cooperative multitasking in JavaScript"
 date = 2022-03-08
-updated = 2023-07-13
+updated = 2024-06-21
 
 [extra]
 is_post = true
@@ -11,7 +11,7 @@ show_meta = true
 
 As someone who is _somewhat_ familiar with JavaScript, I will try to explain how it's possible to execute _expensive_
 tasks on a "single-threaded" runtime. As you might have already guessed this has pros and cons, and it's
-**no silver bullet**. I refer to it as "cooperative processing", but it's also known as
+**no universal solution**. I refer to it as "cooperative processing", but it's also known as
 "[cooperative multitasking][coop-multitask]". (This term is probably something most have heard from in context
 of operating systems.)
 
