@@ -39,11 +39,7 @@
     {% endblock font %}
 
     {% block css %}
-    {% if config.base_url is starting_with("http://") %}
     <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) }}" type="text/css" />
-    {% else %}
-    <style>{{ load_data(path="public/site.css") | trim | safe }}</style>
-    {% endif %}
     <link rel="stylesheet" href="{{ get_url(path='print.css', cachebust=true) }}" type="text/css" media="print" />
     {% endblock css %}
 </head>
