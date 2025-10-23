@@ -18,7 +18,7 @@
 </span><span>        </span><span style=color:#608b4e>// process up to fifty entries at once
 </span><span>        </span><span style=color:#569cd6>const </span><span>limit = </span><span style=color:#b5cea8>Math</span><span>.min(offset + </span><span style=color:#b5cea8>50</span><span>, length)
 </span><span>
-</span><span>        </span><span style=color:#569cd6>for </span><span>(</span><span style=color:#569cd6>let </span><span>index = offset; index </span><span style=color:#569cd6>< </span><span>limit; index</span><span style=color:#569cd6>++</span><span>) {
+</span><span>        </span><span style=color:#569cd6>for </span><span>(</span><span style=color:#569cd6>let </span><span>index = offset; index </span><span style=color:#569cd6>&lt; </span><span>limit; index</span><span style=color:#569cd6>++</span><span>) {
 </span><span>            result += entries[index]
 </span><span>        }
 </span><span>
