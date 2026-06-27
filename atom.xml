@@ -8,6 +8,60 @@
     <updated>2024-06-21T00:00:00+00:00</updated>
     <id>https://www.friedemannsommer.com/atom.xml</id>
     <entry xml:lang="en">
+        <title>astro-node-fastify</title>
+        <published>2024-06-07T00:00:00+00:00</published>
+        <updated>2024-06-07T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.friedemannsommer.com/projects/astro-node-fastify/"/>
+        <id>https://www.friedemannsommer.com/projects/astro-node-fastify/</id>
+        
+        <content type="html" xml:base="https://www.friedemannsommer.com/projects/astro-node-fastify/">&lt;p&gt;A &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;nodejs.org&#x2F;&quot;&gt;Node.js&lt;&#x2F;a&gt; adapter for &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;astro.build&#x2F;&quot;&gt;Astro&lt;&#x2F;a&gt; SSR built on top of &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;fastify.dev&#x2F;&quot;&gt;Fastify&lt;&#x2F;a&gt;.
+It compresses asset and SSR responses by default and supports configurable cache headers for static assets.&lt;&#x2F;p&gt;
+&lt;p&gt;Key features:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Build-time or runtime compression (&lt;code&gt;gzip&lt;&#x2F;code&gt;, &lt;code&gt;brotli&lt;&#x2F;code&gt;)&lt;&#x2F;li&gt;
+&lt;li&gt;Configurable &lt;code&gt;Cache-Control&lt;&#x2F;code&gt; headers for static assets&lt;&#x2F;li&gt;
+&lt;li&gt;Default response headers for SSR and asset routes&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Available on npm as &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.npmjs.com&#x2F;package&#x2F;astro-node-fastify&quot;&gt;&lt;code&gt;astro-node-fastify&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The configuration reference is available at &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; title=&quot;astro-node-fastify documentation&quot; href=&quot;https:&#x2F;&#x2F;friedemannsommer.github.io&#x2F;astro-node-fastify&#x2F;&quot;&gt;friedemannsommer.github.io&#x2F;astro-node-fastify&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Source code is hosted on GitHub at &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; title=&quot;astro-node-fastify - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;friedemannsommer&#x2F;astro-node-fastify&quot;&gt;friedemannsommer&#x2F;astro-node-fastify&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>lcov-parser</title>
+        <published>2023-08-22T00:00:00+00:00</published>
+        <updated>2023-08-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.friedemannsommer.com/projects/lcov-parser/"/>
+        <id>https://www.friedemannsommer.com/projects/lcov-parser/</id>
+        
+        <content type="html" xml:base="https://www.friedemannsommer.com/projects/lcov-parser/">&lt;p&gt;A &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;linux-test-project&#x2F;lcov&quot;&gt;LCOV&lt;&#x2F;a&gt; trace file parser written in &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;&quot;&gt;TypeScript&lt;&#x2F;a&gt;.
+It supports synchronous and asynchronous parsing and accepts &lt;code&gt;string&lt;&#x2F;code&gt;, &lt;code&gt;Buffer&lt;&#x2F;code&gt;, &lt;code&gt;ArrayBuffer&lt;&#x2F;code&gt;, and &lt;code&gt;Readable&lt;&#x2F;code&gt; streams as input.&lt;&#x2F;p&gt;
+&lt;p&gt;The package is available on npm as &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.npmjs.com&#x2F;package&#x2F;@friedemannsommer&#x2F;lcov-parser&quot;&gt;&lt;code&gt;@friedemannsommer&#x2F;lcov-parser&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The full API documentation can be found at &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; title=&quot;lcov-parser documentation&quot; href=&quot;https:&#x2F;&#x2F;friedemannsommer.github.io&#x2F;lcov-parser&#x2F;&quot;&gt;friedemannsommer.github.io&#x2F;lcov-parser&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The source code for this project can be found on GitHub at &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; title=&quot;lcov-parser - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;friedemannsommer&#x2F;lcov-parser&quot;&gt;friedemannsommer&#x2F;lcov-parser&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>JavaScript cooperative async processing</title>
         <published>2022-03-08T00:00:00+00:00</published>
         <updated>2024-06-21T00:00:00+00:00</updated>
@@ -169,6 +223,30 @@ for result proxies, but still support them just like SearX.)&lt;&#x2F;p&gt;
 &lt;p&gt;The documentation for this crate is available at &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;lib_tcstring&quot;&gt;docs.rs&#x2F;lib_tcstring&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;This crate&#x27;s source code is available on GitHub
 at &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;advancedSTORE&#x2F;lib_tcstring&quot;&gt;advancedSTORE&#x2F;lib_tcstring&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>typescript-postmessagehandler</title>
+        <published>2016-03-23T00:00:00+00:00</published>
+        <updated>2016-03-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.friedemannsommer.com/projects/typescript-postmessagehandler/"/>
+        <id>https://www.friedemannsommer.com/projects/typescript-postmessagehandler/</id>
+        
+        <content type="html" xml:base="https://www.friedemannsommer.com/projects/typescript-postmessagehandler/">&lt;p&gt;A &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;&quot;&gt;TypeScript&lt;&#x2F;a&gt; library that wraps the &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;API&#x2F;Window&#x2F;postMessage&quot;&gt;postMessage API&lt;&#x2F;a&gt;
+to provide structured, type-safe messaging between iframes, windows, and browser tabs.
+A shared secret is used to scope messages so that unrelated postMessage events are ignored.&lt;&#x2F;p&gt;
+&lt;p&gt;The API documentation is available at &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; title=&quot;typescript-postmessagehandler documentation&quot; href=&quot;https:&#x2F;&#x2F;friedemannsommer.github.io&#x2F;typescript-postmessagehandler&#x2F;&quot;&gt;friedemannsommer.github.io&#x2F;typescript-postmessagehandler&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The source code for this project can be found on GitHub at &lt;a rel=&quot;noopener nofollow noreferrer external&quot; target=&quot;_blank&quot; title=&quot;typescript-postmessagehandler - GitHub&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;friedemannsommer&#x2F;typescript-postmessagehandler&quot;&gt;friedemannsommer&#x2F;typescript-postmessagehandler&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
 </content>
         
     </entry>
