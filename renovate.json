@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "schedule:daily"],
+  "extends": ["config:best-practices", "schedule:daily"],
   "assignees": ["friedemannsommer"],
   "reviewers": ["friedemannsommer"],
   "customManagers": [
