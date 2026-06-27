@@ -1,0 +1,25 @@
+@mixin surface {
+    padding: var(--surface-padding);
+    background: var(--color-base-200);
+    border: var(--border-width) solid var(--border-subtle);
+    border-radius: var(--radius-box);
+}
+
+@mixin theme-light {
+    :root,
+    html[data-color-scheme="light"] {
+        @content;
+    }
+}
+
+@mixin theme-dark {
+    @media (prefers-color-scheme: dark) {
+        :root {
+            @content;
+        }
+    }
+
+    html[data-color-scheme="dark"] {
+        @content;
+    }
+}

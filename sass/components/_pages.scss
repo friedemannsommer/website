@@ -1,0 +1,49 @@
+@use "../abstracts/mixins" as *;
+
+@layer components {
+    .pages {
+        container-type: inline-size;
+        container-name: pages-grid;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .pages article {
+        @include surface;
+        container-type: inline-size;
+        container-name: page-card;
+        flex: 1 1 min(100%, 20rem);
+        min-width: 0;
+    }
+
+    @container page-card (width > 420px) {
+        .pages article > header {
+            flex-direction: row;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+    }
+
+    .meta {
+        color: var(--text-muted);
+        font-size: var(--text-sm);
+        justify-content: center;
+    }
+
+    .meta > div {
+        display: flex;
+        gap: var(--space-1);
+    }
+
+    .meta dt {
+        font-weight: 600;
+    }
+
+    .meta dt::after {
+        content: ":";
+    }
+
+    .meta dd {
+        margin: 0;
+    }
+}

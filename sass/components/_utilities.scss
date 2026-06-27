@@ -1,0 +1,21 @@
+@layer components {
+    .hidden {
+        display: none;
+    }
+
+    .flexbox {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+    }
+
+    .flexbox-horizontal {
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .flexbox-vertical {
+        flex-direction: column;
+        align-items: center;
+    }
+}

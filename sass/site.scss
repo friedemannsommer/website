@@ -1,2 +1,19 @@
-@import "reset";
-@import "theme";
+@use "base/layers";
+
+@use "base/reset";
+@use "base/palette";
+@use "base/scale";
+@use "base/semantic";
+@use "base/contrast";
+@use "base/motion";
+
+@use "components/document";
+@use "components/navigation";
+@use "components/typography";
+@use "components/prose";
+@use "components/tags";
+@use "components/pages";
+@use "components/footer";
+@use "components/utilities";
+
+@use "accessibility/reduced-motion";

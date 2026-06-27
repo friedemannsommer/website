@@ -1,0 +1,11 @@
+@layer components {
+    .tags a {
+        color: var(--color-primary-content);
+        background: var(--color-primary);
+    }
+
+    .tags a:hover {
+        color: var(--color-secondary-content);
+        background: var(--color-secondary);
+    }
+}

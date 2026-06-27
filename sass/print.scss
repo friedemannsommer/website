@@ -1,8 +1,6 @@
-@import "variables";
-
 @page {
-    margin: 1.2cm 1.5cm;
     size: auto;
+    margin: 1.5cm 2cm;
 }
 
 *,
@@ -14,6 +12,7 @@
     text-shadow: none !important;
     animation: none !important;
     transition: none !important;
+    -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
 }
 
@@ -26,9 +25,11 @@ body {
 
 body > header,
 .skip-link,
+.theme-toggle,
 .site-footer,
 nav[aria-label="Pagination"],
-.tags {
+.tags,
+.zola-anchor {
     display: none !important;
 }
 
@@ -50,8 +51,19 @@ section.content {
     max-width: 100%;
 }
 
+iframe,
+video,
+object,
+embed {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
 body {
-    font-size: 10pt;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 13pt;
     line-height: 1.4;
 }
 
@@ -62,13 +74,13 @@ h1 {
 }
 
 h2 {
-    font-size: 13pt;
+    font-size: 15pt;
     text-align: left;
     margin: 0.6em 0 0.3em;
 }
 
 h3 {
-    font-size: 11pt;
+    font-size: 14pt;
     text-align: left;
     margin: 0.5em 0 0.25em;
 }
@@ -77,14 +89,18 @@ h3 {
     margin: 0 0 0.5em;
 }
 
-a {
+a:link,
+a:visited {
     color: #000;
     text-decoration: underline;
+    font-weight: bold;
 }
 
-a[href]::after {
-    content: " (" attr(href) ")";
-    font-size: 0.8em;
+a[href^="http"]::after,
+a[href^="https"]::after {
+    content: " <" attr(href) ">";
+    font-size: 10pt;
+    font-weight: normal;
     word-break: break-all;
 }
 
@@ -102,6 +118,7 @@ code:not([data-lang]) {
     background: transparent;
     padding: 0;
     font-size: 0.85em;
+    font-family: "Courier New", Courier, monospace;
 }
 
 pre {
@@ -109,7 +126,6 @@ pre {
     padding: 0.4em 0.6em;
     white-space: pre-wrap;
     word-wrap: break-word;
-    page-break-inside: avoid;
 }
 
 pre code span {
@@ -124,8 +140,10 @@ blockquote {
     margin: 0 0 0.5em;
 }
 
-hr {
+hr,
+:is(main, article) > hr {
     border-top: 1px solid #000;
+    margin: 0.6em auto;
 }
 
 .meta {
@@ -140,12 +158,17 @@ hr {
 h1,
 h2,
 h3 {
+    break-after: avoid;
     page-break-after: avoid;
+    break-inside: avoid;
+    page-break-inside: avoid;
 }
 
 pre,
 blockquote,
 figure,
-img {
+img,
+table {
+    break-inside: avoid;
     page-break-inside: avoid;
 }

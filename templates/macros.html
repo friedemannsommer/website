@@ -1,19 +1,26 @@
 {% macro meta(page) %}
-<div class="meta flexbox flexbox-horizontal">
+<dl class="meta flexbox flexbox-horizontal">
     {% if page.date %}
-    <p>Published: {{ self::display_date(val=page.date, schema_type="datePublished") }}</p>
+    <div>
+        <dt>Published</dt>
+        <dd>{{ self::display_date(val=page.date, schema_type="datePublished") }}</dd>
+    </div>
     {% endif %}
     {% if page.updated %}
-    <p>Updated: {{ self::display_date(val=page.updated, schema_type="dateModified") }}</p>
+    <div>
+        <dt>Updated</dt>
+        <dd>{{ self::display_date(val=page.updated, schema_type="dateModified") }}</dd>
+    </div>
     {% endif %}
-    <p>
-        {{ page.reading_time }} minute read
-        <span class="hidden" itemprop="timeRequired">PT{{ page.reading_time }}M</span>
-    </p>
-    <p>
-        <span itemprop="wordCount">{{ page.word_count }}</span> words
-    </p>
-</div>
+    <div>
+        <dt>Reading time</dt>
+        <dd>{{ page.reading_time }} min<span class="hidden" itemprop="timeRequired">PT{{ page.reading_time }}M</span></dd>
+    </div>
+    <div>
+        <dt>Words</dt>
+        <dd itemprop="wordCount">{{ page.word_count }}</dd>
+    </div>
+</dl>
 {% endmacro meta %}
 
 {% macro page_in_list(page) %}

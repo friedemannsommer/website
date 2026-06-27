@@ -1,0 +1,239 @@
+@use "../abstracts/mixins" as *;
+
+$content: "article > section, section.content";
+
+@layer components {
+    :is(h1, h2, h3, h4, h5, h6),
+    .footnote-reference,
+    .footnotes-list > li {
+        scroll-margin-top: var(--scroll-offset);
+    }
+
+    .zola-anchor {
+        margin-left: var(--space-2);
+        font-weight: 400;
+        color: var(--text-muted);
+        text-decoration: none;
+        opacity: 0;
+        transition:
+            var(--transition-colors),
+            opacity 120ms ease;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6):hover > .zola-anchor,
+    .zola-anchor:focus {
+        opacity: 1;
+    }
+
+    .zola-anchor:hover {
+        color: var(--color-primary);
+        background: transparent;
+    }
+
+    :is(#{$content}, .toc) :is(h1, h2, h3) {
+        text-align: left;
+    }
+
+    :is(#{$content}) :is(h1) {
+        margin-top: var(--space-7);
+    }
+
+    :is(#{$content}) :is(h2) {
+        margin-top: var(--space-6);
+    }
+
+    :is(#{$content}) :is(h3, h4, h5, h6) {
+        margin-top: var(--space-5);
+    }
+
+    :is(#{$content}) > :is(h1, h2, h3, h4, h5, h6):first-child {
+        margin-top: 0;
+    }
+
+    :is(#{$content}) :is(ul, ol),
+    article nav.toc ul {
+        padding-left: var(--space-5);
+    }
+
+    :is(blockquote, details) > :last-child {
+        margin-bottom: 0;
+    }
+
+    table {
+        width: 100%;
+        margin: 0 0 var(--space-4);
+        border-collapse: collapse;
+        font-size: var(--text-sm);
+    }
+
+    :is(th, td) {
+        padding: var(--space-2) var(--space-3);
+        border: var(--border-width) solid var(--border-subtle);
+    }
+
+    thead th {
+        background: var(--color-base-200);
+        border-bottom: var(--border-width-bold) solid var(--color-base-300);
+        font-weight: 700;
+    }
+
+    tbody tr:nth-of-type(even) {
+        background: color-mix(in oklab, var(--color-base-200), transparent 55%);
+    }
+
+    li:has(> input[type="checkbox"]) {
+        list-style: none;
+    }
+
+    input[type="checkbox"] {
+        margin-right: var(--space-2);
+    }
+
+    .footnote-reference {
+        font-size: 0.8em;
+    }
+
+    .footnotes {
+        margin-top: var(--space-5);
+        padding-top: var(--space-4);
+        border-top: var(--border-width) solid var(--color-base-300);
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+    }
+
+    .footnotes-list {
+        padding-left: var(--space-5);
+    }
+
+    .footnotes-list > li::marker {
+        color: var(--text-muted);
+    }
+
+    :is(#{$content}) img {
+        height: auto;
+        border-radius: var(--radius-field);
+    }
+
+    figure {
+        margin: 0 0 var(--space-4);
+    }
+
+    figure img {
+        margin-inline: auto;
+    }
+
+    figcaption {
+        margin-top: var(--space-2);
+        text-align: center;
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+    }
+
+    .giallo-l {
+        display: inline-block;
+        min-height: 1lh;
+        width: 100%;
+    }
+
+    .giallo-ln {
+        display: inline-block;
+        min-width: 3ch;
+        margin-right: var(--space-3);
+        text-align: right;
+        opacity: 0.55;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    pre.giallo mark {
+        display: block;
+        color: inherit;
+        background: var(--code-line-highlight);
+    }
+
+    pre.giallo code[data-name]::before {
+        content: attr(data-name);
+        display: block;
+        margin: calc(-1 * var(--surface-padding))
+            calc(-1 * var(--surface-padding)) var(--surface-padding);
+        padding: var(--space-2) var(--surface-padding);
+        border-bottom: 1px solid var(--code-chrome-border);
+        background: var(--code-chrome-fill);
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: inherit;
+    }
+
+    kbd {
+        padding: 0.15em 0.45em;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        line-height: 1;
+        color: var(--color-base-content);
+        background: var(--color-base-200);
+        border: var(--border-width) solid var(--color-base-300);
+        border-bottom-width: var(--border-width-bold);
+        border-radius: var(--radius-field);
+    }
+
+    mark {
+        padding: 0.05em 0.2em;
+        color: var(--color-accent-content);
+        background: var(--color-accent);
+        border-radius: var(--radius-field);
+    }
+
+    abbr[title] {
+        text-decoration: underline dotted;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.2em;
+        cursor: help;
+    }
+
+    ins {
+        text-decoration-line: underline;
+        text-decoration-color: var(--color-secondary);
+        text-decoration-thickness: 0.1em;
+    }
+
+    del {
+        text-decoration-line: line-through;
+        text-decoration-color: var(--text-muted);
+    }
+
+    small {
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 0.75em;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    details {
+        @include surface;
+        margin: 0 0 var(--space-4);
+    }
+
+    summary {
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    details[open] summary {
+        margin-bottom: var(--space-3);
+    }
+}

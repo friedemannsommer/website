@@ -1,0 +1,78 @@
+@layer components {
+    ::selection {
+        color: var(--selection-fg);
+        background: var(--selection-bg);
+    }
+
+    *:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 3px;
+        box-shadow: 0 0 0 var(--space-1) var(--primary-focus);
+    }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        color: var(--color-base-content);
+        background-color: var(--color-base-100);
+        background-image: var(--body-overlay);
+        background-attachment: fixed;
+        background-blend-mode: normal;
+        font: var(--font-body);
+        transition:
+            background-color var(--duration-base) var(--ease-standard),
+            color var(--duration-base) var(--ease-standard);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-blend-mode: screen;
+        }
+    }
+
+    html[data-color-scheme="dark"] body {
+        background-blend-mode: screen;
+    }
+    html[data-color-scheme="light"] body {
+        background-blend-mode: normal;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+
+    .container {
+        display: grid;
+        flex: 1 0 auto;
+        place-items: start center;
+        padding: clamp(var(--space-4), 3.5vw, 2.5rem)
+            clamp(var(--space-4), 4vw, 2rem);
+    }
+
+    main,
+    article,
+    article > section,
+    section.content {
+        width: min(100%, var(--measure));
+    }
+
+    :is(main, article) > hr {
+        border-top-width: var(--border-width-bold);
+        border-top-color: var(--border-accent);
+        margin-block: var(--space-6);
+    }
+}

@@ -1,0 +1,101 @@
+@layer components {
+    body > header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--header-bg);
+        border-bottom: var(--border-width-bold) solid var(--header-border);
+    }
+
+    .skip-link {
+        position: absolute;
+        top: -100%;
+        left: var(--space-4);
+        z-index: 100;
+        display: inline-flex;
+        padding: var(--nav-item-padding);
+        color: var(--color-accent-content);
+        background: var(--color-accent);
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 0 0 var(--radius-field) var(--radius-field);
+    }
+
+    .skip-link:focus {
+        top: 0;
+    }
+
+    header ul,
+    .tags,
+    nav[aria-label="Pagination"] ul {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-2) var(--space-3);
+        justify-content: center;
+        padding: var(--space-2) var(--space-4);
+        list-style: none;
+        margin: 0;
+    }
+
+    .skip-link,
+    header a,
+    .tags a,
+    nav[aria-label="Pagination"] a {
+        display: inline-flex;
+        padding: var(--nav-item-padding);
+    }
+
+    header a,
+    .tags a,
+    nav[aria-label="Pagination"] a {
+        color: var(--color-base-content);
+        text-decoration: none;
+        line-height: 1;
+        border: var(--border-width) solid transparent;
+        border-radius: var(--radius-field);
+        transition: var(--transition-colors);
+    }
+
+    header a:is(:hover, .active),
+    header a[aria-current="page"],
+    nav[aria-label="Pagination"] a:hover {
+        color: var(--color-primary-content);
+        background: var(--color-primary);
+    }
+
+    header a:active,
+    nav[aria-label="Pagination"] a:active {
+        background: var(--primary-active);
+        color: var(--color-primary-content);
+    }
+
+    .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--nav-item-padding);
+        background: transparent;
+        border: var(--border-width) solid var(--color-base-300);
+        border-radius: var(--radius-field);
+        color: var(--color-base-content);
+        cursor: pointer;
+        font-size: inherit;
+        line-height: 1;
+        transition:
+            var(--transition-colors),
+            border-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .theme-toggle:hover {
+        background: var(--primary-hover);
+        border-color: var(--primary-hover);
+        color: var(--color-primary-content);
+    }
+
+    .theme-toggle:active {
+        background: var(--primary-active);
+        border-color: var(--primary-active);
+        color: var(--color-primary-content);
+    }
+}

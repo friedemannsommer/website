@@ -1,0 +1,110 @@
+@use "../abstracts/mixins" as *;
+
+@layer base {
+    :root {
+        --primary-hover: color-mix(
+            in oklab,
+            var(--color-primary),
+            var(--color-base-100) var(--state-hover-mix)
+        );
+        --primary-active: color-mix(
+            in oklab,
+            var(--color-primary),
+            var(--color-base-content) var(--state-active-mix)
+        );
+        --primary-focus: color-mix(
+            in srgb,
+            var(--color-primary) var(--state-focus-alpha),
+            transparent
+        );
+
+        --text-muted: color-mix(
+            in oklab,
+            var(--color-base-content),
+            var(--color-base-100) 30%
+        );
+        --link: color-mix(
+            in oklab,
+            var(--color-primary),
+            var(--color-base-content) 55%
+        );
+
+        --border-subtle: color-mix(
+            in oklab,
+            var(--color-base-300),
+            var(--color-base-100) 55%
+        );
+        --border-accent: var(--color-secondary);
+
+        --header-bg: color-mix(in srgb, var(--color-base-100) 92%, transparent);
+        --header-border: var(--color-secondary);
+
+        --glow-error: color-mix(
+            in oklab,
+            var(--color-error) var(--glow-strength),
+            transparent
+        );
+        --glow-warning: color-mix(
+            in oklab,
+            var(--color-warning) var(--glow-strength),
+            transparent
+        );
+        --glow-success: color-mix(
+            in oklab,
+            var(--color-success) var(--glow-strength),
+            transparent
+        );
+        --glow-info: color-mix(
+            in oklab,
+            var(--color-info) var(--glow-strength),
+            transparent
+        );
+        --body-overlay:
+            radial-gradient(
+                ellipse 65% 55% at 0% 0%,
+                var(--glow-error),
+                transparent 70%
+            ),
+            radial-gradient(
+                ellipse 65% 55% at 100% 0%,
+                var(--glow-warning),
+                transparent 70%
+            ),
+            radial-gradient(
+                ellipse 65% 55% at 100% 100%,
+                var(--glow-success),
+                transparent 70%
+            ),
+            radial-gradient(
+                ellipse 65% 55% at 0% 100%,
+                var(--glow-info),
+                transparent 70%
+            );
+    }
+
+    @include theme-light {
+        --selection-bg: var(--color-accent);
+        --selection-fg: var(--color-base-content);
+        --focus-ring: var(--color-primary);
+
+        --code-fg: var(--color-primary);
+        --code-chrome-border: oklch(0 0 0 / 0.12);
+        --code-chrome-fill: oklch(0 0 0 / 0.05);
+        --code-line-highlight: oklch(0 0 0 / 0.06);
+
+        --glow-strength: 7%;
+    }
+
+    @include theme-dark {
+        --selection-bg: var(--color-primary);
+        --selection-fg: var(--color-base-100);
+        --focus-ring: var(--color-base-content);
+
+        --code-fg: var(--color-secondary);
+        --code-chrome-border: oklch(1 0 0 / 0.12);
+        --code-chrome-fill: oklch(1 0 0 / 0.05);
+        --code-line-highlight: oklch(1 0 0 / 0.08);
+
+        --glow-strength: 14%;
+    }
+}
