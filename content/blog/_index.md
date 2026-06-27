@@ -1,6 +1,6 @@
 +++
 title = "Blog"
-description = "A Software Engineer at advanced STORE"
+description = "Writing about software engineering, web development, and related topics"
 sort_by = "date"
 paginate_by = 6
 +++

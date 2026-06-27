@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
 <head>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="#121212" name="theme-color">
+    <meta name="color-scheme" content="dark">
     <meta content="nositelinkssearchbox" name="google" />
     <meta content="notranslate" name="googlebot" />
 
@@ -16,7 +16,16 @@
     {{ macros::page_description(description=config.description) }}
     {% endblock page_meta %}
 
-    {% if config.generate_feed or config.generate_feeds %}
+    {% block og_meta %}
+    <meta property="og:title" content="{{ config.title }}">
+    <meta property="og:description" content="{{ config.description | truncate(length=155) }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ config.base_url }}">
+    {% endblock og_meta %}
+
+    {% block canonical %}{% endblock canonical %}
+
+    {% if config.generate_feeds %}
     <link rel="alternate" type="application/atom+xml" title="Atom feed" href='{{ get_url(path="atom.xml", trailing_slash=false) }}' />
     <link rel="alternate" type="application/rss+xml" title="RSS feed" href='{{ get_url(path="rss.xml", trailing_slash=false) }}'>
     {% endif %}
@@ -31,9 +40,7 @@
             font-style: normal;
             font-weight: 700;
             src: local('Open Sans'), local('OpenSans'),
-            url({{ get_url(path='open-sans/v34-latin-700.woff2') }}) format('woff2'),
-            url({{ get_url(path='open-sans/v34-latin-700.woff') }}) format('woff'),
-            url({{ get_url(path='open-sans/v34-latin-700.ttf') }}) format('truetype');
+            url({{ get_url(path='open-sans/v34-latin-700.woff2') }}) format('woff2');
         }
     </style>
     {% endblock font %}
@@ -46,10 +53,12 @@
 
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 {% block header %}
 {% if config.extra.main_menu %}
 <header>
-    <nav role="navigation" aria-label="Main">
+    <nav aria-label="Main">
         <ul class="flexbox flexbox-horizontal">
             {% for item in config.extra.main_menu %}
             {{ macros::nav_item(item=item) }}

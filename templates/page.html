@@ -7,13 +7,22 @@
 {{ macros::page_description(description=page.description | default(value='')) }}
 {% endblock page_meta %}
 
+{% block canonical %}<link rel="canonical" href="{{ page.permalink }}">{% endblock canonical %}
+
+{% block og_meta %}
+<meta property="og:title" content="{{ page.title }} {{ config.extra.title_separator }} {{ config.title }}">
+<meta property="og:description" content="{{ page.description | default(value=config.description) | truncate(length=155) }}">
+<meta property="og:type" content="{% if page.extra.is_post | default(value=false) %}article{% else %}website{% endif %}">
+<meta property="og:url" content="{{ page.permalink }}">
+{% endblock og_meta %}
+
 {% block content %}
-{% set is_post = page.extra.is_post | default(value=false) %}
+<main id="main-content">
 <article class="flexbox flexbox-vertical" itemscope
-         itemtype="{% if is_post %}https://schema.org/BlogPosting{% else %}https://schema.org/WebPage{% endif %}"
+         itemtype="{% if page.extra.is_post | default(value=false) %}https://schema.org/BlogPosting{% else %}https://schema.org/WebPage{% endif %}"
 >
     <header>
-        <h1 itemprop="{% if is_post %}headline{% else %}name{% endif %}">{{ page.title }}</h1>
+        <h1 itemprop="{% if page.extra.is_post | default(value=false) %}headline{% else %}name{% endif %}">{{ page.title }}</h1>
         {% if page.extra.show_meta %}
         {{ macros::meta(page=page) }}
         {% endif %}
@@ -23,7 +32,7 @@
     {{ macros::table_of_contents(entries=page.toc) }}
     {% endif %}
     <hr>
-    <section itemprop="{% if is_post %}articleBody{% else %}text{% endif %}">
+    <section itemprop="{% if page.extra.is_post | default(value=false) %}articleBody{% else %}text{% endif %}">
         {{ page.content | safe }}
     </section>
     {% block page_footer %}
@@ -31,16 +40,15 @@
     <hr>
     <footer>
         <ul class="tags">
-            {% if page.taxonomies.tags and page.taxonomies.tags | length > 0 %}
             {% for tag in page.taxonomies.tags %}
             <li itemscope itemtype="https://schema.org/DefinedTerm">
                 <a itemprop="url" href="{{ get_taxonomy_url(kind='tags', name=tag) }}"><span>{{ tag }}</span></a>
             </li>
             {% endfor %}
-            {% endif %}
         </ul>
     </footer>
     {% endif %}
     {% endblock page_footer %}
 </article>
+</main>
 {% endblock content %}

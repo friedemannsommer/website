@@ -1,25 +1,19 @@
 {% macro meta(page) %}
-<section class="meta flexbox flexbox-horizontal">
+<div class="meta flexbox flexbox-horizontal">
     {% if page.date %}
-    <p>
-        <data value="published">Published: {{ self::display_date(val=page.date, schema_type="datePublished") }}</data>
-    </p>
+    <p>Published: {{ self::display_date(val=page.date, schema_type="datePublished") }}</p>
     {% endif %}
     {% if page.updated %}
-    <p>
-        <data value="updated">Updated: {{ self::display_date(val=page.updated, schema_type="dateModified") }}</data>
-    </p>
+    <p>Updated: {{ self::display_date(val=page.updated, schema_type="dateModified") }}</p>
     {% endif %}
     <p>
-        <data value="reading_time">{{ page.reading_time }}</data>
-        minute read
+        {{ page.reading_time }} minute read
         <span class="hidden" itemprop="timeRequired">PT{{ page.reading_time }}M</span>
     </p>
     <p>
-        <data value="word_count" itemprop="wordCount">{{ page.word_count }}</data>
-        words
+        <span itemprop="wordCount">{{ page.word_count }}</span> words
     </p>
-</section>
+</div>
 {% endmacro meta %}
 
 {% macro page_in_list(page) %}
@@ -42,12 +36,12 @@
 
 {% macro page_description(description="") %}
 {% if description %}
-<meta name="description" content="{{ description | safe | truncate(length=150) }}">
+<meta name="description" content="{{ description | truncate(length=155) }}">
 {% endif %}
 {% endmacro page_description %}
 
 {% macro display_date(val, schema_type="") %}
-<time {% if schema_type %}itemprop="{{schema_type}}" {% endif %}>
+<time {% if schema_type %}itemprop="{{schema_type}}" {% endif %}datetime="{{ val | date(format="%Y-%m-%d", timezone="Etc/UTC") }}">
     {{ val | date(format="%Y-%m-%d", timezone="Etc/UTC") }}
 </time>
 {% endmacro display_date %}
@@ -57,8 +51,8 @@
 {% endmacro display_number %}
 
 {% macro table_of_contents(entries) %}
-<nav class="toc" role="navigation" aria-label="Table of contents">
-    <p>Table of contents</p>
+<nav class="toc" aria-label="Table of contents">
+    <h2>Table of contents</h2>
     {{ self::table_of_contents_list(entries=entries) }}
 </nav>
 {% endmacro table_of_contents %}

@@ -7,8 +7,17 @@
 {{ macros::page_description(description=section.description | default(value='')) }}
 {% endblock page_meta %}
 
+{% block canonical %}<link rel="canonical" href="{{ section.permalink }}">{% endblock canonical %}
+
+{% block og_meta %}
+<meta property="og:title" content="{{ section.title }} {{ config.extra.title_separator }} {{ config.title }}">
+<meta property="og:description" content="{{ section.description | default(value=config.description) | truncate(length=155) }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ section.permalink }}">
+{% endblock og_meta %}
+
 {% block content %}
-<main itemscope itemtype="https://schema.org/WebPage" class="flexbox flexbox-vertical">
+<main id="main-content" itemscope itemtype="https://schema.org/WebPage" class="flexbox flexbox-vertical">
     <header>
         <h1 itemprop="name">{{ section.title }}</h1>
     </header>
@@ -28,16 +37,16 @@
         {% endfor %}
     </section>
     <hr>
-    <nav>
-        <p>
+    <nav aria-label="Pagination">
+        <ul>
             {% if paginator.previous %}
-            <a href="{{ paginator.previous }}">&laquo; Previous</a> |
+            <li><a href="{{ paginator.previous }}">&laquo; Previous</a></li>
             {% endif %}
-            <span>{{ paginator.current_index }} / {{ paginator.number_pagers }}</span>
+            <li><span>{{ paginator.current_index }} / {{ paginator.number_pagers }}</span></li>
             {% if paginator.next %}
-            | <a href="{{ paginator.next }}">Next &raquo;</a>
+            <li><a href="{{ paginator.next }}">Next &raquo;</a></li>
             {% endif %}
-        </p>
+        </ul>
     </nav>
     {% endif %}
 </main>

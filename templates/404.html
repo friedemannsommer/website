@@ -3,12 +3,10 @@
 {% block title %}404 {{ config.extra.title_separator }} {{ config.title }}{% endblock title %}
 
 {% block content %}
-<main itemscope itemtype="https://schema.org/WebPage">
+<main id="main-content" itemscope itemtype="https://schema.org/WebPage">
     <header>
         <h1 itemprop="name">404</h1>
     </header>
-    <section>
-        <p itemprop="description">There isn't something here I promise.</p>
-    </section>
+    <p itemprop="description">There isn't something here I promise.</p>
 </main>
 {% endblock content %}
