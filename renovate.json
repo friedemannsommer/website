@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "schedule:daily"],
+  "assignees": ["friedemannsommer"],
+  "reviewers": ["friedemannsommer"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "matchStrings": ["ZOLA_VERSION:\\s*(?<currentValue>v?\\d+\\.\\d+\\.\\d+)"],
+      "depNameTemplate": "getzola/zola",
+      "datasourceTemplate": "github-releases"
+    }
+  ]
+}
