@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="#121212" name="theme-color">
+    <meta content="#0a0a0a" name="theme-color">
     <meta name="color-scheme" content="dark">
     <meta content="nositelinkssearchbox" name="google" />
     <meta content="notranslate" name="googlebot" />
@@ -31,19 +31,6 @@
     {% endif %}
 
     <link rel="sitemap" type="text/xml" title="Sitemap" href="{{ get_url(path='sitemap.xml') }}" />
-
-    {% block font %}
-    <style>
-        @font-face {
-            font-family: 'Open Sans';
-            font-display: swap;
-            font-style: normal;
-            font-weight: 700;
-            src: local('Open Sans'), local('OpenSans'),
-            url({{ get_url(path='open-sans/v34-latin-700.woff2') }}) format('woff2');
-        }
-    </style>
-    {% endblock font %}
 
     {% block css %}
     <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) }}" type="text/css" />
@@ -73,6 +60,15 @@
 {% block content %}
 {% endblock content %}
 </div>
+
+<footer class="site-footer">
+    <div class="pride-rainbow" role="img" aria-label="LGBTQIA+ pride rainbow"></div>
+    <p class="footer-note">
+      Last built <time datetime="{{ now() | date(format="%Y-%m-%d") }}">{{ now() | date(format="%d %B %Y") }}</time>
+      <span aria-hidden="true"> | </span>
+      {{ config.title }}
+    </p>
+</footer>
 
 </body>
 </html>

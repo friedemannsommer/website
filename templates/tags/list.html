@@ -6,11 +6,14 @@
 
 {% block content %}
 <main id="main-content" class="flexbox flexbox-vertical">
-    <h1>{{ taxonomy.name }}</h1>
+    <header>
+        <h1>{{ taxonomy.name }}</h1>
+    </header>
     {% if terms %}
-    <ul>
+    <hr>
+    <ul class="tags">
         {% for term in terms %}
-        <li><a href="{{ term.permalink }}">{{ term.name }}</a> ({{ term.pages | length }})</li>
+        <li><a href="{{ term.permalink }}">{{ term.name }} ({{ term.pages | length }})</a></li>
         {% endfor %}
     </ul>
     {% endif %}

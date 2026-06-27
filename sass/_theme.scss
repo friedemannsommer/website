@@ -1,215 +1,242 @@
 @import "variables";
 
+:root {
+    color-scheme: dark;
+}
+::selection {
+    color: $obsidian;
+    background: $citrine;
+}
 *:focus-visible {
-  outline: dashed $focus-color 0.2rem;
-  outline-offset: 0.2rem;
+    outline: 0.2rem solid $focus;
+    outline-offset: 0.2rem;
 }
-
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 0;
-  z-index: 100;
-  padding: 0.25rem 0.5rem;
-  background-color: $bg-color;
-  color: $text-color;
-  border: 0.15rem solid $text-color;
-
-  &:focus {
-    top: 0;
-  }
+html {
+    height: 100%;
 }
-
-html,
 body {
-  margin: 0;
-  padding: 0;
-  background-color: $bg-color;
-  color: $text-color;
-  line-height: $size-large;
-  font-weight: 700;
-  font-family: "Open Sans", "Droid Sans", sans-serif;
-  height: 100%;
-  width: 100%;
+    min-height: 100%;
 }
 
 body {
-  & > .container {
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-content: stretch;
-    align-items: center;
-    /* screen height - header height */
-    min-height: calc(100% - 3.5em);
-    padding: 0 1em;
-  }
-
-  & > header {
-    width: 100%;
-    background-color: $bga-color;
-    margin: 0 0 1em 0;
-
-    nav {
-      line-height: 2.5em;
-    }
-  }
+    margin: 0;
+    color: $quartz;
+    background:
+        linear-gradient(135deg, rgba(229, 56, 59, 0.18), transparent 38%) fixed,
+        $obsidian;
+    font:
+        500 clamp(1rem, 0.96rem + 0.22vw, 1.15rem) / 1.7 system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
-h1,
-h2,
-h3 {
-  font-size: $size-default;
-  line-height: $size-large;
-  margin: 0;
-  padding: 0;
-  text-align: center;
+body > header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(10, 10, 10, 0.9);
+    border-bottom: 0.2rem solid $garnet;
+    backdrop-filter: blur(0.8rem);
 }
 
+.container {
+    display: grid;
+    flex: 1 0 auto;
+    place-items: start center;
+    padding: clamp(1rem, 3.5vw, 2.5rem) clamp(1rem, 4vw, 2rem);
+}
+
+main,
+article,
+article > section,
+section.content {
+    width: min(100%, 72ch);
+}
+:is(h1, h2, h3) {
+    margin: 0 0 0.25em;
+    line-height: 1.1;
+    text-align: center;
+    text-wrap: balance;
+}
 h1 {
-  font-size: $size-oversize;
+    font-size: $size-oversize;
 }
-
 h2 {
-  font-size: $size-large;
+    font-size: $size-large;
 }
-
-hr {
-  width: 100%;
-  border: 1px solid $bga-color;
+:is(p, ul, ol, pre, blockquote) {
+    margin: 0 0 1rem;
 }
 
 a {
-  color: $primary-color;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+    color: $citrine;
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.2em;
+}
+:is(a:hover, a.active) {
+    color: $obsidian;
+    background: $topaz;
+    text-decoration: none;
 }
 
-header a {
-  display: inline-block;
-  padding: 0 0.25rem;
-  text-decoration: none;
+.skip-link,
+header a,
+.tags a,
+nav[aria-label="Pagination"] a {
+    display: inline-flex;
+    padding: 0.35rem 0.6rem;
+}
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 100;
+    color: $obsidian;
+    background: $focus;
+}
+.skip-link:focus {
+    top: 1rem;
+}
+header ul,
+.tags,
+nav[aria-label="Pagination"] ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 0.7rem 1rem;
+    list-style: none;
+}
+header a,
+.tags a,
+nav[aria-label="Pagination"] a {
+    color: $quartz;
+    text-decoration: none;
+}
+header a:is(:hover, .active),
+.tags a,
+nav[aria-label="Pagination"] a:hover {
+    color: $obsidian;
+    background: $citrine;
+}
+.tags a:hover {
+    background: $topaz;
 }
 
-a.active,
-a:hover {
-  background-color: $secondary-color;
-  color: $text-color;
+hr {
+    width: min(100%, 72ch);
+    border: 0;
+    border-top: 1px solid $granite;
 }
-
+:is(pre, blockquote, .pages article) {
+    background: $slate;
+    border: 1px solid $granite;
+}
 pre {
-  margin: 0 0 1rem;
-  padding: 1rem;
-  text-align: left;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-family: monospace;
+    overflow: auto;
+    padding: 1rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
-
+code:not([data-lang]) {
+    color: $topaz;
+    background: $slate;
+    padding: 0.08em 0.3em;
+}
+code[data-lang],
+code[data-lang] > * {
+    background-color: transparent !important;
+}
+:is(a:hover, a.active) code:not([data-lang]) {
+    color: inherit;
+    background-color: transparent;
+}
 blockquote {
-  border-left: 0.25rem solid $text-color;
-  padding-left: 1rem;
+    padding: 1rem 1rem 1rem 1.25rem;
+    border-left: 0.35rem solid $garnet;
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
-
 .flexbox {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
 }
-
 .flexbox-horizontal {
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-start;
+    justify-content: center;
+    align-items: flex-start;
 }
-
 .flexbox-vertical {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+    flex-direction: column;
+    align-items: center;
 }
-
-.flexbox > * {
-  flex: 0 1 auto;
-  align-self: auto;
-}
-
 .pages {
-  max-width: 75vw;
-
-  article {
-    padding: 0.5em;
-  }
+    max-width: 100%;
+}
+.pages article {
+    padding: 1rem;
+}
+.meta {
+    color: $marble;
+    font-size: 0.95em;
+    justify-content: center;
+}
+:is(article > section, section.content, .toc) :is(h2, h3) {
+    text-align: left;
+}
+:is(article > section, section.content) ul,
+article nav.toc ul {
+    padding-left: 1.5rem;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-
-  &.tags > li {
-    display: inline-block;
-    margin: 0 4px;
-
-    a {
-      background-color: $primary-color;
-      color: $bg-color;
-      text-decoration: none;
-
-      &:hover {
-        background-color: $secondary-color;
-        color: $text-color;
-      }
-    }
-  }
+.site-footer {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: clamp(0.75rem, 2.5vw, 1.5rem) 1rem;
+    text-align: center;
 }
-
-code[data-lang],
-code[data-lang] > * {
-  background-color: unset !important;
+.pride-rainbow {
+    align-self: stretch;
+    margin: calc(-1 * clamp(0.75rem, 2.5vw, 1.5rem)) -1rem 0;
+    height: 0.75rem;
+    background-image: linear-gradient(
+        90deg,
+        #e40303,
+        #ff8c00,
+        #ffed00,
+        #008026,
+        #004dff,
+        #750787,
+        #e40303,
+        #ff8c00,
+        #ffed00,
+        #008026,
+        #004dff,
+        #750787,
+        #e40303
+    );
+    background-size: 200% 100%;
+    animation: pride-rainbow-scroll 6s linear infinite;
 }
-
-article {
-  header > section.meta {
-    p {
-      padding: 0 0.5em 0 0;
-
-      &:last-child {
-        padding: 0;
-      }
+@keyframes pride-rainbow-scroll {
+    from {
+        background-position: 0% 0;
     }
-  }
-
-  & > section {
-    max-width: calc(85 * 1em);
-
-    h2, h3 {
-      text-align: left;
+    to {
+        background-position: 100% 0;
     }
-
-    p {
-      margin: 0 0 1em 0;
-    }
-
-    ul {
-      list-style: disc;
-      margin: 0 0 1em 0;
-      padding-left: 1.5em;
-    }
-  }
-
-  nav.toc {
-    ul {
-      list-style-type: disc;
-    }
-
-    & > ul ul {
-      padding: 0 0 0 1em;
-    }
-  }
+}
+.footer-note {
+    margin: 0;
+    color: $marble;
+    font-size: 0.95em;
 }

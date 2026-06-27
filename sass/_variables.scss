@@ -1,9 +1,27 @@
-$bg-color: #121212;
-$bga-color: rgba(255, 255, 255, 0.15);
-$text-color: #ffffff;
-$primary-color: #32cb00;
-$secondary-color: #80003A;
-$focus-color: $primary-color;
-$size-default: 1em;
-$size-large: 1.5em;
-$size-oversize: 2em;
+// Mineral palette
+$obsidian: #0a0a0a;
+$slate: #171717;
+$granite: #525252;
+$quartz: #fafafa;
+$marble: #d4d4d8;
+
+// Gemstone accents
+$citrine: #eccd00; // emphasis & links (~14:1 on obsidian)
+$topaz: #62aedc; // interactive surfaces (~8:1 on obsidian)
+$amber: #e28c00;
+$sapphire: #203856;
+
+// Chrome & decoration
+$garnet: #e5383b;
+$focus: $citrine;
+
+$size-large: 1.35rem;
+$size-oversize: clamp(2.4rem, 8vw, 5rem);
+$facet-gradient: linear-gradient(
+    90deg,
+    $amber,
+    $citrine,
+    $quartz,
+    $topaz,
+    $sapphire
+);
