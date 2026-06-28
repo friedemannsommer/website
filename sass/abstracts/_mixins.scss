@@ -5,6 +5,36 @@
     border-radius: var(--radius-box);
 }
 
+@mixin cluster($gap: var(--space-3), $align: center, $justify: center) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: $align;
+    justify-content: $justify;
+    gap: $gap;
+}
+
+@mixin stack($gap: var(--space-3), $align: center, $wrap: wrap) {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: $wrap;
+    align-items: $align;
+    gap: $gap;
+}
+
+@mixin muted-text($size: var(--text-sm)) {
+    color: var(--text-muted);
+    font-size: $size;
+}
+
+@mixin measure-width {
+    width: min(100%, var(--measure));
+}
+
+@mixin nav-pill {
+    display: inline-flex;
+    padding: var(--nav-item-padding);
+}
+
 @mixin theme-light {
     :root,
     html[data-color-scheme="light"] {

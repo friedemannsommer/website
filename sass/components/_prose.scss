@@ -97,8 +97,7 @@ $content: "article > section, section.content";
         margin-top: var(--space-5);
         padding-top: var(--space-4);
         border-top: var(--border-width) solid var(--color-base-300);
-        font-size: var(--text-sm);
-        color: var(--text-muted);
+        @include muted-text;
     }
 
     .footnotes-list {
@@ -125,8 +124,7 @@ $content: "article > section, section.content";
     figcaption {
         margin-top: var(--space-2);
         text-align: center;
-        font-size: var(--text-sm);
-        color: var(--text-muted);
+        @include muted-text;
     }
 
     .giallo-l {
@@ -203,8 +201,7 @@ $content: "article > section, section.content";
     }
 
     small {
-        font-size: var(--text-xs);
-        color: var(--text-muted);
+        @include muted-text(var(--text-xs));
     }
 
     sub,

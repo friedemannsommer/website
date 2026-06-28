@@ -1,3 +1,5 @@
+@use "../abstracts/mixins" as *;
+
 @layer components {
     body > header {
         position: sticky;
@@ -12,8 +14,7 @@
         top: -100%;
         left: var(--space-4);
         z-index: 100;
-        display: inline-flex;
-        padding: var(--nav-item-padding);
+        @include nav-pill;
         color: var(--color-accent-content);
         background: var(--color-accent);
         font-weight: 700;
@@ -28,11 +29,7 @@
     header ul,
     .tags,
     nav[aria-label="Pagination"] ul {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--space-2) var(--space-3);
-        justify-content: center;
+        @include cluster($gap: var(--space-2) var(--space-3));
         padding: var(--space-2) var(--space-4);
         list-style: none;
         margin: 0;
@@ -42,8 +39,7 @@
     header a,
     .tags a,
     nav[aria-label="Pagination"] a {
-        display: inline-flex;
-        padding: var(--nav-item-padding);
+        @include nav-pill;
     }
 
     header a,
@@ -71,10 +67,9 @@
     }
 
     .theme-toggle {
-        display: inline-flex;
+        @include nav-pill;
         align-items: center;
         justify-content: center;
-        padding: var(--nav-item-padding);
         background: transparent;
         border: var(--border-width) solid var(--color-base-300);
         border-radius: var(--radius-field);

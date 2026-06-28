@@ -2,11 +2,7 @@
 
 @layer components {
     .pages {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-3);
-        justify-content: center;
-        align-items: flex-start;
+        @include cluster($align: flex-start);
         container-type: inline-size;
         container-name: pages-grid;
         width: 100%;
@@ -14,11 +10,7 @@
     }
 
     .pages article > header {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        gap: var(--space-3);
-        align-items: center;
+        @include stack;
     }
 
     .pages article {
@@ -38,13 +30,8 @@
     }
 
     .meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-3);
-        justify-content: center;
-        align-items: flex-start;
-        color: var(--text-muted);
-        font-size: var(--text-sm);
+        @include cluster($align: flex-start);
+        @include muted-text;
     }
 
     .meta > div {

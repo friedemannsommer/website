@@ -1,3 +1,5 @@
+@use "../abstracts/mixins" as *;
+
 @layer components {
     ::selection {
         color: var(--selection-fg);
@@ -67,16 +69,12 @@
     article,
     article > section,
     section.content {
-        width: min(100%, var(--measure));
+        @include measure-width;
     }
 
     main,
     main > article {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        gap: var(--space-3);
-        align-items: center;
+        @include stack;
     }
 
     :is(main, article) > hr {
