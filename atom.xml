@@ -23,7 +23,7 @@
         <link rel="alternate" type="text/html" href="https://www.friedemannsommer.com/blog/2026/redesigning-my-site/"/>
         <id>https://www.friedemannsommer.com/blog/2026/redesigning-my-site/</id>
         
-        <content type="html" xml:base="https://www.friedemannsommer.com/blog/2026/redesigning-my-site/">&lt;p&gt;For context, I&#x27;m a full-stack engineer who spends most of my time in tooling and back-end code,
+        <content type="html" xml:base="https://www.friedemannsommer.com/blog/2026/redesigning-my-site/">&lt;p&gt;For context, I&#x27;m a full-stack engineer who spends most of the time in tooling and back-end code,
 so CSS is familiar but not my home turf.
 This site had run on the same theme for years, and the redesign had two goals:
 make it more &lt;strong&gt;accessible&lt;&#x2F;strong&gt;, and &lt;strong&gt;modernize&lt;&#x2F;strong&gt; the implementation.
