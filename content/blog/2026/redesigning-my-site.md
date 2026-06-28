@@ -2,6 +2,7 @@
 title = "Redesigning my site"
 description = "How I modernized this site using surprisingly widely available CSS."
 date = 2026-06-27
+updated = 2026-06-28
 
 [extra]
 is_post = true
