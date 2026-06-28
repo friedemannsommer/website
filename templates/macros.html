@@ -1,5 +1,5 @@
 {% macro meta(page) %}
-<dl class="meta flexbox flexbox-horizontal">
+<dl class="meta">
     {% if page.date %}
     <div>
         <dt>Published</dt>
@@ -25,7 +25,7 @@
 
 {% macro page_in_list(page) %}
 <article itemscope itemtype="https://schema.org/WebPage">
-    <header class="flexbox flexbox-vertical">
+    <header>
         <h2 itemprop="name">
             <a href="{{ page.permalink }}">{{ page.title }}</a>
         </h2>

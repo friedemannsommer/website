@@ -70,6 +70,15 @@
         width: min(100%, var(--measure));
     }
 
+    main,
+    main > article {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: var(--space-3);
+        align-items: center;
+    }
+
     :is(main, article) > hr {
         border-top-width: var(--border-width-bold);
         border-top-color: var(--border-accent);

@@ -1,8 +1,31 @@
-@use "sass:math";
+@use "../abstracts/functions" as *;
 
-$heading-scale-base: 1.05;
-$heading-scale-ratio: 1.2;
+$space-base: 0.25;
+$space-steps: (
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 6,
+    6: 8,
+    7: 12,
+);
+
+$radius-base: 0.25;
+$radius-ratio: 1.5;
+
+$border-base: 1;
+$border-bold-multiple: 2;
+
+$duration-base-unit: 150;
+$duration-base-multiple: 1.2;
+
+$heading-size-min: 1.2;
+$heading-ratio-min: 1.2;
+$heading-size-max: 1.25;
+$heading-ratio-max: 1.3;
 $heading-ranks: (
+    h1: 5,
     h2: 4,
     h3: 3,
     h4: 2,
@@ -10,55 +33,57 @@ $heading-ranks: (
     h6: 0,
 );
 
+$body-size-min: 1.125;
+$body-size-max: 1.2;
+$text-step: 0.125;
+
+$font-weight-base: 600;
+$font-weight-step: 100;
+
 @layer base {
     :root {
-        --space-1: 0.25rem;
-        --space-2: 0.5rem;
-        --space-3: 0.75rem;
-        --space-4: 1rem;
-        --space-5: 1.5rem;
-        --space-6: 2rem;
-        --space-7: 3rem;
+        @each $step, $multiple in $space-steps {
+            --space-#{$step}: #{to-fixed($space-base * $multiple, 4)}rem;
+        }
 
-        --radius-field: 0.25rem;
-        --radius-box: 0.375rem;
+        --radius-field: #{$radius-base}rem;
+        --radius-box: #{modular($radius-base, $radius-ratio, 1)}rem;
 
-        --border-width: 1px;
-        --border-width-bold: 2px;
+        --border-width: #{$border-base}px;
+        --border-width-bold: #{$border-base * $border-bold-multiple}px;
 
         --surface-padding: var(--space-4);
 
-        --font-weight-body: 500;
-        --font-weight-heading: 700;
+        --font-weight-body: #{$font-weight-base};
+        --font-weight-heading: #{$font-weight-base + $font-weight-step};
         --heading-tracking: -0.012em;
 
-        --font-size-h1: clamp(2.4rem, 8vw, 5rem);
         @each $rank, $step in $heading-ranks {
-            --font-size-#{$rank}: #{math.div(
-                    math.round(
-                        $heading-scale-base *
-                            math.pow($heading-scale-ratio, $step) *
-                            1000
-                    ),
-                    1000
-                )}rem;
+            --font-size-#{$rank}: #{fluid(
+                    modular($heading-size-min, $heading-ratio-min, $step),
+                    modular($heading-size-max, $heading-ratio-max, $step)
+                )};
         }
+
         --font-body:
-            var(--font-weight-body) clamp(1rem, 0.96rem + 0.22vw, 1.15rem) / 1.7
-                system-ui,
+            var(--font-weight-body) #{fluid($body-size-min, $body-size-max)} /
+                1.7 system-ui,
             -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         --font-mono:
             ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
             monospace;
-        --text-sm: 0.95em;
-        --text-xs: 0.85em;
+        --text-sm: #{to-fixed(1 - $text-step, 2)}em;
+        --text-xs: #{to-fixed(1 - 2 * $text-step, 2)}em;
 
         --measure: 72ch;
         --nav-item-padding: 0.35rem 0.6rem;
         --scroll-offset: 5rem;
 
-        --duration-fast: 150ms;
-        --duration-base: 180ms;
+        --duration-fast: #{$duration-base-unit}ms;
+        --duration-base: #{to-fixed(
+                $duration-base-unit * $duration-base-multiple,
+                0
+            )}ms;
         --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
         --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
         --motion-run: paused;

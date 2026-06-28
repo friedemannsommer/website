@@ -18,17 +18,6 @@
             transparent
         );
 
-        --text-muted: color-mix(
-            in oklab,
-            var(--color-base-content),
-            var(--color-base-100) 30%
-        );
-        --link: color-mix(
-            in oklab,
-            var(--color-primary),
-            var(--color-base-content) 55%
-        );
-
         --border-subtle: color-mix(
             in oklab,
             var(--color-base-300),
@@ -38,6 +27,22 @@
 
         --header-bg: color-mix(in srgb, var(--color-base-100) 92%, transparent);
         --header-border: var(--color-secondary);
+
+        --code-chrome-border: color-mix(
+            in oklab,
+            var(--overlay-color) 12%,
+            transparent
+        );
+        --code-chrome-fill: color-mix(
+            in oklab,
+            var(--overlay-color) 5%,
+            transparent
+        );
+        --code-line-highlight: color-mix(
+            in oklab,
+            var(--overlay-color) var(--overlay-line-strength),
+            transparent
+        );
 
         --glow-error: color-mix(
             in oklab,
@@ -86,25 +91,11 @@
         --selection-bg: var(--color-accent);
         --selection-fg: var(--color-base-content);
         --focus-ring: var(--color-primary);
-
-        --code-fg: var(--color-primary);
-        --code-chrome-border: oklch(0 0 0 / 0.12);
-        --code-chrome-fill: oklch(0 0 0 / 0.05);
-        --code-line-highlight: oklch(0 0 0 / 0.06);
-
-        --glow-strength: 7%;
     }
 
     @include theme-dark {
         --selection-bg: var(--color-primary);
         --selection-fg: var(--color-base-100);
         --focus-ring: var(--color-base-content);
-
-        --code-fg: var(--color-secondary);
-        --code-chrome-border: oklch(1 0 0 / 0.12);
-        --code-chrome-fill: oklch(1 0 0 / 0.05);
-        --code-line-highlight: oklch(1 0 0 / 0.08);
-
-        --glow-strength: 14%;
     }
 }

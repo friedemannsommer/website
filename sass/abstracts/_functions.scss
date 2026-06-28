@@ -1,0 +1,20 @@
+@use "sass:math";
+
+@function to-fixed($value, $digits: 3) {
+    $factor: math.pow(10, $digits);
+    @return math.div(math.round($value * $factor), $factor);
+}
+
+@function modular($base, $ratio, $step) {
+    @return to-fixed($base * math.pow($ratio, $step));
+}
+
+@function fluid($min, $max, $min-vw: 20, $max-vw: 80) {
+    $slope: math.div($max - $min, $max-vw - $min-vw);
+    $intercept: to-fixed($min - $slope * $min-vw, 4);
+    $vw: to-fixed($slope * 100, 4);
+
+    @return unquote(
+        "clamp(#{$min}rem, #{$intercept}rem + #{$vw}vw, #{$max}rem)"
+    );
+}

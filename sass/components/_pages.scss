@@ -2,10 +2,23 @@
 
 @layer components {
     .pages {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        justify-content: center;
+        align-items: flex-start;
         container-type: inline-size;
         container-name: pages-grid;
         width: 100%;
         max-width: 100%;
+    }
+
+    .pages article > header {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: var(--space-3);
+        align-items: center;
     }
 
     .pages article {
@@ -25,9 +38,13 @@
     }
 
     .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        justify-content: center;
+        align-items: flex-start;
         color: var(--text-muted);
         font-size: var(--text-sm);
-        justify-content: center;
     }
 
     .meta > div {

@@ -6,12 +6,12 @@
 {% endblock title %}
 
 {% block content %}
-<main id="main-content" class="flexbox flexbox-vertical">
+<main id="main-content">
     <header>
         <h1>{{ term.name }}</h1>
     </header>
-    <hr>
-    <section class="pages flexbox flexbox-horizontal">
+    <hr />
+    <section class="pages">
         {% for page in term.pages %}
         {{ macros::page_in_list(page=page) }}
         {% endfor %}

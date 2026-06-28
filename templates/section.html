@@ -1,48 +1,52 @@
 {% extends "base.html" %}
 {% import "macros.html" as macros %}
 
-{% block title %}{{ section.title }} {{ config.extra.title_separator }} {{ config.title }}{% endblock title %}
+{% block title %}
+{{ section.title }} {{ config.extra.title_separator }} {{ config.title }}
+{%endblock title %}
 
 {% block page_meta %}
 {{ macros::page_description(description=section.description | default(value='')) }}
 {% endblock page_meta %}
 
-{% block canonical %}<link rel="canonical" href="{{ section.permalink }}">{% endblock canonical %}
+{% block canonical %}<link rel="canonical" href="{{ section.permalink }}" />{% endblock canonical %}
 
 {% block og_meta %}
-<meta property="og:title" content="{{ section.title }} {{ config.extra.title_separator }} {{ config.title }}">
-<meta property="og:description" content="{{ section.description | default(value=config.description) | truncate(length=155) }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ section.permalink }}">
+<meta property="og:title" content="{{ section.title }} {{ config.extra.title_separator }} {{ config.title }}" />
+<meta property="og:description" content="{{ section.description | default(value=config.description) | truncate(length=155) }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ section.permalink }}" />
 {% endblock og_meta %}
 
 {% block content %}
-<main id="main-content" itemscope itemtype="https://schema.org/WebPage" class="flexbox flexbox-vertical">
+<main id="main-content" itemscope itemtype="https://schema.org/WebPage">
     <header>
         <h1 itemprop="name">{{ section.title }}</h1>
     </header>
-    <hr>
+    <hr />
     {% if section.content | length > 0 %}
     <section class="content" itemprop="text">
         {{ section.content | safe }}
     </section>
     {% if paginator %}
-    <hr>
-    {% endif %}
-    {% endif %}
-    {% if paginator %}
-    <section class="pages flexbox flexbox-horizontal">
+    <hr />
+    {% endif %} {% endif %} {% if paginator %}
+    <section class="pages">
         {% for page in paginator.pages %}
         {{ macros::page_in_list(page=page) }}
         {% endfor %}
     </section>
-    <hr>
+    <hr />
     <nav aria-label="Pagination">
         <ul>
             {% if paginator.previous %}
             <li><a href="{{ paginator.previous }}">&laquo; Previous</a></li>
             {% endif %}
-            <li><span>{{ paginator.current_index }} / {{ paginator.number_pagers }}</span></li>
+            <li>
+                <span>
+                    {{ paginator.current_index }} / {{ paginator.number_pagers }}
+                </span>
+            </li>
             {% if paginator.next %}
             <li><a href="{{ paginator.next }}">Next &raquo;</a></li>
             {% endif %}
