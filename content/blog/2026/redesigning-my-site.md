@@ -8,7 +8,7 @@ is_post = true
 show_meta = true
 +++
 
-For context, I'm a full-stack engineer who spends most of my time in tooling and back-end code,
+For context, I'm a full-stack engineer who spends most of the time in tooling and back-end code,
 so CSS is familiar but not my home turf.
 This site had run on the same theme for years, and the redesign had two goals:
 make it more **accessible**, and **modernize** the implementation.
