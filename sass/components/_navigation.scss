@@ -66,6 +66,16 @@
         color: var(--color-primary-content);
     }
 
+    header p.brand {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: var(--color-primary-content);
+        font-weight: var(--font-weight-heading);
+        letter-spacing: 0.04em;
+        margin: 0;
+        padding: var(--nav-item-padding);
+    }
+
     .theme-toggle {
         @include nav-pill;
         align-items: center;

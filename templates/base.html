@@ -55,6 +55,9 @@
 <header>
     <nav aria-label="Main">
         <ul>
+            <li role="none">
+                <p class="brand">FS</p>
+            </li>
             {% for item in config.extra.main_menu %}
             {{ macros::nav_item(item=item) }}
             {% endfor %}
@@ -81,9 +84,7 @@
     <div class="pride-rainbow" data-animation role="img" aria-label="LGBTQIA+ pride rainbow"></div>
 
     <p class="footer-note">
-      Last built <time datetime="{{ now() | date(format="%Y-%m-%d") }}">{{ now() | date(format="%d %B %Y") }}</time>
-      <span aria-hidden="true"> | </span>
-      {{ config.title }}
+      Last built on <time datetime="{{ now() | date(format="%Y-%m-%d") }}">{{ now() | date(format="%d %B %Y") }}</time>
     </p>
 </footer>
 
