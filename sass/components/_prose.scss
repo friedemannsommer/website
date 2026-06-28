@@ -7,6 +7,8 @@ $content: "article > section, section.content";
     .footnote-reference,
     .footnotes-list > li {
         scroll-margin-top: var(--scroll-offset);
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
     .zola-anchor {

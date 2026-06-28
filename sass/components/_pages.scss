@@ -21,10 +21,17 @@
         min-width: 0;
     }
 
+    .pages article > header > h2 {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
     @container page-card (width > 420px) {
         .pages article > header {
-            flex-direction: row;
-            align-items: baseline;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
             justify-content: space-between;
         }
     }
