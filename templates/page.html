@@ -17,6 +17,7 @@
 {% endblock og_meta %} {% block content %}
 
 <main id="main-content">
+    <div class="reading-progress" aria-hidden="true"></div>
     <article itemscope itemtype="{% if page.extra.is_post | default(value=false) %}https://schema.org/BlogPosting{% else %}https://schema.org/WebPage{% endif %}">
         <header>
             <h1 itemprop="{% if page.extra.is_post | default(value=false) %}headline{% else %}name{% endif %}">

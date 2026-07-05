@@ -11,6 +11,23 @@ $content: "article > section, section.content";
         hyphens: auto;
     }
 
+    @media (prefers-reduced-motion: no-preference) {
+        :is(h1, h2, h3, h4, h5, h6):target,
+        .footnote-reference:target,
+        .footnotes-list > li:target {
+            animation: target-flash var(--duration-base) var(--ease-standard);
+        }
+    }
+
+    @keyframes target-flash {
+        from {
+            background-color: var(--color-base-300);
+        }
+        to {
+            background-color: transparent;
+        }
+    }
+
     .zola-anchor {
         margin-left: var(--space-2);
         font-weight: 400;

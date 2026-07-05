@@ -61,6 +61,10 @@
         text-decoration: none;
     }
 
+    a[rel~="external"] {
+        text-decoration-style: dotted;
+    }
+
     :is(a:active) {
         background: var(--primary-active);
     }

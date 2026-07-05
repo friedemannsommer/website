@@ -1,0 +1,37 @@
+@layer components {
+    .reading-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 20;
+        inline-size: 100%;
+        block-size: var(--space-1);
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        background: var(--color-primary);
+        animation-name: reading-progress-scale;
+        animation-timeline: scroll(root);
+        animation-fill-mode: both;
+    }
+
+    @keyframes reading-progress-scale {
+        from {
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .reading-progress {
+            display: none;
+        }
+    }
+
+    @supports not (animation-timeline: scroll()) {
+        .reading-progress {
+            display: none;
+        }
+    }
+}
