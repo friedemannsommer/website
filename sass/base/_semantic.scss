@@ -94,8 +94,8 @@
     }
 
     @include theme-dark {
-        --selection-bg: var(--color-primary);
-        --selection-fg: var(--color-base-100);
+        --selection-bg: var(--color-accent);
+        --selection-fg: var(--color-accent-content);
         --focus-ring: var(--color-base-content);
     }
 }
