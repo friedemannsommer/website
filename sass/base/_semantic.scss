@@ -44,47 +44,27 @@
             transparent
         );
 
-        --glow-error: color-mix(
-            in oklab,
-            var(--color-error) var(--glow-strength),
-            transparent
+        --content-margin: max(
+            clamp(var(--space-4), 4vw, 2rem),
+            calc((100vw - var(--measure)) / 2)
         );
-        --glow-warning: color-mix(
-            in oklab,
-            var(--color-warning) var(--glow-strength),
-            transparent
-        );
-        --glow-success: color-mix(
-            in oklab,
-            var(--color-success) var(--glow-strength),
-            transparent
-        );
-        --glow-info: color-mix(
-            in oklab,
-            var(--color-info) var(--glow-strength),
-            transparent
-        );
-        --body-overlay:
-            radial-gradient(
-                ellipse 65% 55% at 0% 0%,
-                var(--glow-error),
-                transparent 70%
+        --body-overlay-strip: linear-gradient(
+            to bottom,
+            color-mix(
+                in oklab,
+                var(--color-error) var(--glow-strength),
+                transparent
             ),
-            radial-gradient(
-                ellipse 65% 55% at 100% 0%,
-                var(--glow-warning),
-                transparent 70%
-            ),
-            radial-gradient(
-                ellipse 65% 55% at 100% 100%,
-                var(--glow-success),
-                transparent 70%
-            ),
-            radial-gradient(
-                ellipse 65% 55% at 0% 100%,
-                var(--glow-info),
-                transparent 70%
-            );
+            color-mix(
+                in oklab,
+                var(--color-warning) var(--glow-strength),
+                transparent
+            )
+        );
+        --body-overlay: var(--body-overlay-strip), var(--body-overlay-strip);
+        --body-overlay-mask:
+            linear-gradient(to right, black, transparent 50%),
+            linear-gradient(to left, black, transparent 50%);
     }
 
     @include theme-light {

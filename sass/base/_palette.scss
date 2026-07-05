@@ -37,7 +37,7 @@
 
         --overlay-color: oklch(0 0 0);
         --overlay-line-strength: 6%;
-        --glow-strength: 7%;
+        --glow-strength: 14%;
     }
 
     @include theme-dark {

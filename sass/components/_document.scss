@@ -23,26 +23,45 @@
         margin: 0;
         color: var(--color-base-content);
         background-color: var(--color-base-100);
-        background-image: var(--body-overlay);
-        background-attachment: fixed;
-        background-blend-mode: normal;
         font: var(--font-body);
         transition:
             background-color var(--duration-base) var(--ease-standard),
             color var(--duration-base) var(--ease-standard);
     }
 
-    @media (prefers-color-scheme: dark) {
-        body {
-            background-blend-mode: screen;
-        }
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image: var(--body-overlay);
+        background-size:
+            var(--content-margin) 100%,
+            var(--content-margin) 100%;
+        background-position:
+            left top,
+            right top;
+        background-repeat: no-repeat, no-repeat;
+        mask-image: var(--body-overlay-mask);
+        mask-size:
+            var(--content-margin) 100%,
+            var(--content-margin) 100%;
+        mask-position:
+            left top,
+            right top;
+        mask-repeat: no-repeat, no-repeat;
+        animation: body-overlay-hue 120s linear infinite;
+        animation-play-state: var(--motion-run, paused);
     }
 
-    html[data-color-scheme="dark"] body {
-        background-blend-mode: screen;
-    }
-    html[data-color-scheme="light"] body {
-        background-blend-mode: normal;
+    @keyframes body-overlay-hue {
+        from {
+            filter: hue-rotate(0deg);
+        }
+        to {
+            filter: hue-rotate(360deg);
+        }
     }
 
     .sr-only {
