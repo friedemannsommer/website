@@ -29,41 +29,6 @@
             color var(--duration-base) var(--ease-standard);
     }
 
-    body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        background-image: var(--body-overlay);
-        background-size:
-            var(--content-margin) 100%,
-            var(--content-margin) 100%;
-        background-position:
-            left top,
-            right top;
-        background-repeat: no-repeat, no-repeat;
-        mask-image: var(--body-overlay-mask);
-        mask-size:
-            var(--content-margin) 100%,
-            var(--content-margin) 100%;
-        mask-position:
-            left top,
-            right top;
-        mask-repeat: no-repeat, no-repeat;
-        animation: body-overlay-hue 120s linear infinite;
-        animation-play-state: var(--motion-run, paused);
-    }
-
-    @keyframes body-overlay-hue {
-        from {
-            filter: hue-rotate(0deg);
-        }
-        to {
-            filter: hue-rotate(360deg);
-        }
-    }
-
     .sr-only {
         position: absolute;
         width: 1px;

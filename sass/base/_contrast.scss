@@ -2,10 +2,6 @@
 
 @layer base {
     @media screen and (prefers-contrast: more) and (forced-colors: none) {
-        :root {
-            --body-overlay: none;
-        }
-
         @include theme-light {
             --color-base-100: oklch(1 0 0);
             --color-base-200: oklch(0.96 0 0);

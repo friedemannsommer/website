@@ -35,6 +35,14 @@
     padding: var(--nav-item-padding);
 }
 
+@mixin motion-loop($name, $duration: 8s, $timing: linear) {
+    animation-name: $name;
+    animation-duration: $duration;
+    animation-timing-function: $timing;
+    animation-iteration-count: infinite;
+    animation-play-state: var(--motion-run, paused);
+}
+
 @mixin theme-light {
     :root,
     html[data-color-scheme="light"] {

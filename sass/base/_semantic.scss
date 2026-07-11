@@ -43,28 +43,6 @@
             var(--overlay-color) var(--overlay-line-strength),
             transparent
         );
-
-        --content-margin: max(
-            clamp(var(--space-4), 4vw, 2rem),
-            calc((100vw - var(--measure)) / 2)
-        );
-        --body-overlay-strip: linear-gradient(
-            to bottom,
-            color-mix(
-                in oklab,
-                var(--color-error) var(--glow-strength),
-                transparent
-            ),
-            color-mix(
-                in oklab,
-                var(--color-warning) var(--glow-strength),
-                transparent
-            )
-        );
-        --body-overlay: var(--body-overlay-strip), var(--body-overlay-strip);
-        --body-overlay-mask:
-            linear-gradient(to right, black, transparent 50%),
-            linear-gradient(to left, black, transparent 50%);
     }
 
     @include theme-light {
