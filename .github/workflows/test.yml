@@ -9,7 +9,7 @@ on:
       - synchronize
 
 env:
-  ZOLA_VERSION: v0.22.1
+  ZOLA_VERSION: v0.23.6
 
 jobs:
   test:
